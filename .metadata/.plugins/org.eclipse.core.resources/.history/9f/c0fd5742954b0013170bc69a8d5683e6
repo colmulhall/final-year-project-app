@@ -1,0 +1,20 @@
+package com.phoenixpark.app;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.Button;
+
+public class MenuScreen extends Activity
+{
+	@Override
+    public void onCreate(Bundle savedInstanceState) 
+	{
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.menuscreen_layout);
+        
+        Button events = (Button)findViewById(R.id.button);
+        
+        
+        
+	}
+}
