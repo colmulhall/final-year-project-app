@@ -1,93 +1,105 @@
 package com.phoenixpark.app;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
+import java.util.HashMap;
+import java.util.List;
+ 
 import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import android.app.Activity;
+ 
 import android.app.ListActivity;
-import android.content.Intent;
-import android.net.ParseException;
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
- 
-public class EventList extends Activity{
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.eventlist_layout);
-        JSONArray jArray = null;
+import android.widget.ListAdapter;
+import android.widget.SimpleAdapter;
 
-        String result = null;
-
-        StringBuilder sb = null;
-
-        InputStream is = null;
-        
-        TextView tv = (TextView) findViewById(R.id.textView1);
-
-
-        ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-        //http post
-        try{
-             HttpClient httpclient = new DefaultHttpClient();
-
-             //Why to use 10.0.2.2
-             HttpPost httppost = new HttpPost("http://10.0.2.2/FYP-Web-Coding/android_connect.php");
-             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-             HttpResponse response = httpclient.execute(httppost);
-             HttpEntity entity = response.getEntity();
-             is = entity.getContent();
-             }catch(Exception e){
-                 Log.e("log_tag", "Error in http connection"+e.toString());
-            }
-        //convert response to string
-        try{
-              BufferedReader reader = new BufferedReader(new InputStreamReader(is,"iso-8859-1"),8);
-               sb = new StringBuilder();
-               sb.append(reader.readLine() + "\n");
-
-               String line="0";
-               while ((line = reader.readLine()) != null) {
-                              sb.append(line + "\n");
-                }
-                is.close();
-                result = sb.toString();
-                }catch(Exception e){
-                      Log.e("log_tag", "Error converting result "+e.toString());
-                }
-
-        String name;
-        try{
-              jArray = new JSONArray(result);
-              JSONObject json_data=null;
-              for(int i=0;i<jArray.length();i++)
-              {
-                     json_data = jArray.getJSONObject(i);
-                     name = json_data.getString("title");    //"title" is the column name in the database
-                     tv.setText(name);  //set the text of the textview to the title
-              }
-            }
-              catch(JSONException e1){
-               Toast.makeText(getBaseContext(), "No Data Found" ,Toast.LENGTH_LONG).show();
-              } catch (ParseException e1) {
-           e1.printStackTrace();
-         }
-      }
+public class EventList extends ListActivity
+{
+	ArrayList<HashMap<String, String>> eventList;
+	private ProgressDialog progressMessage;
+	JSONParser jParser = new JSONParser();
+	
+	private static String url = "http://10.0.2.2/FYP-Web-Coding/android_connet.php";
+	JSONArray events = null;
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) 
+	{
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.eventlist_layout);
+		eventList = new ArrayList<HashMap<String, String>>();
+		new LoadAllEvents().execute();
+	}
+	 
+	class LoadAllEvents extends AsyncTask<String, String, String> 
+	{
+		@Override
+		protected void onPreExecute() 
+		{
+			super.onPreExecute();
+			progressMessage = new ProgressDialog(EventList.this);
+			progressMessage.setMessage("Loading ...");
+			progressMessage.setIndeterminate(false);
+			progressMessage.setCancelable(false);
+			progressMessage.show();
+		}
+	 
+		@Override
+		protected String doInBackground(String... args) 
+		{
+			List<NameValuePair> params = new ArrayList<NameValuePair>();
+			JSONObject json = jParser.getJSONFromUrl(url);
+			 
+			Log.d("Events: ", json.toString());
+			
+			try 
+			{
+				int success = json.getInt("success");
+			 
+				if (success == 1) 
+				{
+					events = json.getJSONArray("events");
+					for (int i = 0; i < events.length(); i++) 
+					{
+						JSONObject c = events.getJSONObject(i);
+						String id = c.getString("id");
+						String name = c.getString("title");
+						String type = c.getString("description");
+						HashMap<String, String> map = new HashMap<String, String>();
+						map.put("event_id", id);
+						map.put("event_title", name);
+						map.put("event_description", type);
+						eventList.add(map);
+					}
+				}
+			}
+			catch (JSONException e) 
+			{
+				e.printStackTrace();
+			}
+	 
+			return null;
+		}
+		
+		@Override
+		protected void onPostExecute(String file_url) 
+		{
+			progressMessage.dismiss();
+			runOnUiThread(new Runnable() 
+			{
+				@Override
+				public void run() 
+				{
+					ListAdapter adapter = new SimpleAdapter(EventList.this, eventList, R.layout.eventlist_layout, 
+					new String[] { "event_id","event_title","event_description"}, null);
+				
+					setListAdapter(adapter);
+				}
+			});
+		}
+	}
 }
