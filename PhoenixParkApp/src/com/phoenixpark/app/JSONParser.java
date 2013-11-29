@@ -46,7 +46,7 @@ public class JSONParser {
         } catch (IOException e) {
             e.printStackTrace();
         }
- 
+         
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(
                     is, "iso-8859-1"), 8);
