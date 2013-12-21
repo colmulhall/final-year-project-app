@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.GridView;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class MenuScreen extends Activity
 {
@@ -14,17 +16,20 @@ public class MenuScreen extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menuscreen_layout);
         
-        Button events = (Button)findViewById(R.id.button);
+        GridView gridView = (GridView) findViewById(R.id.grid_view);
         
-        events.setOnClickListener(new View.OnClickListener() 
-        {
-			@Override
-			public void onClick(View v) 
-			{
-				Intent intent = new Intent(MenuScreen.this, EventList.class);
-				startActivity(intent);
-			}
+        gridView.setAdapter(new MenuItems(this));
+        
+        //clicking on a menu item
+        gridView.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View v,
+                    int position, long id) {
+ 
+                // Sending image id to FullScreenActivity
+                Intent i = new Intent(getApplicationContext(), EventList.class);
+                startActivity(i);
+            }
         });
-        
 	}
 }
