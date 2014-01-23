@@ -62,7 +62,7 @@ public class EventList extends Activity implements AdapterView.OnItemClickListen
 	 //Async Task to access the web
 	 private class JsonReadTask extends AsyncTask<String, Void, String> 
 	 {
-		 private ProgressDialog progress;  //progress dialog in case of slow connection
+		 private ProgressDialog progress;
 		 
 		 @Override
 	     protected void onPreExecute() 

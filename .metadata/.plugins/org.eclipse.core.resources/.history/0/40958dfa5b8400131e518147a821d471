@@ -25,7 +25,6 @@ import org.json.JSONObject;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
@@ -62,14 +61,6 @@ public class EventList extends Activity implements AdapterView.OnItemClickListen
 	 //Async Task to access the web
 	 private class JsonReadTask extends AsyncTask<String, Void, String> 
 	 {
-		 private ProgressDialog progress;  //progress dialog in case of slow connection
-		 
-		 @Override
-	     protected void onPreExecute() 
-		 {
-			 progress = ProgressDialog.show(EventList.this, "Getting events", "Please Wait...");
-	     }
-		 
 	     @Override
 	     protected String doInBackground(String... params) 
 	     {
@@ -112,7 +103,6 @@ public class EventList extends Activity implements AdapterView.OnItemClickListen
 		  protected void onPostExecute(String result)
 		  {
 		      ListDrawer();
-		      progress.dismiss();
 		  }
 	 }// end async task
 	 
