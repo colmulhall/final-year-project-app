@@ -13,16 +13,16 @@
 		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="List" key="selection"/>
+		<item value="eventList" key="selection"/>
 		<list key="findhistory">
+			<item value="eventlist"/>
+			<item value="setting"/>
 			<item value="list"/>
 			<item value="dr"/>
 			<item value="log"/>
 			<item value="name"/>
 			<item value="pid"/>
 			<item value="TAG_PID"/>
-			<item value="url_all_products"/>
-			<item value="productsList"/>
 		</list>
 		<list key="replacehistory">
 			<item value="TAG_ID"/>

@@ -1,4 +1,4 @@
-package com.phoenixpark.app;
+/*package com.phoenixpark.app;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -97,4 +97,4 @@ public class JSONParser {
         return jObj;
  
     }
-}
+}*/

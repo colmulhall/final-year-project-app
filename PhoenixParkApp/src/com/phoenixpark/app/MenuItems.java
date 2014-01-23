@@ -1,3 +1,7 @@
+/* Icons for the main menu items are set here
+ * as well as the layout.
+ */
+
 package com.phoenixpark.app;
 
 import android.content.Context;

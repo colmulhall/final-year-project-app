@@ -1,3 +1,7 @@
+/* This is where the events are retrieved from the database and 
+ * put into a list for the user to view.
+ */
+
 package com.phoenixpark.app;
 
 import java.io.BufferedReader;
@@ -22,7 +26,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ListView;
@@ -33,8 +36,9 @@ import android.widget.AdapterView;
 public class EventList extends Activity implements AdapterView.OnItemClickListener
 {
 	 private String jsonResult;
-	 private String url = "http://10.0.2.2/FYP-Web-Coding/android_connect.php";
+	 private String url = "http://10.0.2.2/FYP-Web-Coding/android_get_titles.php";
 	 private ListView listView;
+	 public String title;
 	 
 	 
 	 @Override
@@ -122,8 +126,7 @@ public class EventList extends Activity implements AdapterView.OnItemClickListen
 			   for (int i = 0; i < jsonMainNode.length(); i++) 
 			   {
 				    JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
-				    String title = jsonChildNode.optString("title");  //get the event title from the result set
-				    
+				    title = jsonChildNode.optString("title");  //get the event title from the result set
 				    eventList.add(createEvent("Event", title));  //add a new event to the list with its title
 			   }
 		  }
@@ -133,12 +136,12 @@ public class EventList extends Activity implements AdapterView.OnItemClickListen
 		  }
 		 
 		  //adapter to put event into the list
-		  SimpleAdapter simpleAdapter = new SimpleAdapter(this, eventList,
-		    android.R.layout.simple_list_item_1,
-		    new String[] { "Event" }, new int[] { android.R.id.text1 });
+		  SimpleAdapter simpleAdapter = new SimpleAdapter(this, eventList, android.R.layout.simple_list_item_1,
+				  new String[] { "Event" }, new int[] { android.R.id.text1 });
+		  
+		  //set adapter and listener
 		  listView.setAdapter(simpleAdapter);
 		  listView.setOnItemClickListener(this);
-		  
 	 }
 	 
 	 private HashMap<String, String> createEvent(String name, String number) 
@@ -147,13 +150,14 @@ public class EventList extends Activity implements AdapterView.OnItemClickListen
 		 eventTitleDesc.put(name, number);
 		 return eventTitleDesc;
 	 }
-
-	//handle click on a list item
-	    @Override
-		public void onItemClick(AdapterView<?> parent, View v, int position, long id) 
-	    {
-	    	Intent i = new Intent(EventList.this, MenuScreen.class);
-	    	startActivity(i);
-	    	overridePendingTransition(R.anim.slide_in, R.anim.slide_out);  //animation
-		}
+	 
+	//handle click on a list item (view an event)
+	@Override
+	public void onItemClick(AdapterView<?> parent, View v, int position, long id) 
+	{
+	    Intent i = new Intent(EventList.this, EventInformation.class);
+	    i.putExtra("event_title", title);  //pass the event title to the next activity
+	    startActivity(i);
+	    overridePendingTransition(R.anim.slide_in, R.anim.slide_out);  //animation
+	}
 }

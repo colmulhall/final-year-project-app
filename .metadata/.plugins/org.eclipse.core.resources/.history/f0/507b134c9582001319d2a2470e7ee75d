@@ -1,0 +1,10 @@
+/* when the user clicks on an event they are 
+ * brought to this screen to view more about it.
+ */
+
+package com.phoenixpark.app;
+
+public class EventInformation 
+{
+
+}
