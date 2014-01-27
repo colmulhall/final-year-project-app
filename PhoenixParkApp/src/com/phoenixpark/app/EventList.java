@@ -39,7 +39,8 @@ public class EventList extends Activity implements AdapterView.OnItemClickListen
 	 private String jsonResult;
 	 private String url = "http://10.0.2.2/FYP-Web-Coding/android_get_titles.php";
 	 private ListView listView;
-	 public String title;
+	 public String title, id;
+	 public List<Map<String, String>> eventList;
 	 
 	 
 	 @Override
@@ -126,7 +127,7 @@ public class EventList extends Activity implements AdapterView.OnItemClickListen
 	 // build hash set for list view
 	 public void ListDrawer() 
 	 {
-		  List<Map<String, String>> eventList = new ArrayList<Map<String, String>>();
+		  eventList = new ArrayList<Map<String, String>>();
 		  try 
 		  {
 			   JSONObject jsonResponse = new JSONObject(jsonResult);
@@ -137,6 +138,7 @@ public class EventList extends Activity implements AdapterView.OnItemClickListen
 			   {
 				    JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
 				    title = jsonChildNode.optString("title");  //get the event title from the result set
+				    id = jsonChildNode.optString("id");        //do the same for ID
 				    eventList.add(createEvent("Event", title));  //add a new event to the list with its title
 			   }
 		  }
@@ -166,7 +168,8 @@ public class EventList extends Activity implements AdapterView.OnItemClickListen
 	public void onItemClick(AdapterView<?> parent, View v, int position, long id) 
 	{
 	    Intent i = new Intent(EventList.this, EventInformation.class);
-	    i.putExtra("event_title", title);  //pass the event title to the next activity
+	    
+	    i.putExtra("event_id", title);  //pass the event title to the next activity
 	    startActivity(i);
 	    overridePendingTransition(R.anim.slide_in, R.anim.slide_out);  //animation
 	}
