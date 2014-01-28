@@ -27,6 +27,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ListView;
@@ -41,6 +42,7 @@ public class EventList extends Activity implements AdapterView.OnItemClickListen
 	 private ListView listView;
 	 public String title, id;
 	 public List<Map<String, String>> eventList;
+	 int count_items = 0;
 	 
 	 
 	 @Override
@@ -78,8 +80,7 @@ public class EventList extends Activity implements AdapterView.OnItemClickListen
 	         HttpPost httppost = new HttpPost(params[0]);
 		     try {
 		         HttpResponse response = httpclient.execute(httppost);
-		         jsonResult = inputStreamToString(
-		         response.getEntity().getContent()).toString();
+		         jsonResult = inputStreamToString( response.getEntity().getContent()).toString();
 		      }
 		      catch (ClientProtocolException e) {
 		          e.printStackTrace();
@@ -137,9 +138,10 @@ public class EventList extends Activity implements AdapterView.OnItemClickListen
 			   for (int i = 0; i < jsonMainNode.length(); i++) 
 			   {
 				    JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
-				    title = jsonChildNode.optString("title");  //get the event title from the result set
-				    id = jsonChildNode.optString("id");        //do the same for ID
+				    title = jsonChildNode.optString("title");    //get the event title from the result set
+				    id = jsonChildNode.optString("id");          //do the same for ID
 				    eventList.add(createEvent("Event", title));  //add a new event to the list with its title
+				    count_items++;
 			   }
 		  }
 		  catch (JSONException e) {
@@ -151,6 +153,32 @@ public class EventList extends Activity implements AdapterView.OnItemClickListen
 		  SimpleAdapter simpleAdapter = new SimpleAdapter(this, eventList, android.R.layout.simple_list_item_1,
 				  new String[] { "Event" }, new int[] { android.R.id.text1 });
 		  
+		  
+		  //-----------------------------------------------------
+		  ArrayList<HashMap<String, String>> test = new ArrayList<HashMap<String, String>>();
+		  HashMap<String, String> n = new HashMap<String, String>();
+		  n.put("a", "a");
+		  n.put("b", "b");
+		  test.add(n);
+
+		  HashMap<String, String> m = test.get(0);
+		  Log.i("TEST:", m.toString());
+		  
+		  String strArr[] = new String[m.size()];
+		  int i = 0;
+		  for (Map<String, String> hash : eventList) 
+		  {
+		      for (String current : hash.values())
+		      {
+		          strArr[i] = current;
+		          i++;
+		      }
+		  }
+		  
+		  for(int i1=1; i1<strArr.length; i1++)
+			  Log.i("ARRAY:", strArr[i1]);
+		  
+		  //-----------------------------------------------------
 		  //set adapter and listener
 		  listView.setAdapter(simpleAdapter);
 		  listView.setOnItemClickListener(this);
@@ -158,9 +186,9 @@ public class EventList extends Activity implements AdapterView.OnItemClickListen
 	 
 	 private HashMap<String, String> createEvent(String name, String number) 
 	 {
-		 HashMap<String, String> eventTitleDesc = new HashMap<String, String>();
-		 eventTitleDesc.put(name, number);
-		 return eventTitleDesc;
+		 HashMap<String, String> eventTitle = new HashMap<String, String>();
+		 eventTitle.put(name, number);
+		 return eventTitle;
 	 }
 	 
 	//handle click on a list item (view an event)
@@ -169,7 +197,11 @@ public class EventList extends Activity implements AdapterView.OnItemClickListen
 	{
 	    Intent i = new Intent(EventList.this, EventInformation.class);
 	    
-	    i.putExtra("event_id", title);  //pass the event title to the next activity
+	    //TRY
+	    String selectedFromList = (listView.getItemAtPosition(position).toString());
+	    i.putExtra("event_title", selectedFromList);
+	    
+	   // i.putExtra("event_id", title);  //pass the event title to the next activity
 	    startActivity(i);
 	    overridePendingTransition(R.anim.slide_in, R.anim.slide_out);  //animation
 	}

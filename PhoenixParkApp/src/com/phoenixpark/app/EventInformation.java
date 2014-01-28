@@ -32,7 +32,7 @@ import android.widget.Toast;
 public class EventInformation extends Activity
 {
 	 private String jsonResult;
-	 private String url = "http://10.0.2.2/FYP-Web-Coding/android_get_titles.php";
+	 private String url = "http://10.0.2.2/FYP-Web-Coding/android_get_event.php";
 	 TextView ev_title, ev_desc;
 	 Intent intent;
 	 public String the_title;
@@ -48,7 +48,7 @@ public class EventInformation extends Activity
 		 
 		 //get information from the last activity
 		 intent = getIntent();
-		 the_title = intent.getExtras().getString("event_id");
+		 the_title = intent.getExtras().getString("event_title");
 		 
 	     accessWebService();
 	 }
