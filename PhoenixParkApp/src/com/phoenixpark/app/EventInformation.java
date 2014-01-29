@@ -14,10 +14,15 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,6 +31,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,10 +68,11 @@ public class EventInformation extends Activity
 	     {
 	         HttpClient httpclient = new DefaultHttpClient();
 	         HttpPost httppost = new HttpPost(params[0]);
+	         
 		     try {
 		         HttpResponse response = httpclient.execute(httppost);
-		         jsonResult = inputStreamToString(
-		         response.getEntity().getContent()).toString();
+		         jsonResult = inputStreamToString(response.getEntity().getContent()).toString();
+		         postData(params[0]);
 		      }
 		      catch (ClientProtocolException e) {
 		          e.printStackTrace();
@@ -73,23 +81,47 @@ public class EventInformation extends Activity
 		      }
 		      return null;
 	     }
-		 
+	     
+	     public void postData(String valueIWantToSend) 
+	     {
+				// Create a new HttpClient and Post Header
+				HttpClient httpclient = new DefaultHttpClient();
+				HttpPost httppost = new HttpPost(url);
+	 
+				try {
+					// Add your data
+					List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+					nameValuePairs.add(new BasicNameValuePair("action", valueIWantToSend));
+					httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+	 
+					// Execute HTTP Post Request
+					HttpResponse response = httpclient.execute(httppost);
+	 
+				} catch (ClientProtocolException e) {
+					// TODO Auto-generated catch block
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+				}
+			}
+	     
 		  private StringBuilder inputStreamToString(InputStream is) 
 		  {
 			  String rLine = "";
 		      StringBuilder answer = new StringBuilder();
 		      BufferedReader rd = new BufferedReader(new InputStreamReader(is));
 		 
-		      try {
+		      try
+		      {
 		         while ((rLine = rd.readLine()) != null) 
 		         {
 		           answer.append(rLine);
 		         }
 		      }
-		      catch (IOException e) {
-		       // e.printStackTrace();
-		      Toast.makeText(getApplicationContext(),
-		      "Error..." + e.toString(), Toast.LENGTH_LONG).show();
+		      catch (IOException e) 
+		      {
+			       // e.printStackTrace();
+			      Toast.makeText(getApplicationContext(),
+			      "Error..." + e.toString(), Toast.LENGTH_LONG).show();
 		      }
 		      return answer;
 		  }
@@ -122,17 +154,17 @@ public class EventInformation extends Activity
 			   {
 				    JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
 				    String desc = jsonChildNode.optString("title");  //get the event title from the result set
-				    eventList.add(createEvent("Event", desc));  //add a new event to the list with its title
+				    eventList.add(createEvent("Event", desc));       //add a new event to the list with its title
 			   }
 		  }
-		  catch (JSONException e) {
+		  catch (JSONException e) 
+		  {
 		     Toast.makeText(getApplicationContext(), "Error" + e.toString(),
 		     Toast.LENGTH_SHORT).show();
 		  }
-		  ev_title.setText(the_title);
 	 }
 	 
-	 private HashMap<String, String> createEvent(String name, String number) 
+	 private HashMap<String, String> createEvent(String name, String number)
 	 {
 		 HashMap<String, String> eventTitleDesc = new HashMap<String, String>();
 		 eventTitleDesc.put(name, number);
