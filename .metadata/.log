@@ -7711,3 +7711,45 @@ Binding(CTRL+SHIFT+ARROW_RIGHT,
 		,,true),null),
 	org.eclipse.ui.defaultAcceleratorConfiguration,
 	org.eclipse.jdt.ui.javaEditorScope,,cocoa,system)
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-02-03 17:09:46.516
+!MESSAGE list_item.xml: Dimension "20" in attribute "minWidth" is missing unit!
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-02-03 17:09:46.922
+!MESSAGE list_item.xml: Dimension "20" in attribute "minWidth" is missing unit!
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-02-03 17:09:51.314
+!MESSAGE list_item.xml: Dimension "20" in attribute "minWidth" is missing unit!
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-02-03 17:09:51.315
+!MESSAGE list_item.xml: Dimension "20" in attribute "minWidth" is missing unit!
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-02-03 17:09:51.974
+!MESSAGE list_item.xml: Dimension "20" in attribute "minWidth" is missing unit!
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-02-03 17:09:51.975
+!MESSAGE list_item.xml: Dimension "20" in attribute "minWidth" is missing unit!
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-02-03 17:10:06.674
+!MESSAGE list_item.xml: Dimension "20" in attribute "minWidth" is missing unit!
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-02-03 17:10:06.675
+!MESSAGE list_item.xml: Dimension "20" in attribute "minWidth" is missing unit!
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-02-03 17:10:09.049
+!MESSAGE list_item.xml: Dimension "20" in attribute "minWidth" is missing unit!
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-02-03 17:10:09.050
+!MESSAGE list_item.xml: Dimension "20" in attribute "minWidth" is missing unit!
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-02-03 17:10:10.729
+!MESSAGE list_item.xml: Dimension "20" in attribute "minWidth" is missing unit!
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-02-03 17:10:10.730
+!MESSAGE list_item.xml: Dimension "20" in attribute "minWidth" is missing unit!
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-02-03 17:10:12.461
+!MESSAGE list_item.xml: Dimension "20" in attribute "minWidth" is missing unit!
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-02-03 17:10:12.461
+!MESSAGE list_item.xml: Dimension "20" in attribute "minWidth" is missing unit!

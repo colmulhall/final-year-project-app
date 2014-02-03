@@ -4,47 +4,33 @@
 
 package com.phoenixpark.app;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class EventInformation extends Activity
 {
 	 private String url = "http://10.0.2.2/FYP-Web-Coding/android_get_event.php";
 	 TextView ev_title, ev_desc;
 	 Intent intent;
-	 public String the_title;
+	 public String the_id;
 	 
 	 @Override
 	 protected void onCreate(Bundle savedInstanceState) 
@@ -55,10 +41,10 @@ public class EventInformation extends Activity
 	     ev_title = (TextView)findViewById(R.id.event_title);
 		 ev_desc = (TextView)findViewById(R.id.event_description);
 		 
-		 //get information from the last activity
+		 //get the event ID from the last activity
 		 intent = getIntent();
-		 the_title = intent.getExtras().getString("event_title");
-		 ev_title.setText(the_title);
+		 the_id = intent.getExtras().getString("id");
+		 ev_title.setText(the_id);
 		 
 	     accessWebService();
 	 }
@@ -89,7 +75,6 @@ public class EventInformation extends Activity
 	     
 	     public void postData(String send_this) throws ClientProtocolException, IOException 
 	     {
-	    	 
 				// Create a new HttpClient and Post Header
 				HttpClient httpclient = new DefaultHttpClient();
 				HttpPost httppost = new HttpPost(url);
@@ -109,7 +94,6 @@ public class EventInformation extends Activity
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 				}
-				
 		 }
 		  @Override
 		  protected void onPostExecute(String result)
