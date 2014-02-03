@@ -4,7 +4,155 @@
 
 package com.phoenixpark.app;
 
-import java.io.BufferedReader;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.app.ListActivity;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
+
+public class EventList extends ListActivity 
+{
+    private ProgressDialog pDialog;
+ 
+    // URL to get contacts JSON
+    private static String url = "http://10.0.2.2/FYP-Web-Coding/android_get_titles.php";
+ 
+    // JSON Node names
+    private static final String TAG_EVENTS = "event_list";
+    private static final String TAG_ID = "id";
+    private static final String TAG_TITLE = "title";
+ 
+    // contacts JSONArray
+    JSONArray events = null;
+ 
+    // Hashmap for ListView
+    ArrayList<HashMap<String, String>> eventList;
+ 
+    @Override
+    public void onCreate(Bundle savedInstanceState) 
+    {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.eventlist_layout);
+ 
+        eventList = new ArrayList<HashMap<String, String>>();
+ 
+        ListView lv = getListView();
+        
+        /*// Listview on item click listener
+        lv.setOnItemClickListener(new OnItemClickListener() 
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
+            {
+                // getting values from selected ListItem
+                String ev_title = ((TextView) view.findViewById(R.id.the_title)).getText().toString();
+                String ev_id = ((TextView) view.findViewById(R.id.the_id)).getText().toString();
+ 
+                // Starting single contact activity
+                Intent in = new Intent(getApplicationContext(), EventInformation.class);
+                in.putExtra(TAG_TITLE, ev_title);
+                in.putExtra(TAG_ID, ev_id);
+                startActivity(in);
+            }
+        });*/
+ 
+        // Calling async task to get json
+        new GetEvents().execute();
+    }
+ 
+    //Async task class to get json by making HTTP call
+    private class GetEvents extends AsyncTask<Void, Void, Void> 
+    {
+    	private ProgressDialog progress;  //progress dialog when loading events
+    	
+        @Override
+        protected void onPreExecute() 
+        {
+            super.onPreExecute();
+            // Showing progress dialog
+            progress = ProgressDialog.show(EventList.this, "Getting events", "Please Wait...");
+        }
+ 
+        @Override
+        protected Void doInBackground(Void... arg0) 
+        {
+            // Creating service handler class instance
+            ServiceHandler sh = new ServiceHandler();
+ 
+            // Making a request to url and getting response
+            String jsonStr = sh.makeServiceCall(url, ServiceHandler.GET);
+ 
+            Log.d("Response: ", "> " + jsonStr);
+ 
+            if (jsonStr != null) 
+            {
+                try {
+                    JSONObject jsonObj = new JSONObject(jsonStr);
+                     
+                    // Getting JSON Array node
+                    events = jsonObj.getJSONArray(TAG_EVENTS);
+ 
+                    // looping through All Contacts
+                    for (int i = 0; i < events.length(); i++) 
+                    {
+                        JSONObject c = events.getJSONObject(i);
+                         
+                        String the_title = c.getString(TAG_TITLE);
+                        String the_id = c.getString(TAG_ID);
+ 
+                        // tmp hashmap for single contact
+                        HashMap<String, String> contact = new HashMap<String, String>();
+ 
+                        // adding each child node to HashMap key => value
+                        contact.put(TAG_TITLE, the_title);
+                        contact.put(TAG_ID, the_id);
+ 
+                        // adding contact to contact list
+                        eventList.add(contact);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Log.e("ServiceHandler", "Couldn't get any data from the url");
+            }
+ 
+            return null;
+        }
+ 
+        @Override
+        protected void onPostExecute(Void result) 
+        {
+            super.onPostExecute(result);
+            
+            // Dismiss the progress dialog
+            progress.dismiss();
+
+            ListAdapter adapter = new SimpleAdapter( EventList.this, eventList,
+                    R.layout.list_item, new String[] { TAG_TITLE, TAG_ID}, new int[] { R.id.the_title,
+                            R.id.the_id});
+ 
+            setListAdapter(adapter);
+        }
+    }
+}
+
+
+/*import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -27,6 +175,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ListView;
@@ -72,7 +221,7 @@ public class EventList extends Activity implements AdapterView.OnItemClickListen
 	     }
 		 
 	     @Override
-	     protected String doInBackground(String... params) 
+	     protected String doInBackground(String... params)
 	     {
 	         HttpClient httpclient = new DefaultHttpClient();
 	         HttpPost httppost = new HttpPost(params[0]);
@@ -137,6 +286,7 @@ public class EventList extends Activity implements AdapterView.OnItemClickListen
 			   {
 				    JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
 				    title = jsonChildNode.optString("title");    //get the event title from the result set
+				    Log.i("HERE TIS", title);
 				    id = jsonChildNode.optString("id");          //do the same for ID
 				    eventList.add(createEvent("Event", title));  //add a new event to the list with its title
 			   }
@@ -150,7 +300,6 @@ public class EventList extends Activity implements AdapterView.OnItemClickListen
 		  SimpleAdapter simpleAdapter = new SimpleAdapter(this, eventList, android.R.layout.simple_list_item_1,
 				  new String[] { "Event" }, new int[] { android.R.id.text1 });
 		  
-		  //-----------------------------------------------------
 		  //set adapter and listener
 		  listView.setAdapter(simpleAdapter);
 		  listView.setOnItemClickListener(this);
@@ -169,12 +318,12 @@ public class EventList extends Activity implements AdapterView.OnItemClickListen
 	{
 	    Intent i = new Intent(EventList.this, EventInformation.class);
 	    
-	    //TRY
+	    //Get the item that has been clicked
 	    String selectedFromList = (listView.getItemAtPosition(position).toString());
-	    i.putExtra("event_title", selectedFromList);
+	    selectedFromList = selectedFromList.substring(7, selectedFromList.length()-1);  //remove brackets and event tag
+	    i.putExtra("event_title", selectedFromList);   //send the string to the next activity
 	    
-	   // i.putExtra("event_id", title);  //pass the event title to the next activity
 	    startActivity(i);
 	    overridePendingTransition(R.anim.slide_in, R.anim.slide_out);  //animation
 	}
-}
+}*/

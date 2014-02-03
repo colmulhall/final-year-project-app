@@ -13,16 +13,16 @@
 		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="dp" key="selection"/>
+		<item value="Object" key="selection"/>
 		<list key="findhistory">
+			<item value="object"/>
+			<item value="json"/>
+			<item value="response "/>
+			<item value="{"/>
 			<item value="px"/>
 			<item value="asy"/>
 			<item value="http"/>
 			<item value="eventlist"/>
-			<item value="setting"/>
-			<item value="list"/>
-			<item value="dr"/>
-			<item value="log"/>
 		</list>
 		<list key="replacehistory">
 			<item value="dp"/>
