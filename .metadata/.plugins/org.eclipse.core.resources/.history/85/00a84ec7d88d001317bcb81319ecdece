@@ -1,0 +1,117 @@
+/* When the user clicks on an event they are 
+ * brought to this screen to view more about it.
+ */
+
+package com.phoenixpark.app;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class EventInformation extends Activity
+{
+	 private String url = "http://10.0.2.2/FYP-Web-Coding/android_get_event.php";
+	 TextView ev_title, ev_desc;
+	 Intent intent;
+	 public String the_id;
+	 public HttpClient httpclient;
+	 public HttpPost httppost;
+	 
+	 @Override
+	 protected void onCreate(Bundle savedInstanceState) 
+	 {
+	     super.onCreate(savedInstanceState);
+	     setContentView(R.layout.eventinformation_layout);
+	     
+	     ev_title = (TextView)findViewById(R.id.event_title);
+		 ev_desc = (TextView)findViewById(R.id.event_description);
+		 
+		 //get information from the last activity
+		 intent = getIntent();
+		 the_id = intent.getExtras().getString("id");
+		 ev_title.setText(the_id);
+		 
+	     accessWebService();
+	 }
+
+	 // Async Task to access the web
+	 private class JsonReadTask extends AsyncTask<String, Void, String> 
+	 {
+	     @Override
+	     protected String doInBackground(String... params) 
+	     {
+	         httpclient = new DefaultHttpClient();
+	         httppost = new HttpPost(url);
+	         try 
+	    	 {
+	        	 // Add your data
+	             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+	             nameValuePairs.add(new BasicNameValuePair("id", "id"));
+	             nameValuePairs.add(new BasicNameValuePair("stringdata", "Hi"));
+	             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs,"UTF-8"));
+
+	             // Execute HTTP Post Request
+	             HttpResponse response = httpclient.execute(httppost);
+	             HttpEntity entity = responce.getEntity();
+		          // convert stream to String 
+		          BufferedReader buf = new BufferedReader(new InputStreamReader(entity.getContent()));
+		          StringBuilder sb1 = new StringBuilder();
+		          String line = null;
+		          
+		          while((line = buf.readLine()) != null) 
+		          {
+		        	  sb1.append(line);
+		          }
+		          ev_title.setText(sb1.toString());
+		          Log.i("HERE:", response.toString());
+	    	 }
+	    	 catch (ClientProtocolException e) 
+	    	 {
+	    	  	Toast.makeText(getApplicationContext(), e.toString() , Toast.LENGTH_LONG).show();
+	    	 } 
+	    	 catch (IOException e) 
+	    	 {
+	    	    Toast.makeText(getApplicationContext(), e.toString() , Toast.LENGTH_LONG).show();
+	    	 }
+		     return null;
+	     }
+	     
+		 @Override
+		 protected void onPostExecute(String result)
+		 {
+		 }
+	 }
+	 
+	 public void accessWebService() 
+	 {
+		  JsonReadTask task = new JsonReadTask();
+		  // passes values for the urls string array
+		  task.execute(new String[] { url });
+	 }
+}

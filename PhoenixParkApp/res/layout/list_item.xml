@@ -20,7 +20,6 @@
         android:text="title"/>
  
     <!-- ID label -->
-
     <TextView
         android:id="@+id/the_id"
         android:layout_width="fill_parent"
@@ -31,13 +30,11 @@
         android:text="ID"/>
     
     <!-- Date label -->
-
     <TextView
         android:id="@+id/the_date"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="2dip"
-        android:text="24-34-14"
         android:textColor="#acacac" />
  
 </RelativeLayout>

@@ -1,0 +1,117 @@
+package com.phoenixpark.app;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.StatusLine;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.TextView;
+ 
+public class TwitterTimelineActivity extends Activity 
+{
+ TextView tweetTextView;
+ 
+ @Override
+ public void onCreate(Bundle savedInstanceState) {
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.main);
+  String twitterTimeline = getTwitterTimeline();
+  try {
+   String tweets = "";
+   JSONArray jsonArray = new JSONArray(twitterTimeline);
+   for (int i = 0; i < jsonArray.length(); i++) {
+33
+    JSONObject jsonObject = jsonArray.getJSONObject(i);
+34
+    int j = i + 1;
+35
+    tweets += "Tweet #" + j + " \n";
+36
+    tweets += "Date:" + jsonObject.getString("created_at") + "\n";
+37
+    tweets += "Post:" + jsonObject.getString("text") + "\n\n";
+38
+   }
+39
+   tweetTextView = (TextView) findViewById(R.id.tweetTextView);
+40
+   tweetTextView.setText(tweets);
+41
+  } catch (JSONException e) {
+42
+   e.printStackTrace();
+43
+  }
+44
+ }
+45
+ 
+46
+ public String getTwitterTimeline() {
+47
+  StringBuilder builder = new StringBuilder();
+48
+  HttpClient client = new DefaultHttpClient();
+49
+  HttpGet httpGet = new HttpGet(
+50
+    "http://api.twitter.com/1/statuses/user_timeline/BBCNews.json?count=10&include_rts=1&callback=?");
+51
+  try {
+52
+   HttpResponse response = client.execute(httpGet);
+53
+   StatusLine statusLine = response.getStatusLine();
+54
+   int statusCode = statusLine.getStatusCode();
+55
+   if (statusCode == 200) {
+56
+    HttpEntity entity = response.getEntity();
+57
+    InputStream content = entity.getContent();
+58
+    BufferedReader reader = new BufferedReader(
+59
+      new InputStreamReader(content));
+60
+    String line;
+61
+    while ((line = reader.readLine()) != null) {
+62
+     builder.append(line);
+63
+    }
+64
+   } else {
+65
+    // Display couldn't obtain the data from twitter
+66
+   }
+67
+  } catch (ClientProtocolException e) {
+68
+   e.printStackTrace();
+69
+  } catch (IOException e) {
+70
+   e.printStackTrace();
+71
+  }
+72
+  return builder.toString();
+73
+ }
+74
+}
