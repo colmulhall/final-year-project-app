@@ -28,7 +28,7 @@ public class MenuScreen extends Activity
             {
  
                 // Sending image id to FullScreenActivity
-                Intent i = new Intent(getApplicationContext(), TwitterFeed.class);
+                Intent i = new Intent(getApplicationContext(), EventList.class);
                 startActivity(i);
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);  //sliding animation
             }
