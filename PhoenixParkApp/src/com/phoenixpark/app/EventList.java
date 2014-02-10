@@ -36,7 +36,7 @@ public class EventList extends ListActivity
     private static final String TAG_TITLE = "title";
     private static final String TAG_DATE = "date";
  
-    // contacts JSONArray
+    // events JSONArray
     JSONArray events = null;
  
     // Hashmap for ListView

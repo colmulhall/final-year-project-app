@@ -8,16 +8,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,8 +20,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ListAdapter;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 
@@ -39,19 +29,19 @@ public class EventInformation extends Activity
 	 TextView ev_title, ev_desc, ev_date;
 	 Intent intent;
 	 public String the_id;
+	 public String set_title, set_desc, set_date;
 	 
 	 // JSON Node names
 	 private static final String TAG_EVENTS = "event_list";
-	 private static final String TAG_ID = "id";
 	 private static final String TAG_TITLE = "title";
-	 private static final String TAG_DATE = "date";
+	 private static final String TAG_DESC = "description";
 
 	 // Creating service handler class instance
 	 public ServiceHandler sh = new ServiceHandler();
 	 public String jsonStr;
 	 
 	 // events JSONArray
-	 JSONArray events = null;
+	 JSONArray events;
 	 
 	 // Hashmap for ListView
 	 ArrayList<HashMap<String, String>> eventList;
@@ -65,23 +55,25 @@ public class EventInformation extends Activity
 		 ev_desc = (TextView)findViewById(R.id.event_description);
 		 ev_date = (TextView)findViewById(R.id.event_date);
 		 
-		 //get information from the last activity
+		 //get ID from the last activity
 		 intent = getIntent();
 		 the_id = intent.getExtras().getString("id");
+		 Log.i("ID:", the_id);
 
 	    new UploadTask().execute();
 	}
 	
-	private class UploadTask extends AsyncTask<String, Integer, String> 
+	private class UploadTask extends AsyncTask<String, Integer, String>
     {
 	    @Override
-	    protected String doInBackground(String... params) 
+	    protected String doInBackground(String... params)
 	    {
-	        // Add your data
-			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+	        // Add and send the ID to the PHP file
+			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 			nameValuePairs.add(new BasicNameValuePair("id", the_id));
+			jsonStr = sh.makeServiceCall(url, ServiceHandler.POST, nameValuePairs);
 
-			return jsonStr = sh.makeServiceCall(url, ServiceHandler.POST, nameValuePairs);
+			return jsonStr;
 	    }
 	    
 	    @Override
@@ -96,7 +88,7 @@ public class EventInformation extends Activity
     }
  
     //Async task class to get json by making HTTP call
-    private class GetEvents extends AsyncTask<Void, Void, Void> 
+    private class GetEvents extends AsyncTask<Void, Void, Void>
     {
     	private ProgressDialog progress;  //progress dialog when loading events
     	
@@ -109,43 +101,42 @@ public class EventInformation extends Activity
         }
  
         @Override
-        protected Void doInBackground(Void... arg0) 
+        protected Void doInBackground(Void... arg0)
         {
+        	Log.d("Response: ", "> " + jsonStr);
             if (jsonStr != null) 
             {
-                try {
+                try 
+                {
                     JSONObject jsonObj = new JSONObject(jsonStr);
-                    String the_title = null;
                      
                     // Getting JSON Array node
                     events = jsonObj.getJSONArray(TAG_EVENTS);
- 
-                    // looping through All Events
-                    for (int i = 0; i < events.length(); i++) 
-                    {
-                        JSONObject c = events.getJSONObject(i);
+                    //events = jsonObj.getJSONArray(TAG_DESC);
+                    
+                    JSONObject c = events.getJSONObject(0);
                          
-                        the_title = c.getString(TAG_TITLE);
-                        Log.i("EVENT", the_title);
-                        
-                        String the_id = c.getString(TAG_ID);
-                        String the_date = c.getString(TAG_DATE);
-                    }
-                    ev_title.setText(the_title);
+                    set_title = c.getString(TAG_TITLE);
+                    //set_desc = c.getString(TAG_DESC);
                     
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            } else {
+            }
+            else 
+            {
                 Log.e("ServiceHandler", "Couldn't get any data from the url");
             }
- 
+           
             return null;
         }
  
         @Override
         protected void onPostExecute(Void result) 
         {
+        	ev_title.setText(set_title);
+            //ev_desc.setText(set_desc);
+            
             super.onPostExecute(result);
             
             // Dismiss the progress dialog
