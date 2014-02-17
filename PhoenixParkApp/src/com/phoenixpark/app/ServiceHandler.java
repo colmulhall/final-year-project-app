@@ -24,6 +24,7 @@ public class ServiceHandler
     public ServiceHandler() 
     {
     }
+    
     public String makeServiceCall(String url, int method) 
     {
         return this.makeServiceCall(url, method, null);

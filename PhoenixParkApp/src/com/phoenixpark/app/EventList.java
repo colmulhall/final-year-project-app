@@ -28,7 +28,7 @@ import android.widget.TextView;
 public class EventList extends ListActivity 
 {
 	// URL to get contacts JSON
-    private static String url = "http://10.0.2.2/FYP-Web-Coding/android_get_titles.php";
+    private static String url = "http://10.0.2.2/FYP-Web-Coding/android_get_event_titles.php";
  
     // JSON Node names
     private static final String TAG_EVENTS = "event_list";
@@ -104,7 +104,7 @@ public class EventList extends ListActivity
                     // Getting JSON Array node
                     events = jsonObj.getJSONArray(TAG_EVENTS);
  
-                    // looping through All Contacts
+                    // looping through all events
                     for (int i = 0; i < events.length(); i++) 
                     {
                         JSONObject c = events.getJSONObject(i);

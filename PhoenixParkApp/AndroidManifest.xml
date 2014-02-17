@@ -30,6 +30,11 @@
             android:label="@string/app_name" >
         </activity>
         
+        <activity 
+            android:name="com.phoenixpark.app.NewsList"
+            android:label="@string/app_name" >
+        </activity>
+        
         <activity
             android:name="com.phoenixpark.app.EventInformation"
             android:label="@string/app_name" >

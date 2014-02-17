@@ -16,8 +16,10 @@ public class MenuItems extends BaseAdapter
     private Context mContext;
  
     // Keep all Images in array
-    public Integer[] mThumbIds = {
-            R.drawable.events_icon
+    public Integer[] mThumbIds = 
+    {
+            R.drawable.events_icon,
+            R.drawable.news_icon
     };
  
     // Constructor

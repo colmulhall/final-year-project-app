@@ -49,8 +49,7 @@ public class TwitterFeed extends ListActivity
                       try {
 
                               HttpClient hc = new DefaultHttpClient();
-                              HttpGet get = new
-                              HttpGet("https://twitter.com/search?q=%23phoenixpark&src=typd");
+                              HttpGet get = new HttpGet("https://twitter.com/search?q=%23phoenixpark&src=typd");
 
                               HttpResponse rp = hc.execute(get);
 
@@ -74,7 +73,6 @@ public class TwitterFeed extends ListActivity
                              Log.e("TwitterFeedActivity", "Error loading JSON", e);
                      }
                      return null;
-
         }
         @Override
         protected void onPostExecute(Void result) 

@@ -26,11 +26,20 @@ public class MenuScreen extends Activity
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) 
             {
- 
-                // Sending image id to FullScreenActivity
-                Intent i = new Intent(getApplicationContext(), EventList.class);
-                startActivity(i);
-                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);  //sliding animation
+            	// Events icon selected
+            	if(position == 0)
+            	{
+	                Intent i = new Intent(getApplicationContext(), EventList.class);
+	                startActivity(i);
+	                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);  //sliding animation
+            	}
+            	// News icon selected
+            	else if(position == 1)
+            	{
+	                Intent i = new Intent(getApplicationContext(), NewsList.class);
+	                startActivity(i);
+	                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);  //sliding animation
+            	}
             }
         });
 	}
