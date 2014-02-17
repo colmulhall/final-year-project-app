@@ -25,7 +25,7 @@ import android.widget.TextView;
 
 public class EventInformation extends Activity
 {
-	 private String url = "http://10.0.2.2/FYP-Web-Coding/android_get_event.php";
+	 private String url = "http://10.0.2.2/FYP-Web-Coding/android_get_event_item.php";
 	 TextView ev_title, ev_desc, ev_date;
 	 Intent intent;
 	 public String the_id;
@@ -140,5 +140,13 @@ public class EventInformation extends Activity
             // Dismiss the progress dialog
             progress.dismiss();
         }
+    }
+    
+    //back button pressed by user
+    @Override
+    public void onBackPressed() 
+    {
+        finish();//go back to the previous Activity
+        overridePendingTransition(R.anim.slide_in_right_to_left, R.anim.slide_out_right_to_left);   
     }
 }

@@ -62,9 +62,10 @@ public class NewsList extends ListActivity
                 String news_item_id = ((TextView) view.findViewById(R.id.the_id)).getText().toString();
  
                 // Starting single contact activity
-                Intent in = new Intent(getApplicationContext(), EventInformation.class);
+                Intent in = new Intent(getApplicationContext(), NewsInformation.class);
                 in.putExtra(TAG_ID, news_item_id);
                 startActivity(in);
+                overridePendingTransition(R.anim.slide_in_right_to_left, R.anim.slide_out_right_to_left);
             }
         });
  
@@ -82,7 +83,7 @@ public class NewsList extends ListActivity
         {
             super.onPreExecute();
             // Showing progress dialog
-            progress = ProgressDialog.show(NewsList.this, "Getting news...", "Please Wait...");
+            progress = ProgressDialog.show(NewsList.this, "Getting news", "Please Wait...");
         }
  
         @Override
@@ -148,5 +149,13 @@ public class NewsList extends ListActivity
  
             setListAdapter(adapter);
         }
+    }
+    
+    //back button pressed by user
+    @Override
+    public void onBackPressed() 
+    {
+        finish();//go back to the previous Activity
+        overridePendingTransition(R.anim.slide_in_left_to_right, R.anim.slide_out_left_to_right);   
     }
 }

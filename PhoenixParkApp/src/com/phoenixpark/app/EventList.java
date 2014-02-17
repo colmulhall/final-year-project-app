@@ -65,6 +65,7 @@ public class EventList extends ListActivity
                 Intent in = new Intent(getApplicationContext(), EventInformation.class);
                 in.putExtra(TAG_ID, ev_id);
                 startActivity(in);
+                overridePendingTransition(R.anim.slide_in_left_to_right, R.anim.slide_out_left_to_right);
             }
         });
  
@@ -148,5 +149,13 @@ public class EventList extends ListActivity
  
             setListAdapter(adapter);
         }
+    }
+    
+    //back button pressed by user
+    @Override
+    public void onBackPressed() 
+    {
+        finish();//go back to the previous Activity
+        overridePendingTransition(R.anim.slide_in_right_to_left, R.anim.slide_out_right_to_left);   
     }
 }

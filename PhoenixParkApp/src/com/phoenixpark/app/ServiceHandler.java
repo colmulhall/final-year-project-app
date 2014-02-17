@@ -1,3 +1,7 @@
+/* tHis class handles all get and post requests.
+ * It is used by multiple classes
+*/
+
 package com.phoenixpark.app;
 
 import java.io.IOException;
