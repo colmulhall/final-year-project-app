@@ -73,7 +73,7 @@ public class NewsList extends ListActivity
     }
  
     //Async task class to get json by making HTTP call
-    private class GetNews extends AsyncTask<Void, Void, Void> 
+    private class GetNews extends AsyncTask<Void, Void, Void>
     {
     	private ProgressDialog progress;  //progress dialog when loading events
     	
