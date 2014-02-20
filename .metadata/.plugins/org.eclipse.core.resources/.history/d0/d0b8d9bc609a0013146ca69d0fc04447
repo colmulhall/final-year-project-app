@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -116,6 +115,7 @@ public class MainActivity extends FragmentActivity
 		{
 			View rootView = inflater.inflate(R.layout.fragment_main_dummy, container, false);
 			TextView dummyTextView = (TextView) rootView.findViewById(R.id.section_label);
+			if(section_number = "1")
 			ImageView image = (ImageView) rootView.findViewById(R.id.imageView1);
 			image.setImageResource(R.drawable.events_icon);
 			

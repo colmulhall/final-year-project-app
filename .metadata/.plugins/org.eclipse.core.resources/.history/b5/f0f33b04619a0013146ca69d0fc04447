@@ -116,6 +116,7 @@ public class MainActivity extends FragmentActivity
 		{
 			View rootView = inflater.inflate(R.layout.fragment_main_dummy, container, false);
 			TextView dummyTextView = (TextView) rootView.findViewById(R.id.section_label);
+			Log.i("ELEMENT!", ARG_SECTION_NUMBER);
 			ImageView image = (ImageView) rootView.findViewById(R.id.imageView1);
 			image.setImageResource(R.drawable.events_icon);
 			

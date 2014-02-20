@@ -1,7 +1,6 @@
 package com.phoenixpark.app;
 
 import java.util.ArrayList;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
@@ -116,12 +115,4 @@ public class TwitterFeed extends ListActivity
                     return v;
             }
        }
-    
-    //back button pressed by user
-    @Override
-    public void onBackPressed() 
-    {
-        finish();//go back to the previous Activity
-        overridePendingTransition(R.anim.slide_in_left_to_right, R.anim.slide_out_left_to_right);   
-    }
 }

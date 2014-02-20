@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -127,12 +126,4 @@ public class MainActivity extends FragmentActivity
 			return rootView;
 		}
 	}
-	
-	//back button pressed by user
-    @Override
-    public void onBackPressed() 
-    {
-        finish();//go back to the previous Activity
-        overridePendingTransition(R.anim.slide_in_right_to_left, R.anim.slide_out_right_to_left);   
-    }
 }

@@ -119,6 +119,9 @@ public class MainActivity extends FragmentActivity
 			ImageView image = (ImageView) rootView.findViewById(R.id.imageView1);
 			image.setImageResource(R.drawable.events_icon);
 			
+			String thing = Integer.toString(getArguments().getInt(ARG_SECTION_NUMBER));
+			Log.i("EFAREFAWEFAWE", thing);
+			
 			dummyTextView.setText("çras an Uachtar‡in had a colourful history before becoming the "
 					+ "Official Residence of the President of Ireland. Built in 1751 Situated in the "
 					+ "1,752 acres of the Phoenix Park near Dublin, the original house was built by "
