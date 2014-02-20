@@ -19,7 +19,8 @@ public class MenuItems extends BaseAdapter
     public Integer[] mThumbIds = 
     {
             R.drawable.events_icon,
-            R.drawable.news_icon
+            R.drawable.news_icon,
+            R.drawable.static_info
     };
  
     // Constructor

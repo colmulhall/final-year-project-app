@@ -34,28 +34,35 @@ public final class R {
         public static final int ic_launcher=0x7f020001;
         public static final int icon=0x7f020002;
         public static final int news_icon=0x7f020003;
+        public static final int static_info=0x7f020004;
     }
     public static final class id {
-        public static final int action_settings=0x7f0a000a;
-        public static final int bottomtext=0x7f0a0009;
-        public static final int event_description=0x7f0a0001;
-        public static final int event_title=0x7f0a0000;
-        public static final int grid_view=0x7f0a0005;
-        public static final int news_description=0x7f0a0007;
-        public static final int news_title=0x7f0a0006;
-        public static final int the_date=0x7f0a0004;
-        public static final int the_id=0x7f0a0003;
-        public static final int the_title=0x7f0a0002;
-        public static final int toptext=0x7f0a0008;
+        public static final int action_settings=0x7f0a000e;
+        public static final int bottomtext=0x7f0a000d;
+        public static final int event_description=0x7f0a0003;
+        public static final int event_title=0x7f0a0002;
+        public static final int grid_view=0x7f0a0009;
+        public static final int imageView1=0x7f0a0004;
+        public static final int news_description=0x7f0a000b;
+        public static final int news_title=0x7f0a000a;
+        public static final int pager=0x7f0a0000;
+        public static final int pager_title_strip=0x7f0a0001;
+        public static final int section_label=0x7f0a0005;
+        public static final int the_date=0x7f0a0008;
+        public static final int the_id=0x7f0a0007;
+        public static final int the_title=0x7f0a0006;
+        public static final int toptext=0x7f0a000c;
     }
     public static final class layout {
-        public static final int eventinformation_layout=0x7f030000;
-        public static final int eventlist_layout=0x7f030001;
-        public static final int list_item=0x7f030002;
-        public static final int menuscreen_layout=0x7f030003;
-        public static final int newsinformation_layout=0x7f030004;
-        public static final int newslist_layout=0x7f030005;
-        public static final int twitterfeed_layout=0x7f030006;
+        public static final int activity_main=0x7f030000;
+        public static final int eventinformation_layout=0x7f030001;
+        public static final int eventlist_layout=0x7f030002;
+        public static final int fragment_main_dummy=0x7f030003;
+        public static final int list_item=0x7f030004;
+        public static final int menuscreen_layout=0x7f030005;
+        public static final int newsinformation_layout=0x7f030006;
+        public static final int newslist_layout=0x7f030007;
+        public static final int twitterfeed_layout=0x7f030008;
     }
     public static final class menu {
         public static final int main=0x7f090000;
@@ -92,5 +99,8 @@ public final class R {
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f080001;
+        /**  Custom action bar 
+         */
+        public static final int MyActionBar=0x7f080002;
     }
 }

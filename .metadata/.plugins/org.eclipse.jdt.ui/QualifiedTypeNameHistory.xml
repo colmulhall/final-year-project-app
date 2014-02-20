@@ -53,4 +53,5 @@
 <fullyQualifiedTypeName name="java.io.InputStream"/>
 <fullyQualifiedTypeName name="org.apache.http.util.EntityUtils"/>
 <fullyQualifiedTypeName name="com.phoenixpark.app.R.id"/>
+<fullyQualifiedTypeName name="com.phoenixpark.app.R.drawable"/>
 </qualifiedTypeNameHistroy>

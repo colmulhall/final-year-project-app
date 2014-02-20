@@ -11,8 +11,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -86,7 +88,8 @@ public class NewsList extends ListActivity
             progress = ProgressDialog.show(NewsList.this, "Getting news", "Please Wait...");
         }
  
-        @Override
+        @SuppressWarnings("deprecation")
+		@Override
         protected Void doInBackground(Void... arg0) 
         {
             // Creating service handler class instance
@@ -104,26 +107,26 @@ public class NewsList extends ListActivity
                      
                     // Getting JSON Array node
                     news = jsonObj.getJSONArray(TAG_NEWS);
- 
+                    
                     // looping through all news items
                     for (int i = 0; i < news.length(); i++) 
                     {
-                        JSONObject c = news.getJSONObject(i);
-                         
-                        String the_title = c.getString(TAG_TITLE);
-                        String the_id = c.getString(TAG_ID);
-                        String the_date = c.getString(TAG_DATE);
- 
-                        // tmp hashmap for single event
-                        HashMap<String, String> news_item = new HashMap<String, String>();
- 
-                        // adding each child node to HashMap key => value
-                        news_item.put(TAG_TITLE, the_title);
-                        news_item.put(TAG_ID, the_id);
-                        news_item.put(TAG_DATE, the_date);
- 
-                        // adding contact to event list
-                        newsList.add(news_item);
+                    	JSONObject c = news.getJSONObject(i);
+	                         
+	                    String the_title = c.getString(TAG_TITLE);
+	                    String the_id = c.getString(TAG_ID);
+	                    String the_date = c.getString(TAG_DATE);
+	 
+	                    // tmp hashmap for single event
+	                    HashMap<String, String> news_item = new HashMap<String, String>();
+	 
+	                    // adding each child node to HashMap key => value
+	                    news_item.put(TAG_TITLE, the_title);
+	                    news_item.put(TAG_ID, the_id);
+	                    news_item.put(TAG_DATE, the_date);
+	 
+	                    // adding contact to event list   
+	                    newsList.add(news_item);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
