@@ -11,10 +11,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -88,8 +86,7 @@ public class NewsList extends ListActivity
             progress = ProgressDialog.show(NewsList.this, "Getting news", "Please Wait...");
         }
  
-        @SuppressWarnings("deprecation")
-		@Override
+        @Override
         protected Void doInBackground(Void... arg0) 
         {
             // Creating service handler class instance

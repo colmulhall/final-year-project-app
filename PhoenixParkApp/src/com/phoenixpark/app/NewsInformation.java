@@ -20,7 +20,11 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class NewsInformation extends Activity
@@ -30,6 +34,7 @@ public class NewsInformation extends Activity
 	 Intent intent;
 	 public String the_id;
 	 public String set_title, set_desc, set_date;
+	 private LocalDbManager db; //local favorites database
 	 
 	 // JSON Node names
 	 private static final String TAG_NEWS = "news_updates";
@@ -42,6 +47,8 @@ public class NewsInformation extends Activity
 	 
 	 // events JSONArray
 	 JSONArray news;
+	 
+	 JSONObject jObject;
 	 
 	 // Hashmap for ListView
 	 ArrayList<HashMap<String, String>> newsList;
@@ -58,6 +65,10 @@ public class NewsInformation extends Activity
 		 intent = getIntent();
 		 the_id = intent.getExtras().getString("id");
 		 Log.i("ID:", the_id);
+		 
+		 //Open favorites database to write
+	     db = new LocalDbManager(this);
+	     db.openToWrite();
 
 	    new UploadTask().execute();
 	}
@@ -112,10 +123,10 @@ public class NewsInformation extends Activity
                     // Getting JSON Array node
                     news = jsonObj.getJSONArray(TAG_NEWS);
                     
-                    JSONObject c = news.getJSONObject(0);
+                    jObject = news.getJSONObject(0);
                          
-                    set_title = c.getString(TAG_TITLE);
-                    set_desc = c.getString(TAG_DESC);
+                    set_title = jObject.getString(TAG_TITLE);
+                    set_desc = jObject.getString(TAG_DESC);
                     Log.i("NEWS", set_desc);
                     
                 } 
@@ -143,6 +154,41 @@ public class NewsInformation extends Activity
             // Dismiss the progress dialog
             progress.dismiss();
         }
+    }
+    
+    //action bar
+    @Override
+	public boolean onCreateOptionsMenu(Menu menu) 
+	{
+		//Inflate the menu. This adds items to the action bar if it is present.
+    	MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        return true;
+	}
+    
+    //action bar listener
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) 
+    {
+    	switch (item.getItemId()) 
+    	{	
+	      case R.id.fav_action:
+			String title;
+			try 
+			{
+				title = jObject.getString(TAG_TITLE);
+				String desc = jObject.getString(TAG_DESC);
+
+			    db.insert(title, desc, "24-12-23", "Farmleigh", "www.colm.com");
+				    
+				Toast.makeText(getApplicationContext(), "Added to favorites", Toast.LENGTH_LONG).show();
+			} 
+			catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
+        return true;
     }
     
     //back button pressed by user

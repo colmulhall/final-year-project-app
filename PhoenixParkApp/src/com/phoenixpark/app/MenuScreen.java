@@ -3,6 +3,9 @@ package com.phoenixpark.app;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -48,11 +51,35 @@ public class MenuScreen extends Activity
             	}
             	else if(position == 3)
             	{
-	                Intent i = new Intent(getApplicationContext(), TwitterFeed.class);
+	                Intent i = new Intent(getApplicationContext(), TwitterFeedActivity.class);
 	                startActivity(i);
 	                overridePendingTransition(R.anim.slide_in_right_to_left, R.anim.slide_out_right_to_left);  //sliding animation
             	}
             }
         });
 	}
+	
+	//action bar
+    @Override
+	public boolean onCreateOptionsMenu(Menu menu) 
+	{
+		//Inflate the menu. This adds items to the action bar if it is present.
+    	MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        return true;
+	}
+    
+    //action bar listener
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) 
+    {
+    	switch (item.getItemId()) 
+    	{	
+	      case R.id.fav_action:
+	    	  Intent i = new Intent(getApplicationContext(), FavoritesList.class);
+              startActivity(i);
+              overridePendingTransition(R.anim.slide_in_left_to_right, R.anim.slide_out_left_to_right);  //sliding animation
+    	}
+        return true;
+    }
 }

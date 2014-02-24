@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/map"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/country"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textColor="@color/red"
+        android:textSize="60sp"
+        android:textIsSelectable="true" />
+
+    <TextView
+        android:id="@+id/cmonthyear"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textColor="@color/bright_blue"
+        android:textSize="40sp"
+        android:textIsSelectable="true" />
+
+    <TextView
+        android:id="@+id/ctimesbeen"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textColor="@color/dark_green"
+        android:textSize="30sp"
+        android:clickable="true" 
+        android:onClick="click" />
+
+    <TextView
+        android:id="@+id/cdesc"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:maxLines="7"
+		android:scrollbars = "vertical"
+        android:textColor="@color/dark_blue"
+        android:textSize="30sp"
+        android:textIsSelectable="true" />
+</LinearLayout>

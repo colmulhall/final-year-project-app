@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- row.xml allows the list items to be further modified. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/countrytext"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:padding="2dip"
+        android:textIsSelectable="false"
+        android:gravity="center_horizontal"
+        android:paddingRight="10dip"
+        android:textSize="30sp" 
+        android:textColor="@color/dark_blue"/>
+
+</LinearLayout>

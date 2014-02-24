@@ -11,25 +11,25 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 public class LocalDbManager 
 {
 	public static final String KEY_ID = "_id";
-	public static final String KEY_COUNTRY = "country";
-	public static final String KEY_YEAR = "year";
-	public static final String KEY_MONTH = "month";
-	public static final String KEY_TRANSPORT = "transport";
-	public static final String KEY_DESC = "description";
+	public static final String KEY_EVENT_TITLE = "title";
+	public static final String KEY_EVENT_DESCRIPTION = "description";
+	public static final String KEY_EVENT_DATE = "date";
+	public static final String KEY_EVENT_LOCATION = "location";
+	public static final String KEY_EVENT_LINK = "link";
 	
-	public static final String DATABASE_NAME = "Countries database";
-	public static final String DATABASE_TABLE = "Country";
-	public static final int DATABASE_VERSION = 5;
+	public static final String DATABASE_NAME = "Event favorites database";
+	public static final String DATABASE_TABLE = "event_list_local";
+	public static final int DATABASE_VERSION = 1;
 	
 	//create database table
 	private static final String SCRIPT_CREATE_DATABASE =
 			"create table " + DATABASE_TABLE + " ("
 			+ KEY_ID + " integer primary key autoincrement, "
-			+ KEY_COUNTRY + " text not null,"
-			+ KEY_YEAR + " integer ,"
-			+ KEY_MONTH + " text ,"
-			+ KEY_TRANSPORT + " text ,"
-			+ KEY_DESC + " text);";
+			+ KEY_EVENT_TITLE + " text not null,"
+			+ KEY_EVENT_DESCRIPTION + " integer ,"
+			+ KEY_EVENT_DATE + " text ,"
+			+ KEY_EVENT_LOCATION + " text ,"
+			+ KEY_EVENT_LINK + " text);";
 	
 	private Context context;
 	private DBHelper DBHelper;
@@ -84,29 +84,15 @@ public class LocalDbManager
 	}
 	
 	//insert a new item into the database
-	public long insert(String content, int year, String month, String transport, String description)
+	public long insert(String title, String desc, String date, String location, String link)
 	{
 		ContentValues contentValues = new ContentValues();
-		contentValues.put(KEY_COUNTRY, content);
-		contentValues.put(KEY_YEAR, year);
-		contentValues.put(KEY_MONTH, month);
-		contentValues.put(KEY_TRANSPORT, transport);
-		contentValues.put(KEY_DESC, description);
+		contentValues.put(KEY_EVENT_TITLE, title);
+		contentValues.put(KEY_EVENT_DESCRIPTION, date);
+		contentValues.put(KEY_EVENT_DATE, location);
+		contentValues.put(KEY_EVENT_LOCATION, link);
 		
 		return db.insert(DATABASE_TABLE, null, contentValues);
-	}
-	
-	//edit an item in the database
-	public boolean update(int id, String content, int year, String month, String transport, String description)
-	{
-		ContentValues contentValues = new ContentValues();
-		contentValues.put(KEY_COUNTRY, content);
-		contentValues.put(KEY_YEAR, year);
-		contentValues.put(KEY_MONTH, month);
-		contentValues.put(KEY_TRANSPORT, transport);
-		contentValues.put(KEY_DESC, description);
-		
-		return db.update(DATABASE_TABLE, contentValues, KEY_ID + " = " + id, null) > 0;
 	}
 	
 	//delete everything from the database
@@ -126,11 +112,11 @@ public class LocalDbManager
 	{
 		String[] columns = new String[]{
 				KEY_ID, 
-				KEY_COUNTRY,
-				KEY_YEAR,
-				KEY_MONTH,
-				KEY_TRANSPORT,
-				KEY_DESC};
+				KEY_EVENT_TITLE,
+				KEY_EVENT_DESCRIPTION,
+				KEY_EVENT_DATE,
+				KEY_EVENT_LOCATION,
+				KEY_EVENT_LINK};
 		Cursor cursor = db.query(DATABASE_TABLE, columns,
 		  null, null, null, null, null);
 	
@@ -142,14 +128,33 @@ public class LocalDbManager
 	{
 		String[] columns = new String[]{
 				KEY_ID, 
-				KEY_COUNTRY,
-				KEY_YEAR,
-				KEY_MONTH,
-				KEY_TRANSPORT,
-				KEY_DESC};
+				KEY_EVENT_TITLE,
+				KEY_EVENT_DESCRIPTION,
+				KEY_EVENT_DATE,
+				KEY_EVENT_LOCATION,
+				KEY_EVENT_LINK};
 		
-		Cursor cursor = db.query(DATABASE_TABLE, columns, null, null, null, null, KEY_YEAR + " DESC");
+		Cursor cursor = db.query(DATABASE_TABLE, columns, null, null, null, null, KEY_EVENT_DATE + " DESC");
 		
 		return cursor;
 	}
+	
+	//getters for the database
+	public String getItemTitle(int num)
+    {
+		Cursor cursor = db.query(DATABASE_TABLE, new String[] {"title"}, 
+				"_id like " + num, null, null, null, null);
+		
+		cursor.moveToFirst();
+		return cursor.getString(0);
+    }
+	
+	public String getItemDesc(int num)
+    {
+		Cursor cursor = db.query(DATABASE_TABLE, new String[] {"description"}, 
+				"_id like " + num, null, null, null, null);
+		
+		cursor.moveToFirst();
+		return cursor.getString(0);
+    }
 }

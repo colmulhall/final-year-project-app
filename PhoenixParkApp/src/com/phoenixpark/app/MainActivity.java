@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -82,7 +81,6 @@ public class MainActivity extends FragmentActivity
 		@Override
 		public CharSequence getPageTitle(int position) 
 		{
-			Locale l = Locale.getDefault();
 			switch (position) {
 			case 0:
 				return "Aras an Uachtaran";
@@ -111,6 +109,7 @@ public class MainActivity extends FragmentActivity
 		{
 		}
 
+		//for each fragment.
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) 
 		{
@@ -119,18 +118,14 @@ public class MainActivity extends FragmentActivity
 			ImageView image = (ImageView) rootView.findViewById(R.id.imageView1);
 			image.setImageResource(R.drawable.events_icon);
 			
-			dummyTextView.setText("çras an Uachtar‡in had a colourful history before becoming the "
-					+ "Official Residence of the President of Ireland. Built in 1751 Situated in the "
-					+ "1,752 acres of the Phoenix Park near Dublin, the original house was built by "
-					+ "Park Ranger Nathaniel Clements. By 1782 it had been acquired for use by the Viceroys "
-					+ "who oversaw British rule in Ireland. Clements received £25,000 for the house.");
+			dummyTextView.setText(R.string.aras_an_uachtarain_desc);
 			return rootView;
 		}
 	}
 	
 	//back button pressed by user
     @Override
-    public void onBackPressed() 
+    public void onBackPressed()
     {
         finish();//go back to the previous Activity
         overridePendingTransition(R.anim.slide_in_right_to_left, R.anim.slide_out_right_to_left);   
