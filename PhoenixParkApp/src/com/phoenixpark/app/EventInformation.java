@@ -7,20 +7,24 @@ package com.phoenixpark.app;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.ShareActionProvider;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class EventInformation extends Activity
@@ -30,11 +34,14 @@ public class EventInformation extends Activity
 	 Intent intent;
 	 public String the_id;
 	 public String set_title, set_desc, set_date;
+	 private LocalDbManager db;
+	 private ShareActionProvider myShareActionProvider;
 	 
 	 // JSON Node names
 	 private static final String TAG_EVENTS = "event_list";
 	 private static final String TAG_TITLE = "title";
 	 private static final String TAG_DESC = "description";
+	 private static final String TAG_LINK = "link";
 
 	 // Creating service handler class instance
 	 public ServiceHandler sh = new ServiceHandler();
@@ -42,6 +49,8 @@ public class EventInformation extends Activity
 	 
 	 // events JSONArray
 	 JSONArray events;
+	 
+	 JSONObject jObject;
 	 
 	 // Hashmap for ListView
 	 ArrayList<HashMap<String, String>> eventList;
@@ -58,6 +67,10 @@ public class EventInformation extends Activity
 		 intent = getIntent();
 		 the_id = intent.getExtras().getString("id");
 		 Log.i("ID:", the_id);
+		 
+		 //Open favorites database to write
+	     db = new LocalDbManager(this);
+	     db.openToWrite();
 
 	    new UploadTask().execute();
 	}
@@ -112,10 +125,10 @@ public class EventInformation extends Activity
                     // Getting JSON Array node
                     events = jsonObj.getJSONArray(TAG_EVENTS);
                     
-                    JSONObject c = events.getJSONObject(0);
+                    jObject = events.getJSONObject(0);
                          
-                    set_title = c.getString(TAG_TITLE);
-                    set_desc = c.getString(TAG_DESC);
+                    set_title = jObject.getString(TAG_TITLE);
+                    set_desc = jObject.getString(TAG_DESC);
                     
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -140,6 +153,58 @@ public class EventInformation extends Activity
             // Dismiss the progress dialog
             progress.dismiss();
         }
+    }
+    
+    //action bar
+    @SuppressLint("NewApi")
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) 
+	{
+    	// Inflate menu resource file.  
+        getMenuInflater().inflate(R.menu.information_menu, menu);  
+        
+        //Getting the actionprovider associated with the menu item whose id is share
+        myShareActionProvider = (ShareActionProvider) menu.findItem(R.id.share).getActionProvider();
+ 
+        //Setting a share intent
+        myShareActionProvider.setShareIntent(getDefaultShareIntent());
+
+        return true;
+	}
+    
+    //returns share intent
+    private Intent getDefaultShareIntent()
+    {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "SUBJECT");
+        intent.putExtra(Intent.EXTRA_TEXT,"Extra Text");
+        return intent;
+    }
+    
+    //action bar listener
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) 
+    {
+    	switch (item.getItemId()) 
+    	{	
+    	  
+	      case R.id.fav_action:
+			String title, desc;
+			try 
+			{
+				title = jObject.getString(TAG_TITLE);
+				desc = jObject.getString(TAG_DESC);
+
+			    db.insert(title, desc, "24-12-23", "Farmleigh", "www.colm.com");
+				    
+				Toast.makeText(getApplicationContext(), "Added to favorites", Toast.LENGTH_LONG).show();
+			} 
+			catch (JSONException e) {
+				e.printStackTrace();
+			}
+    	}
+        return true;
     }
     
     //back button pressed by user

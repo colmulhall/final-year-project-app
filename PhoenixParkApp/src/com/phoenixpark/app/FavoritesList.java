@@ -55,7 +55,7 @@ public class FavoritesList extends Activity implements AdapterView.OnItemClickLi
 	{
 		//Inflate the menu. This adds items to the action bar if it is present.
     	MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main, menu);
+        inflater.inflate(R.menu.menu, menu);
         return true;
 	}
     

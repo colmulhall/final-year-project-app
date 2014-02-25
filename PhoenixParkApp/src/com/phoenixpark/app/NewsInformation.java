@@ -127,8 +127,6 @@ public class NewsInformation extends Activity
                          
                     set_title = jObject.getString(TAG_TITLE);
                     set_desc = jObject.getString(TAG_DESC);
-                    Log.i("NEWS", set_desc);
-                    
                 } 
                 catch (JSONException e) 
                 {
@@ -162,9 +160,26 @@ public class NewsInformation extends Activity
 	{
 		//Inflate the menu. This adds items to the action bar if it is present.
     	MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main, menu);
+        inflater.inflate(R.menu.menu, menu);
         return true;
 	}
+    /*
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+              if (condition) {
+                        // try to see if already exists
+                        MenuItem editItem = menu.findItem(NEW_MENU_ID);
+                        if (editItem == null) {
+                                  menu.add(0, Constant.NEW_MENU_ID, 0, 
+                                  getString(R.string.NEW_MENU_OPTION))
+                                  .setIcon(android.R.drawable.ic_menu_edit)
+                                  .setAlphabeticShortcut(SearchManager.MENU_KEY);
+                        }
+              } else {
+                        // we need to remove it when the condition fails
+                        menu.removeItem(NEW_MENU_ID);
+              }
+    }*/
     
     //action bar listener
     @Override
@@ -172,19 +187,19 @@ public class NewsInformation extends Activity
     {
     	switch (item.getItemId()) 
     	{	
+    	  
 	      case R.id.fav_action:
-			String title;
+			String title, desc;
 			try 
 			{
 				title = jObject.getString(TAG_TITLE);
-				String desc = jObject.getString(TAG_DESC);
+				desc = jObject.getString(TAG_DESC);
 
 			    db.insert(title, desc, "24-12-23", "Farmleigh", "www.colm.com");
 				    
 				Toast.makeText(getApplicationContext(), "Added to favorites", Toast.LENGTH_LONG).show();
 			} 
 			catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
     	}

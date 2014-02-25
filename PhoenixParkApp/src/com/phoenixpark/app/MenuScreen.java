@@ -1,5 +1,6 @@
 package com.phoenixpark.app;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,10 +10,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ShareActionProvider;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class MenuScreen extends Activity
 {
+	private ShareActionProvider myShareActionProvider;
 	@Override
     public void onCreate(Bundle savedInstanceState) 
 	{
@@ -60,14 +63,40 @@ public class MenuScreen extends Activity
 	}
 	
 	//action bar
+    @SuppressLint("NewApi")
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) 
+	{
+    	// Inflate menu resource file.  
+        getMenuInflater().inflate(R.menu.information_menu, menu);  
+        
+        //Getting the actionprovider associated with the menu item whose id is share
+        myShareActionProvider = (ShareActionProvider) menu.findItem(R.id.share).getActionProvider();
+ 
+        //Setting a share intent
+        myShareActionProvider.setShareIntent(getDefaultShareIntent());
+
+        return true;
+	}
+    
+    //returns share intent
+    private Intent getDefaultShareIntent()
+    {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT,"Event: ");
+        return intent;
+    }
+	
+	/*//action bar
     @Override
 	public boolean onCreateOptionsMenu(Menu menu) 
 	{
 		//Inflate the menu. This adds items to the action bar if it is present.
     	MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main, menu);
+        inflater.inflate(R.menu.menu, menu);
         return true;
-	}
+	}*/
     
     //action bar listener
     @Override
