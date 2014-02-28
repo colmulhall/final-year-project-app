@@ -88,10 +88,9 @@ public class LocalDbManager
 	{
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(KEY_EVENT_TITLE, title);
-		contentValues.put(KEY_EVENT_DESCRIPTION, desc);
-		contentValues.put(KEY_EVENT_DATE, date);
-		contentValues.put(KEY_EVENT_LOCATION, location);
-		contentValues.put(KEY_EVENT_LINK, link);
+		contentValues.put(KEY_EVENT_DESCRIPTION, date);
+		contentValues.put(KEY_EVENT_DATE, location);
+		contentValues.put(KEY_EVENT_LOCATION, link);
 		
 		return db.insert(DATABASE_TABLE, null, contentValues);
 	}
@@ -100,12 +99,6 @@ public class LocalDbManager
 	public int deleteAll()
 	{
 		return db.delete(DATABASE_TABLE, null, null);
-	}
-	
-	//delete the database 
-	public void deleteDatabase()
-	{
-		context.deleteDatabase(DATABASE_NAME);
 	}
 	
 	//queue the items in the database

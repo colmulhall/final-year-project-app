@@ -94,7 +94,6 @@ public class MenuScreen extends Activity
     {
     	switch (item.getItemId()) 
     	{	
-    	  // show the users favorite events
 	      case R.id.fav_action:
 	    	  Intent i = new Intent(getApplicationContext(), FavoritesList.class);
               startActivity(i);
