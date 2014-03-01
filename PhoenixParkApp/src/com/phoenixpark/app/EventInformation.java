@@ -29,7 +29,7 @@ import android.widget.Toast;
 
 public class EventInformation extends Activity
 {
-	 private String url = "http://10.0.2.2/FYP-Web-Coding/android_get_event_item.php";
+	 private String url = "http://parkdomain.comoj.com/android_get_event_item.php";
 	 TextView ev_title, ev_desc, ev_date;
 	 Intent intent;
 	 public String the_id;

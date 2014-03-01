@@ -66,6 +66,9 @@
             android:label="@string/app_name" >
         </activity>
         
+        <meta-data android:name="CONSUMER_KEY" android:value="HJTjGF25dgGbPAvSOHe6VA" ></meta-data>
+		<meta-data android:name="CONSUMER_SECRET" android:value="iS7XoeFHZqPBMAWD5tdkGn9y2tyNIz6IKA1YLHfiI" ></meta-data>
+        
     </application>
 
 </manifest>

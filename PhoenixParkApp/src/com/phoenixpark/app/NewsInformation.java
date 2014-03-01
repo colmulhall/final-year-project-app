@@ -29,7 +29,7 @@ import android.widget.Toast;
 
 public class NewsInformation extends Activity
 {
-	 private String url = "http://10.0.2.2/FYP-Web-Coding/android_get_news_item.php";
+	 private String url = "http://parkdomain.comoj.com/android_get_news_item.php";
 	 TextView news_title, news_desc, news_date;
 	 Intent intent;
 	 public String the_id;

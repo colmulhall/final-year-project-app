@@ -28,7 +28,7 @@ import android.widget.TextView;
 public class NewsList extends ListActivity 
 {
 	// URL to get contacts JSON
-    private static String url = "http://10.0.2.2/FYP-Web-Coding/android_get_news_titles.php";
+    private static String url = "http://parkdomain.comoj.com/android_get_news_titles.php";
  
     // JSON Node names
     private static final String TAG_NEWS = "news_updates";
