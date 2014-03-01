@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -46,18 +45,18 @@ public class MenuScreen extends Activity
 	                startActivity(i);
 	                overridePendingTransition(R.anim.slide_in_right_to_left, R.anim.slide_out_right_to_left);  //sliding animation
             	}
-            	else if(position == 2)
+            	/*else if(position == 2)
             	{
-	                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+	                Intent i = new Intent(getApplicationContext(), TwitterFeed.class);
 	                startActivity(i);
 	                overridePendingTransition(R.anim.slide_in_left_to_right, R.anim.slide_out_left_to_right);  //sliding animation
-            	}
-            	/*else if(position == 3)
+            	}*/
+            	else if(position == 3)
             	{
-	                Intent i = new Intent(getApplicationContext(), TwitterFeedActivity.class);
+	                Intent i = new Intent(getApplicationContext(), TwitterFeed.class);
 	                startActivity(i);
 	                overridePendingTransition(R.anim.slide_in_right_to_left, R.anim.slide_out_right_to_left);  //sliding animation
-            	}*/
+            	}
             }
         });
 	}

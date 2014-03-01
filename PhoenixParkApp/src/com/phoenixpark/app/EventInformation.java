@@ -20,7 +20,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ShareActionProvider;
 import android.widget.TextView;
@@ -41,7 +40,7 @@ public class EventInformation extends Activity
 	 private static final String TAG_EVENTS = "event_list";
 	 private static final String TAG_TITLE = "title";
 	 private static final String TAG_DESC = "description";
-	 private static final String TAG_LINK = "link";
+	 //private static final String TAG_LINK = "link";
 
 	 // Creating service handler class instance
 	 public ServiceHandler sh = new ServiceHandler();
