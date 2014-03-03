@@ -34,8 +34,8 @@ public class FavoritesList extends Activity implements AdapterView.OnItemClickLi
         cursor = db.orderList();
         
         String[] from = new String[]{
-        		LocalDbManager.KEY_ID, 
         		LocalDbManager.KEY_EVENT_TITLE, 
+        		LocalDbManager.KEY_ID,
         		LocalDbManager.KEY_EVENT_DESCRIPTION,
         		LocalDbManager.KEY_EVENT_LOCATION,
         		LocalDbManager.KEY_EVENT_DATE,

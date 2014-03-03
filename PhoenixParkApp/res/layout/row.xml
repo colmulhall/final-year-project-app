@@ -10,7 +10,7 @@
         android:id="@+id/the_title"
         android:layout_width="match_parent"
         android:layout_height="52dp"
-        android:padding="2dip"
+        android:padding="5dip"
         android:textIsSelectable="false"
         android:gravity="center_horizontal"
         android:paddingRight="10dip"

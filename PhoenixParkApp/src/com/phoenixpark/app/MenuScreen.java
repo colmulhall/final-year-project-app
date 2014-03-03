@@ -9,12 +9,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ShareActionProvider;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class MenuScreen extends Activity
 {
-	private ShareActionProvider myShareActionProvider;
 	@Override
     public void onCreate(Bundle savedInstanceState) 
 	{
@@ -45,12 +43,14 @@ public class MenuScreen extends Activity
 	                startActivity(i);
 	                overridePendingTransition(R.anim.slide_in_right_to_left, R.anim.slide_out_right_to_left);  //sliding animation
             	}
+            	// Static park information selected
             	else if(position == 2)
             	{
 	                Intent i = new Intent(getApplicationContext(), StaticInfoMain.class);
 	                startActivity(i);
 	                overridePendingTransition(R.anim.slide_in_left_to_right, R.anim.slide_out_left_to_right);  //sliding animation
             	}
+            	// Twitter feed selected
             	else if(position == 3)
             	{
 	                Intent i = new Intent(getApplicationContext(), TwitterFeed.class);
@@ -67,25 +67,10 @@ public class MenuScreen extends Activity
 	public boolean onCreateOptionsMenu(Menu menu) 
 	{
     	// Inflate menu resource file.  
-        getMenuInflater().inflate(R.menu.information_menu, menu);  
-        
-        //Getting the actionprovider associated with the menu item whose id is share
-        myShareActionProvider = (ShareActionProvider) menu.findItem(R.id.share).getActionProvider();
- 
-        //Setting a share intent
-        myShareActionProvider.setShareIntent(getDefaultShareIntent());
+        getMenuInflater().inflate(R.menu.menu, menu);  
 
         return true;
 	}
-    
-    //returns share intent
-    private Intent getDefaultShareIntent()
-    {
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT,"Event: ");
-        return intent;
-    }
     
     //action bar listener
     @Override

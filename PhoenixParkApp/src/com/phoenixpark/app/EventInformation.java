@@ -7,11 +7,13 @@ package com.phoenixpark.app;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -21,6 +23,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.ShareActionProvider;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,9 +33,10 @@ public class EventInformation extends Activity
 {
 	 private String url = "http://parkdomain.comoj.com/android_get_event_item.php";
 	 TextView ev_title, ev_desc, ev_date;
+	 ImageView image;
 	 Intent intent;
 	 public String the_id;
-	 public String set_title, set_desc, set_date;
+	 public String set_title, set_desc, set_date, the_location;
 	 private LocalDbManager db;
 	 private ShareActionProvider myShareActionProvider;
 	 
@@ -40,6 +44,7 @@ public class EventInformation extends Activity
 	 private static final String TAG_EVENTS = "event_list";
 	 private static final String TAG_TITLE = "title";
 	 private static final String TAG_DESC = "description";
+	 private static final String TAG_LOCATION = "location";
 	 //private static final String TAG_LINK = "link";
 
 	 // Creating service handler class instance
@@ -128,6 +133,7 @@ public class EventInformation extends Activity
                          
                     set_title = jObject.getString(TAG_TITLE);
                     set_desc = jObject.getString(TAG_DESC);
+                    the_location = jObject.getString(TAG_LOCATION);
                     
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -146,6 +152,12 @@ public class EventInformation extends Activity
         {
         	ev_title.setText(set_title);
         	ev_desc.setText(set_desc);
+        	
+        	//set image to wherever location the event is taking place	
+        	if(the_location.equals("Farmleigh"))
+        		image.setImageResource(R.drawable.farmleigh_house);
+        	else
+        		image.setImageResource(R.drawable.aras_front);
             
             super.onPostExecute(result);
             
@@ -177,7 +189,7 @@ public class EventInformation extends Activity
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_SUBJECT, "SUBJECT");
-        intent.putExtra(Intent.EXTRA_TEXT,"Extra Text");
+        intent.putExtra(Intent.EXTRA_TEXT,"Phoenix Park events");
         return intent;
     }
     

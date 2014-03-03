@@ -108,6 +108,12 @@ public class LocalDbManager
 		context.deleteDatabase(DATABASE_NAME);
 	}
 	
+	//delete a particular country, based on its passed in ID
+	public void deleteCountry(int num)
+	{
+		db.delete(DATABASE_TABLE, KEY_ID + " = " + num, null);
+	}
+	
 	//queue the items in the database
 	public Cursor queueAll()
 	{

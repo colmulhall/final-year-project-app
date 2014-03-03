@@ -23,6 +23,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,15 +32,17 @@ public class NewsInformation extends Activity
 {
 	 private String url = "http://parkdomain.comoj.com/android_get_news_item.php";
 	 TextView news_title, news_desc, news_date;
+	 ImageView image;
 	 Intent intent;
 	 public String the_id;
-	 public String set_title, set_desc, set_date;
+	 public String set_title, set_desc, set_date, the_location;
 	 private LocalDbManager db; //local favorites database
 	 
 	 // JSON Node names
 	 private static final String TAG_NEWS = "news_updates";
 	 private static final String TAG_TITLE = "title";
 	 private static final String TAG_DESC = "description";
+	 private static final String TAG_LOCATION = "location";
 
 	 // Creating service handler class instance
 	 public ServiceHandler sh = new ServiceHandler();
@@ -60,6 +63,7 @@ public class NewsInformation extends Activity
 	    
 	     news_title = (TextView)findViewById(R.id.news_title);
 		 news_desc = (TextView)findViewById(R.id.news_description);
+		 image = (ImageView) findViewById(R.id.image);
 		 
 		 //get ID from the last activity
 		 intent = getIntent();
@@ -127,6 +131,7 @@ public class NewsInformation extends Activity
                          
                     set_title = jObject.getString(TAG_TITLE);
                     set_desc = jObject.getString(TAG_DESC);
+                    the_location = jObject.getString(TAG_LOCATION);
                 } 
                 catch (JSONException e) 
                 {
@@ -146,6 +151,12 @@ public class NewsInformation extends Activity
         {
         	news_title.setText(set_title);
         	news_desc.setText(set_desc);
+        	
+        	//set image to wherever location the news item is referencing
+        	if(the_location.equals("Farmleigh"))
+        		image.setImageResource(R.drawable.farmleigh_house);
+        	else
+        		image.setImageResource(R.drawable.aras_front);
             
             super.onPostExecute(result);
             
