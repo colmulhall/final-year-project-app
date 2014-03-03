@@ -18,6 +18,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,7 +37,7 @@ public class EventInformation extends Activity
 	 ImageView image;
 	 Intent intent;
 	 public String the_id;
-	 public String set_title, set_desc, set_date, the_location;
+	 public String set_title, set_desc, set_date, the_location, the_link;
 	 private LocalDbManager db;
 	 private ShareActionProvider myShareActionProvider;
 	 
@@ -45,7 +46,7 @@ public class EventInformation extends Activity
 	 private static final String TAG_TITLE = "title";
 	 private static final String TAG_DESC = "description";
 	 private static final String TAG_LOCATION = "location";
-	 //private static final String TAG_LINK = "link";
+	 private static final String TAG_LINK = "link";
 
 	 // Creating service handler class instance
 	 public ServiceHandler sh = new ServiceHandler();
@@ -134,6 +135,7 @@ public class EventInformation extends Activity
                     set_title = jObject.getString(TAG_TITLE);
                     set_desc = jObject.getString(TAG_DESC);
                     the_location = jObject.getString(TAG_LOCATION);
+                    the_link = jObject.getString(TAG_LINK);
                     
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -214,6 +216,9 @@ public class EventInformation extends Activity
 			catch (JSONException e) {
 				e.printStackTrace();
 			}
+	      case R.id.link_page:
+	    	  Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(the_link));
+	    	  startActivity(browserIntent);
     	}
         return true;
     }

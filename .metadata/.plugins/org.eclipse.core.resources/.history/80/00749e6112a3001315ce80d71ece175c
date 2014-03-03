@@ -16,7 +16,7 @@
     
     <item
         android:id="@+id/link_page"
-        android:title="web"
+        android:title="@string/content_dsc"
         android:showAsAction="ifRoom"/>
     
 </menu>

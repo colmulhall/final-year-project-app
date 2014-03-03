@@ -14,9 +14,4 @@
         android:showAsAction="ifRoom"
         android:actionProviderClass="android.widget.ShareActionProvider" />
     
-    <item
-        android:id="@+id/link_page"
-        android:title="web"
-        android:showAsAction="ifRoom"/>
-    
 </menu>

@@ -14,58 +14,58 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.ShareActionProvider;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class NewsInformation extends Activity
+public class EventInformation extends Activity
 {
-	 private String url = "http://parkdomain.comoj.com/android_get_news_item.php";
-	 TextView news_title, news_desc, news_date;
+	 private String url = "http://parkdomain.comoj.com/android_get_event_item.php";
+	 TextView ev_title, ev_desc, ev_date;
 	 ImageView image;
 	 Intent intent;
 	 public String the_id;
-	 public String set_title, set_desc, set_date, the_location, the_link;
-	 private LocalDbManager db; //local favorites database
+	 public String set_title, set_desc, set_date, the_location;
+	 private LocalDbManager db;
+	 private ShareActionProvider myShareActionProvider;
 	 
 	 // JSON Node names
-	 private static final String TAG_NEWS = "news_updates";
+	 private static final String TAG_EVENTS = "event_list";
 	 private static final String TAG_TITLE = "title";
 	 private static final String TAG_DESC = "description";
 	 private static final String TAG_LOCATION = "location";
-	 private static final String TAG_LINK = "link";
+	 //private static final String TAG_LINK = "link";
 
 	 // Creating service handler class instance
 	 public ServiceHandler sh = new ServiceHandler();
 	 public String jsonStr;
 	 
 	 // events JSONArray
-	 JSONArray news;
+	 JSONArray events;
 	 
 	 JSONObject jObject;
 	 
 	 // Hashmap for ListView
-	 ArrayList<HashMap<String, String>> newsList;
+	 ArrayList<HashMap<String, String>> eventList;
 	 
 	public void onCreate(Bundle savedInstanceState)
 	{
 	    super.onCreate(savedInstanceState);
-	    setContentView(R.layout.newsinformation_layout);
+	    setContentView(R.layout.eventinformation_layout);
 	    
-	     news_title = (TextView)findViewById(R.id.news_title);
-		 news_desc = (TextView)findViewById(R.id.news_description);
-		 image = (ImageView) findViewById(R.id.image);
+	     ev_title = (TextView)findViewById(R.id.event_title);
+		 ev_desc = (TextView)findViewById(R.id.event_description);
 		 
 		 //get ID from the last activity
 		 intent = getIntent();
@@ -113,7 +113,7 @@ public class NewsInformation extends Activity
         {
             super.onPreExecute();
             // Showing progress dialog
-            progress = ProgressDialog.show(NewsInformation.this, "Getting the news item", "Please Wait...");
+            progress = ProgressDialog.show(EventInformation.this, "Getting event", "Please Wait...");
         }
  
         @Override
@@ -127,17 +127,15 @@ public class NewsInformation extends Activity
                     JSONObject jsonObj = new JSONObject(jsonStr);
                      
                     // Getting JSON Array node
-                    news = jsonObj.getJSONArray(TAG_NEWS);
+                    events = jsonObj.getJSONArray(TAG_EVENTS);
                     
-                    jObject = news.getJSONObject(0);
+                    jObject = events.getJSONObject(0);
                          
                     set_title = jObject.getString(TAG_TITLE);
                     set_desc = jObject.getString(TAG_DESC);
                     the_location = jObject.getString(TAG_LOCATION);
-                    the_link = jObject.getString(TAG_LINK);
-                } 
-                catch (JSONException e) 
-                {
+                    
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
@@ -152,10 +150,10 @@ public class NewsInformation extends Activity
         @Override
         protected void onPostExecute(Void result) 
         {
-        	news_title.setText(set_title);
-        	news_desc.setText(set_desc);
+        	ev_title.setText(set_title);
+        	ev_desc.setText(set_desc);
         	
-        	//set image to wherever location the news item is referencing
+        	//set image to wherever location the event is taking place	
         	if(the_location.equals("Farmleigh"))
         		image.setImageResource(R.drawable.farmleigh_house);
         	else
@@ -169,31 +167,31 @@ public class NewsInformation extends Activity
     }
     
     //action bar
-    @Override
+    @SuppressLint("NewApi")
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) 
 	{
-		//Inflate the menu. This adds items to the action bar if it is present.
-    	MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.information_menu, menu);
+    	// Inflate menu resource file.  
+        getMenuInflater().inflate(R.menu.information_menu, menu);  
+        
+        //Getting the actionprovider associated with the menu item whose id is share
+        myShareActionProvider = (ShareActionProvider) menu.findItem(R.id.share).getActionProvider();
+ 
+        //Setting a share intent
+        myShareActionProvider.setShareIntent(getDefaultShareIntent());
+
         return true;
 	}
-    /*
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-              if (condition) {
-                        // try to see if already exists
-                        MenuItem editItem = menu.findItem(NEW_MENU_ID);
-                        if (editItem == null) {
-                                  menu.add(0, Constant.NEW_MENU_ID, 0, 
-                                  getString(R.string.NEW_MENU_OPTION))
-                                  .setIcon(android.R.drawable.ic_menu_edit)
-                                  .setAlphabeticShortcut(SearchManager.MENU_KEY);
-                        }
-              } else {
-                        // we need to remove it when the condition fails
-                        menu.removeItem(NEW_MENU_ID);
-              }
-    }*/
+    
+    //returns share intent
+    private Intent getDefaultShareIntent()
+    {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "SUBJECT");
+        intent.putExtra(Intent.EXTRA_TEXT,"Phoenix Park events");
+        return intent;
+    }
     
     //action bar listener
     @Override
@@ -216,9 +214,6 @@ public class NewsInformation extends Activity
 			catch (JSONException e) {
 				e.printStackTrace();
 			}
-	      case R.id.link_page:
-	    	  Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(the_link));
-	    	  startActivity(browserIntent);
     	}
         return true;
     }
@@ -228,6 +223,6 @@ public class NewsInformation extends Activity
     public void onBackPressed() 
     {
         finish();//go back to the previous Activity
-        overridePendingTransition(R.anim.slide_in_left_to_right, R.anim.slide_out_left_to_right);   
+        overridePendingTransition(R.anim.slide_in_right_to_left, R.anim.slide_out_right_to_left);   
     }
 }

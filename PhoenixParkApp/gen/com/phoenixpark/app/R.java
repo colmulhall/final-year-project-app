@@ -54,6 +54,7 @@ public final class R {
         public static final int imageView1=0x7f0a000c;
         public static final int item_description=0x7f0a0004;
         public static final int item_title=0x7f0a0003;
+        public static final int link_page=0x7f0a0019;
         public static final int list=0x7f0a0005;
         public static final int news_description=0x7f0a0014;
         public static final int news_title=0x7f0a0013;
