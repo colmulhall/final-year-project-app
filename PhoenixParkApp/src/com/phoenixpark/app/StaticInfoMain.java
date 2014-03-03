@@ -7,7 +7,6 @@ import android.support.v4.view.ViewPager;
 
 public class StaticInfoMain extends FragmentActivity 
 {
-
     @Override
     public void onCreate(Bundle savedInstanceState) 
     {

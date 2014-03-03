@@ -9,20 +9,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
-public class StaticFragment extends Fragment{
-	
+public class StaticFragment extends Fragment
+{	
 	int mCurrentPage;
 	
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) 
+	{
 		super.onCreate(savedInstanceState);
 		
 		/** Getting the arguments to the Bundle object */
 		Bundle data = getArguments();
 		
 		/** Getting integer data of the key current_page from the bundle */
-		mCurrentPage = data.getInt("current_page", 0);
-		
+		mCurrentPage = data.getInt("current_page", 0);		
 	}
 	
 	@Override
@@ -30,18 +30,26 @@ public class StaticFragment extends Fragment{
 	{
 		View v = inflater.inflate(R.layout.fragment_layout, container,false);	
 		
-		TextView tv = (TextView ) v.findViewById(R.id.tv);
-		ImageView img = (ImageView) v.findViewById(R.id.im);
+		ImageView img1 = (ImageView) v.findViewById(R.id.im1);
+		TextView tv1 = (TextView ) v.findViewById(R.id.pt1);
+		ImageView img2 = (ImageView) v.findViewById(R.id.im2);
+		TextView tv2 = (TextView ) v.findViewById(R.id.pt2);
+		ImageView img3 = (ImageView) v.findViewById(R.id.im3);
+		TextView tv3 = (TextView ) v.findViewById(R.id.pt3);
 		
-		if(mCurrentPage == 1)
+		if(mCurrentPage == 1)  // Aras an uachtaran page
 		{
-			//img.setImageResource(R.drawable.ic_action_search);
-			tv.setText("Aras");
+			img1.setImageResource(R.drawable.aras_front);
+			tv1.setText(R.string.aras_an_uachtarain_desc_p1);
+			img2.setImageResource(R.drawable.aras_yard);
+			tv2.setText(R.string.aras_an_uachtarain_desc_p2);
+			img3.setImageResource(R.drawable.aras_reception_room);
+			tv3.setText(R.string.aras_an_uachtarain_desc_p3);
 		}
-		else if(mCurrentPage == 2)
+		else if(mCurrentPage == 2)   // 
 		{
-			img.setImageResource(R.drawable.ic_launcher);
-			tv.setText("Monu");
+			img1.setImageResource(R.drawable.ic_launcher);
+			tv1.setText("hello");
 		}
 		return v;		
 	}
