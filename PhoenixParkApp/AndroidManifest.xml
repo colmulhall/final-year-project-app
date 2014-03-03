@@ -66,6 +66,11 @@
             android:label="@string/app_name" >
         </activity>
         
+        <activity
+            android:name="com.phoenixpark.app.StaticInfoMain"
+            android:label="@string/app_name" >
+        </activity>
+        
     </application>
 
 </manifest>

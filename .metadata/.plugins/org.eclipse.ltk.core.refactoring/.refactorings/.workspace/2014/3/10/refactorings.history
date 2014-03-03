@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Delete resource &apos;MainActivity&apos;" deleteContents="false" description="Delete resource &apos;MainActivity&apos;" element1="/MainActivity" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1393843401566"/>&#x0A;<refactoring comment="Delete resource &apos;android-viewpagertabs&apos;" deleteContents="false" description="Delete resource &apos;android-viewpagertabs&apos;" element1="/android-viewpagertabs" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1393846818831"/>
+</session>
