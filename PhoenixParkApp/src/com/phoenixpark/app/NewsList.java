@@ -6,7 +6,6 @@ package com.phoenixpark.app;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,6 +19,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -34,8 +34,10 @@ public class NewsList extends ListActivity
     private static final String TAG_NEWS = "news_updates";
     private static final String TAG_ID = "id";
     private static final String TAG_TITLE = "title";
-    private static final String TAG_DATE = "date";
     private static final String TAG_LOCATION = "location";
+    private static final String TAG_DATE = "date";
+    
+    ImageView image;
  
     // events JSONArray
     JSONArray news = null;
@@ -148,7 +150,7 @@ public class NewsList extends ListActivity
 
             ListAdapter adapter = new SimpleAdapter( NewsList.this, newsList,
                     R.layout.list_item, new String[] { TAG_TITLE, TAG_ID, TAG_LOCATION, TAG_DATE},
-                    new int[] { R.id.the_title, R.id.the_id, R.id.the_location, R.id.the_date});
+                    new int[] {R.id.the_title, R.id.the_id, R.id.the_date, R.id.the_location});
  
             setListAdapter(adapter);
         }

@@ -14,6 +14,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -25,6 +26,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.ShareActionProvider;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,7 +39,8 @@ public class NewsInformation extends Activity
 	 Intent intent;
 	 public String the_id;
 	 public String set_title, set_desc, set_date, the_location, the_link;
-	 private LocalDbManager db; //local favorites database
+	 private LocalDbManager db;
+	 private ShareActionProvider myShareActionProvider;
 	 
 	 // JSON Node names
 	 private static final String TAG_NEWS = "news_updates";
@@ -169,31 +172,31 @@ public class NewsInformation extends Activity
     }
     
     //action bar
-    @Override
+    @SuppressLint("NewApi")
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) 
 	{
-		//Inflate the menu. This adds items to the action bar if it is present.
-    	MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.information_menu, menu);
+    	// Inflate menu resource file.  
+        getMenuInflater().inflate(R.menu.information_menu, menu);  
+        
+        //Getting the actionprovider associated with the menu item whose id is share
+        myShareActionProvider = (ShareActionProvider) menu.findItem(R.id.share).getActionProvider();
+ 
+        //Setting a share intent
+        myShareActionProvider.setShareIntent(getDefaultShareIntent());
+
         return true;
 	}
-    /*
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-              if (condition) {
-                        // try to see if already exists
-                        MenuItem editItem = menu.findItem(NEW_MENU_ID);
-                        if (editItem == null) {
-                                  menu.add(0, Constant.NEW_MENU_ID, 0, 
-                                  getString(R.string.NEW_MENU_OPTION))
-                                  .setIcon(android.R.drawable.ic_menu_edit)
-                                  .setAlphabeticShortcut(SearchManager.MENU_KEY);
-                        }
-              } else {
-                        // we need to remove it when the condition fails
-                        menu.removeItem(NEW_MENU_ID);
-              }
-    }*/
+    
+    //returns share intent
+    private Intent getDefaultShareIntent()
+    {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "SUBJECT");
+        intent.putExtra(Intent.EXTRA_TEXT,"Phoenix Park news: " + the_link);
+        return intent;
+    }
     
     //action bar listener
     @Override
@@ -209,16 +212,19 @@ public class NewsInformation extends Activity
 				title = jObject.getString(TAG_TITLE);
 				desc = jObject.getString(TAG_DESC);
 
-			    db.insert(title, desc, "24-12-23", "Farmleigh", "www.colm.com");
+			    db.insert(title, desc, "24-12-23", "Farmleigh", the_link);
 				    
 				Toast.makeText(getApplicationContext(), "Added to favorites", Toast.LENGTH_LONG).show();
 			} 
 			catch (JSONException e) {
 				e.printStackTrace();
 			}
+			break;
+			
 	      case R.id.link_page:
 	    	  Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(the_link));
 	    	  startActivity(browserIntent);
+	    	  break;
     	}
         return true;
     }

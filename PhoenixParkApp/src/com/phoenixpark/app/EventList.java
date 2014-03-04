@@ -34,6 +34,7 @@ public class EventList extends ListActivity
     private static final String TAG_EVENTS = "event_list";
     private static final String TAG_ID = "id";
     private static final String TAG_TITLE = "title";
+    private static final String TAG_LOCATION = "location";
     private static final String TAG_DATE = "date";
  
     // events JSONArray
@@ -113,6 +114,7 @@ public class EventList extends ListActivity
                         String the_title = c.getString(TAG_TITLE);
                         String the_id = c.getString(TAG_ID);
                         String the_date = c.getString(TAG_DATE);
+                        String the_location = c.getString(TAG_LOCATION);
  
                         // tmp hashmap for single event
                         HashMap<String, String> event = new HashMap<String, String>();
@@ -120,6 +122,7 @@ public class EventList extends ListActivity
                         // adding each child node to HashMap key => value
                         event.put(TAG_TITLE, the_title);
                         event.put(TAG_ID, the_id);
+                        event.put(TAG_LOCATION, the_location);
                         event.put(TAG_DATE, the_date);
  
                         // adding contact to event list
@@ -144,8 +147,8 @@ public class EventList extends ListActivity
             progress.dismiss();
 
             ListAdapter adapter = new SimpleAdapter( EventList.this, eventList,
-                    R.layout.list_item, new String[] { TAG_TITLE, TAG_ID, TAG_DATE}, new int[] { R.id.the_title,
-                            R.id.the_id, R.id.the_date});
+                    R.layout.list_item, new String[] { TAG_TITLE, TAG_ID, TAG_LOCATION, TAG_DATE}, 
+                    new int[] {R.id.the_title, R.id.the_id, R.id.the_location, R.id.the_date});
  
             setListAdapter(adapter);
         }

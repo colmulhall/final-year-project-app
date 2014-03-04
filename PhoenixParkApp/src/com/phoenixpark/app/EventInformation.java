@@ -67,6 +67,7 @@ public class EventInformation extends Activity
 	    
 	     ev_title = (TextView)findViewById(R.id.event_title);
 		 ev_desc = (TextView)findViewById(R.id.event_description);
+		 image = (ImageView) findViewById(R.id.image);
 		 
 		 //get ID from the last activity
 		 intent = getIntent();
@@ -191,7 +192,7 @@ public class EventInformation extends Activity
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_SUBJECT, "SUBJECT");
-        intent.putExtra(Intent.EXTRA_TEXT,"Phoenix Park events");
+        intent.putExtra(Intent.EXTRA_TEXT,"Phoenix Park event: " + the_link);
         return intent;
     }
     
@@ -200,8 +201,7 @@ public class EventInformation extends Activity
     public boolean onOptionsItemSelected(MenuItem item) 
     {
     	switch (item.getItemId()) 
-    	{	
-    	  
+    	{
 	      case R.id.fav_action:
 			String title, desc;
 			try 
@@ -209,16 +209,19 @@ public class EventInformation extends Activity
 				title = jObject.getString(TAG_TITLE);
 				desc = jObject.getString(TAG_DESC);
 
-			    db.insert(title, desc, "24-12-23", "Farmleigh", "www.colm.com");
+			    db.insert(title, desc, "24-12-23", "Farmleigh", the_link);
 				    
 				Toast.makeText(getApplicationContext(), "Added to favorites", Toast.LENGTH_LONG).show();
 			} 
 			catch (JSONException e) {
 				e.printStackTrace();
 			}
+			break;
+			
 	      case R.id.link_page:
 	    	  Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(the_link));
 	    	  startActivity(browserIntent);
+	    	  break;
     	}
         return true;
     }
