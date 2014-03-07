@@ -34,13 +34,16 @@ public final class R {
         public static final int aras_reception_room=0x7f020001;
         public static final int aras_yard=0x7f020002;
         public static final int events_icon=0x7f020003;
-        public static final int farmleigh_house=0x7f020004;
+        public static final int farmleigh_house_item=0x7f020004;
         public static final int ic_action_favorite=0x7f020005;
         public static final int ic_launcher=0x7f020006;
         public static final int icon=0x7f020007;
-        public static final int news_icon=0x7f020008;
-        public static final int static_info=0x7f020009;
-        public static final int twitter_logo=0x7f02000a;
+        public static final int map_icon=0x7f020008;
+        public static final int news_icon=0x7f020009;
+        public static final int static_info=0x7f02000a;
+        public static final int twitter_logo=0x7f02000b;
+        public static final int visitor_centre_item=0x7f02000c;
+        public static final int zoo_item=0x7f02000d;
     }
     public static final class id {
         public static final int event_description=0x7f0a0002;
@@ -95,17 +98,21 @@ public final class R {
         public static final int app_name=0x7f070000;
         /**  Static information for Áras an Uachtaráin 
          */
-        public static final int aras_an_uachtarain_desc_p1=0x7f070006;
-        public static final int aras_an_uachtarain_desc_p2=0x7f070007;
-        public static final int aras_an_uachtarain_desc_p3=0x7f070008;
-        public static final int aras_an_uachtarain_desc_p4=0x7f070009;
-        public static final int aras_an_uachtaran=0x7f070005;
+        public static final int aras_an_uachtarain_desc_p1=0x7f070007;
+        public static final int aras_an_uachtarain_desc_p2=0x7f070008;
+        public static final int aras_an_uachtarain_desc_p3=0x7f070009;
+        public static final int aras_an_uachtarain_desc_p4=0x7f07000a;
+        public static final int aras_an_uachtaran=0x7f070006;
         public static final int content_desc=0x7f070002;
         public static final int favs=0x7f070004;
         /**  Static information for The Papal Cross 
          */
-        public static final int papal_cross_desc=0x7f07000a;
+        public static final int papal_cross_desc=0x7f07000b;
         public static final int share=0x7f070003;
+        public static final int web=0x7f070005;
+    }
+    public static final class strings {
+        public static final int content_desc=0x7f0b0000;
     }
     public static final class style {
         /** 

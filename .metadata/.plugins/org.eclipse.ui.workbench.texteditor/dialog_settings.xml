@@ -2,9 +2,9 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="263" key="DIALOG_WIDTH"/>
-		<item value="90" key="DIALOG_Y_ORIGIN"/>
+		<item value="155" key="DIALOG_Y_ORIGIN"/>
 		<item value="399" key="DIALOG_HEIGHT"/>
-		<item value="940" key="DIALOG_X_ORIGIN"/>
+		<item value="12" key="DIALOG_X_ORIGIN"/>
 		<item value="1|Lucida Grande|11.0|0|COCOA|1|LucidaGrande" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
@@ -13,16 +13,16 @@
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="Menu" key="selection"/>
+		<item value="tweet" key="selection"/>
 		<list key="findhistory">
+			<item value="tweet"/>
+			<item value="layo"/>
+			<item value="layoi"/>
+			<item value="adap"/>
+			<item value="share"/>
+			<item value="view"/>
+			<item value="list_item"/>
 			<item value="menu"/>
-			<item value="fav"/>
-			<item value="del"/>
-			<item value="ada"/>
-			<item value="infl"/>
-			<item value="the_location"/>
-			<item value="the_date"/>
-			<item value="screen"/>
 		</list>
 		<list key="replacehistory">
 			<item value="dp"/>

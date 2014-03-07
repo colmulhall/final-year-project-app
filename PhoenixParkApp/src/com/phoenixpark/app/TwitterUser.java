@@ -3,8 +3,8 @@ package com.phoenixpark.app;
 import com.google.gson.annotations.SerializedName;
 
 
-public class TwitterUser {
-
+public class TwitterUser 
+{
 	@SerializedName("screen_name")
 	private String screenName;
 

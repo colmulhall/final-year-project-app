@@ -23,7 +23,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.ShareActionProvider;
@@ -160,9 +159,11 @@ public class NewsInformation extends Activity
         	
         	//set image to wherever location the news item is referencing
         	if(the_location.equals("Farmleigh"))
-        		image.setImageResource(R.drawable.farmleigh_house);
+        		image.setImageResource(R.drawable.farmleigh_house_item);
+        	else if(the_location.equals("Visitor Centre"))
+        		image.setImageResource(R.drawable.visitor_centre_item);
         	else
-        		image.setImageResource(R.drawable.aras_front);
+        		image.setImageResource(R.drawable.events_icon);
             
             super.onPostExecute(result);
             
@@ -204,7 +205,6 @@ public class NewsInformation extends Activity
     {
     	switch (item.getItemId()) 
     	{	
-    	  
 	      case R.id.fav_action:
 			String title, desc;
 			try 

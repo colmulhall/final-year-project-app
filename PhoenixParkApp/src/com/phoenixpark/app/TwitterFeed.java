@@ -28,14 +28,15 @@ import java.net.URLEncoder;
 /**
  * Demonstrates how to use a twitter application keys to access a user's timeline
  */
-public class TwitterFeed extends ListActivity {
-
+public class TwitterFeed extends ListActivity 
+{
 	private ListActivity activity;
 	final static String ScreenName = "PhoenixParkDub";
 	final static String LOG_TAG = "rnc";
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) 
+	{
 		super.onCreate(savedInstanceState);
 		activity = this;
 
@@ -43,14 +44,19 @@ public class TwitterFeed extends ListActivity {
 	}
 
 	// download twitter timeline after first checking to see if there is a network connection
-	public void downloadTweets() {
+	public void downloadTweets() 
+	{
 		ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 
-		if (networkInfo != null && networkInfo.isConnected()) {
+		if (networkInfo != null && networkInfo.isConnected()) 
+		{
 			new DownloadTwitterTask().execute(ScreenName);
-		} else {
+		} 
+		else 
+		{
 			Log.v(LOG_TAG, "No network connection available.");
+			
 		}
 	}
 
@@ -64,7 +70,8 @@ public class TwitterFeed extends ListActivity {
 		
 
 		@Override
-		protected String doInBackground(String... screenNames) {
+		protected String doInBackground(String... screenNames) 
+		{
 			String result = null;
 
 			if (screenNames.length > 0) 
@@ -81,7 +88,8 @@ public class TwitterFeed extends ListActivity {
 			Twitter twits = jsonToTwitter(result);
 
 			// lets write the results to the console as well
-			for (Tweet tweet : twits) {
+			for (Tweet tweet : twits) 
+			{
 				Log.i(LOG_TAG, tweet.getText());
 				Log.i(LOG_TAG, tweet.getDateCreated());
 			}
@@ -92,9 +100,11 @@ public class TwitterFeed extends ListActivity {
 		}
 
 		// converts a string of JSON data into a Twitter object
-		private Twitter jsonToTwitter(String result) {
+		private Twitter jsonToTwitter(String result) 
+		{
 			Twitter twits = null;
-			if (result != null && result.length() > 0) {
+			if (result != null && result.length() > 0) 
+			{
 				try {
 					Gson gson = new Gson();
 					twits = gson.fromJson(result, Twitter.class);
@@ -106,9 +116,11 @@ public class TwitterFeed extends ListActivity {
 		}
 
 		// convert a JSON authentication object into an Authenticated object
-		private Authenticated jsonToAuthenticated(String rawAuthorization) {
+		private Authenticated jsonToAuthenticated(String rawAuthorization) 
+		{
 			Authenticated auth = null;
-			if (rawAuthorization != null && rawAuthorization.length() > 0) {
+			if (rawAuthorization != null && rawAuthorization.length() > 0) 
+			{
 				try {
 					Gson gson = new Gson();
 					auth = gson.fromJson(rawAuthorization, Authenticated.class);
@@ -119,7 +131,8 @@ public class TwitterFeed extends ListActivity {
 			return auth;
 		}
 
-		private String getResponseBody(HttpRequestBase request) {
+		private String getResponseBody(HttpRequestBase request) 
+		{
 			StringBuilder sb = new StringBuilder();
 			try {
 
@@ -128,7 +141,8 @@ public class TwitterFeed extends ListActivity {
 				int statusCode = response.getStatusLine().getStatusCode();
 				String reason = response.getStatusLine().getReasonPhrase();
 
-				if (statusCode == 200) {
+				if (statusCode == 200) 
+				{
 
 					HttpEntity entity = response.getEntity();
 					InputStream inputStream = entity.getContent();
@@ -148,7 +162,8 @@ public class TwitterFeed extends ListActivity {
 			return sb.toString();
 		}
 
-		private String getTwitterStream(String screenName) {
+		private String getTwitterStream(String screenName) 
+		{
 			String results = null;
 
 			// Step 1: Encode consumer key and secret
@@ -174,8 +189,8 @@ public class TwitterFeed extends ListActivity {
 
 				// Applications should verify that the value associated with the
 				// token_type key of the returned object is bearer
-				if (auth != null && auth.token_type.equals("bearer")) {
-
+				if (auth != null && auth.token_type.equals("bearer"))
+				{
 					// Step 3: Authenticate API requests with bearer token
 					HttpGet httpGet = new HttpGet(TwitterStreamURL + screenName);
 
