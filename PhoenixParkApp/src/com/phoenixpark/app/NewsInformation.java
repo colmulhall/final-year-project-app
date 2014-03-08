@@ -203,10 +203,11 @@ public class NewsInformation extends Activity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) 
     {
-    	switch (item.getItemId()) 
-    	{	
-	      case R.id.fav_action:
-			String title, desc;
+    	int id = item.getItemId();
+    	
+    	if(id == R.id.fav_action)
+    	{
+    		String title, desc;
 			try 
 			{
 				title = jObject.getString(TAG_TITLE);
@@ -219,12 +220,11 @@ public class NewsInformation extends Activity
 			catch (JSONException e) {
 				e.printStackTrace();
 			}
-			break;
-			
-	      case R.id.link_page:
-	    	  Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(the_link));
+    	}
+    	else if(id == R.id.link_page)
+    	{
+    		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(the_link));
 	    	  startActivity(browserIntent);
-	    	  break;
     	}
         return true;
     }

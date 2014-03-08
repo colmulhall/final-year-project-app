@@ -60,9 +60,9 @@ public class MenuScreen extends Activity
             	 // Map selected
             	else if(position == 4)
             	{
-	                //Intent i = new Intent(getApplicationContext(), TwitterFeed.class);
-	                //startActivity(i);
-	                //overridePendingTransition(R.anim.slide_in_left_to_right, R.anim.slide_out_left_to_right);  //sliding animation
+	                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+	                startActivity(i);
+	                overridePendingTransition(R.anim.slide_in_left_to_right, R.anim.slide_out_left_to_right);  //sliding animation
             	}
             }
         });
@@ -74,7 +74,7 @@ public class MenuScreen extends Activity
 	public boolean onCreateOptionsMenu(Menu menu) 
 	{
     	// Inflate menu resource file.  
-        getMenuInflater().inflate(R.menu.menu, menu);  
+        getMenuInflater().inflate(R.menu.mainscreen_menu, menu);  
 
         return true;
 	}
@@ -83,13 +83,14 @@ public class MenuScreen extends Activity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) 
     {
-    	switch (item.getItemId()) 
+    	int id = item.getItemId();
+    	
+    	// show the users favorite events
+    	if(id == R.id.fav_action)
     	{	
-    	  // show the users favorite events
-	      case R.id.fav_action:
-	    	  Intent i = new Intent(getApplicationContext(), FavoritesList.class);
-              startActivity(i);
-              overridePendingTransition(R.anim.slide_in_left_to_right, R.anim.slide_out_left_to_right);  //sliding animation
+    		Intent i = new Intent(getApplicationContext(), FavoritesList.class);
+            startActivity(i);
+            overridePendingTransition(R.anim.slide_in_left_to_right, R.anim.slide_out_left_to_right);  //sliding animation
     	}
         return true;
     }
