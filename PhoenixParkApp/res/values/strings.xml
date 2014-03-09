@@ -8,6 +8,12 @@
     <string name="favs">Favorites</string>
     <string name="web">Open in browser</string>
     <string name="fav_delete">Delete</string>
+    <string name="enter_title">Event Title:</string>
+    <string name="enter_description">Event Description:</string>
+    <string name="enter_date">Event Date:</string>
+    <string name="enter_location">Event Location:</string>
+    <string name="enter_category">Event Category:</string>
+    <string name="enter_link_contact">Event link/contact:</string>
     <string name="aras_an_uachtaran">Áras an Uachtaráin</string>
     
     <!-- Static information for Áras an Uachtaráin -->

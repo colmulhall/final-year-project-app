@@ -60,11 +60,19 @@ public class MenuScreen extends Activity
             	 // Map selected
             	else if(position == 4)
             	{
-	                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+	                Intent i = new Intent(getApplicationContext(), SubmitEvent.class);
+	                startActivity(i);
+	                overridePendingTransition(R.anim.slide_in_left_to_right, R.anim.slide_out_left_to_right);  //sliding animation
+            	}
+            	 // User events selected
+            	else if(position == 5)
+            	{
+	                Intent i = new Intent(getApplicationContext(), UserSubmittedList.class);
 	                startActivity(i);
 	                overridePendingTransition(R.anim.slide_in_left_to_right, R.anim.slide_out_left_to_right);  //sliding animation
             	}
             }
+            
         });
 	}
 	

@@ -54,6 +54,8 @@ public class MainActivity extends FragmentActivity //implements OnMapClickListen
 	     myCriteria = new Criteria();
 	     myCriteria.setAccuracy(Criteria.ACCURACY_FINE);
 	     myLocationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
+	     
+	    
 	 }
 			  
 	 public void onLocationChanged(Location location) 

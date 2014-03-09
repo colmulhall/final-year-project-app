@@ -49,7 +49,7 @@ public class NewsInformation extends Activity
 	 private static final String TAG_LINK = "link";
 
 	 // Creating service handler class instance
-	 public ServiceHandler sh = new ServiceHandler();
+	 public HandleConnections sh = new HandleConnections();
 	 public String jsonStr;
 	 
 	 // events JSONArray
@@ -76,7 +76,7 @@ public class NewsInformation extends Activity
 		 
 		 //Open favorites database to write
 	     db = new LocalDbManager(this);
-	     db.openToWrite();
+	     db.openFavsToWrite();
 
 	    new UploadTask().execute();
 	}
@@ -89,7 +89,7 @@ public class NewsInformation extends Activity
 	        // Add and send the ID to the PHP file
 			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 			nameValuePairs.add(new BasicNameValuePair("id", the_id));
-			jsonStr = sh.makeServiceCall(url, ServiceHandler.POST, nameValuePairs);
+			jsonStr = sh.makeServiceCall(url, HandleConnections.POST, nameValuePairs);
 
 			return jsonStr;
 	    }
@@ -213,7 +213,7 @@ public class NewsInformation extends Activity
 				title = jObject.getString(TAG_TITLE);
 				desc = jObject.getString(TAG_DESC);
 
-			    db.insert(title, desc, "24-12-23", "Farmleigh", the_link);
+			    db.insertFav(title, desc, "24-12-23", "Farmleigh", the_link);
 				    
 				Toast.makeText(getApplicationContext(), "Added to favorites", Toast.LENGTH_LONG).show();
 			} 

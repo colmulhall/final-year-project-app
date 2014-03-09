@@ -1,0 +1,50 @@
+package com.phoenixpark.app;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.Typeface;
+import android.os.Build;
+import android.os.Bundle;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.view.ViewGroup;
+
+public class SubmitEvent extends Activity
+{
+	private TextView enterTitle, enterDesc, enterDate, enterLocation, enterContact_link;
+	private EditText editTitle, editDesc, editDate, editLocation, editContact_Link;
+	
+    @Override
+    public void onCreate(Bundle savedInstanceState) 
+    {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.submit_event_layout);
+        
+        //set up a custom font for textviews to use
+        //REFERENCE: This font was downloaded from http://www.fontspace.com/category/android
+        Typeface font = Typeface.createFromAsset(getAssets(), "Days.otf");  
+        
+        // textviews
+        enterTitle = (TextView)findViewById(R.id.enter_title);
+        enterDesc = (TextView)findViewById(R.id.enter_desc);
+        enterDate = (TextView)findViewById(R.id.enter_date);
+        enterLocation = (TextView)findViewById(R.id.enter_location);
+        enterContact_link = (TextView)findViewById(R.id.enter_contactlink);
+    }
+}

@@ -30,20 +30,20 @@ public class FavoritesList extends Activity implements AdapterView.OnItemClickLi
         
         //Open database to read
         db = new LocalDbManager(this);
-        db.openToRead();
+        db.openFavsToRead();
         
         //check if any favorites have been added. If not end the activity with a message
         if(db.countFavs() > 0)
         {
-	        cursor = db.orderList();
+	        cursor = db.orderListFav();
 	        
 	        String[] from = new String[]{
-	        		LocalDbManager.KEY_EVENT_TITLE, 
-	        		LocalDbManager.KEY_ID,
-	        		LocalDbManager.KEY_EVENT_DESCRIPTION,
-	        		LocalDbManager.KEY_EVENT_LOCATION,
-	        		LocalDbManager.KEY_EVENT_DATE,
-	        		LocalDbManager.KEY_EVENT_LINK};
+	        		LocalDbManager.KEY_FAV_EVENT_TITLE, 
+	        		LocalDbManager.KEY_FAV_ID,
+	        		LocalDbManager.KEY_FAV_EVENT_DESCRIPTION,
+	        		LocalDbManager.KEY_FAV_EVENT_LOCATION,
+	        		LocalDbManager.KEY_FAV_EVENT_DATE,
+	        		LocalDbManager.KEY_FAV_EVENT_LINK};
 	        int[] to = new int[]{R.id.the_title};
 	
 	        @SuppressWarnings("deprecation")

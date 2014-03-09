@@ -91,10 +91,10 @@ public class EventList extends ListActivity
         protected Void doInBackground(Void... arg0) 
         {
             // Creating service handler class instance
-            ServiceHandler sh = new ServiceHandler();
+            HandleConnections sh = new HandleConnections();
  
             // Making a request to url and getting response
-            String jsonStr = sh.makeServiceCall(url, ServiceHandler.GET);
+            String jsonStr = sh.makeServiceCall(url, HandleConnections.GET);
  
             Log.d("Response: ", "> " + jsonStr);
  

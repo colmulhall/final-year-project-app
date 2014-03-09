@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- This is the layout for the add country class.  It 
+	 includes textviews, edittexts, spinners and buttons. 
+	 The buttons are in a relative layout and the rest is 
+	 in a linear layout -->
+	 
+<LinearLayout 
+   	    xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:orientation="vertical"
+	    android:background="@drawable/map" 
+	    android:scrollbars = "vertical"
+	    android:focusable="true"
+	    android:focusableInTouchMode="true" >
+	
+	    <!-- Enter country -->
+	    <TextView
+        android:id="@+id/enter_country"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:nextFocusUp="@id/enter_country" 
+        android:nextFocusLeft="@id/enter_country"
+        android:text="@string/editcountry"
+        android:textColor="@color/black"
+        android:textSize="22sp" />
+	
+	    <AutoCompleteTextView 
+	        android:id="@+id/editcountry"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content" 
+			android:hint="@string/hintprompt"
+			android:inputType="textCapSentences" 
+			android:imeOptions="actionDone"
+			android:gravity="center_horizontal" />
+	
+	    <!-- Enter year -->
+	    <TextView
+        android:id="@+id/enter_year"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/edityear"
+        android:textColor="@color/black"
+        android:textSize="22sp" />
+	
+	    <Spinner
+	        android:id="@+id/yearspin"
+	        android:layout_width="fill_parent"
+	        android:layout_height="35dp" />
+	
+	    <!-- Enter month -->
+	    <TextView
+        android:id="@+id/enter_month"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/editmonth"
+        android:textColor="@color/black"
+        android:textSize="22sp" />
+	    
+	    <Spinner
+	        android:id="@+id/monthspin"
+	        android:layout_width="fill_parent"
+	        android:layout_height="35dp"
+	        android:textColor="@color/black"
+	        android:entries="@array/months"
+	        android:visibility="visible" />
+	    
+	    <!-- Enter mode of transport -->
+	    <TextView
+        android:id="@+id/enter_transport"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/edittransport"
+        android:textColor="@color/black"
+        android:textSize="22sp" />
+	    
+	    <Spinner
+	        android:id="@+id/transportspin"
+	        android:layout_width="fill_parent"
+	        android:layout_height="35dp"
+	        android:entries="@array/transport" />
+	    
+	    <!-- Enter description -->
+	    <TextView
+        android:id="@+id/enter_desc"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/editdesc"
+        android:textColor="@color/black"
+        android:textSize="22sp" />
+	
+	    <EditText
+	        android:id="@+id/editdesc"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:hint="@string/hintprompt"
+	        android:inputType="textCapSentences" 
+	        android:imeOptions="actionDone"/>
+	
+	    	<!-- Place buttons at the bottom of the screen -->
+		    <RelativeLayout 
+			    android:layout_width="fill_parent"
+			    android:layout_height="fill_parent"
+			    android:orientation="vertical" >
+		
+			    <Button
+			        android:id="@+id/backmain"
+			        android:layout_width="150dp"
+			        android:layout_height="50dp"
+			        android:layout_alignParentBottom="true"
+			        android:layout_alignParentLeft="true"
+			        android:textColor="@color/white"
+			        android:text="@string/back" />
+	
+			    <Button
+			        android:id="@+id/add"
+			        android:layout_width="150dp"
+			        android:layout_height="50dp"
+			        android:layout_alignParentBottom="true"
+			        android:layout_alignParentRight="true"
+			        android:textColor="@color/white"
+			        android:text="@string/addinfo" />
+			    
+		</RelativeLayout>
+</LinearLayout>

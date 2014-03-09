@@ -1,6 +1,7 @@
 package com.phoenixpark.app;
 
 import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -56,19 +57,27 @@ public class TwitterFeed extends ListActivity
 		else 
 		{
 			Log.v(LOG_TAG, "No network connection available.");
-			
 		}
 	}
 
 	// Uses an AsyncTask to download a Twitter user's timeline
 	private class DownloadTwitterTask extends AsyncTask<String, Void, String> 
 	{
+		private ProgressDialog progress; 
 		final static String CONSUMER_KEY = "Xolpog0eUrMKf5uEbR8Ug";
 		final static String CONSUMER_SECRET = "fzuYY8oXvNyiL7y4hX0Z6FfNVo5wylmOwiHYYGdV9g";
 		final static String TwitterTokenURL = "https://api.twitter.com/oauth2/token";
 		final static String TwitterStreamURL = "https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=";
 		
 
+		 @Override
+	     protected void onPreExecute() 
+	     {
+			 super.onPreExecute();
+	         // Showing progress dialog
+	         progress = ProgressDialog.show(TwitterFeed.this, "Getting latest tweets", "Please Wait...");
+	     }
+		 
 		@Override
 		protected String doInBackground(String... screenNames) 
 		{
@@ -97,6 +106,9 @@ public class TwitterFeed extends ListActivity
 			// send the tweets to the adapter for rendering
 			ArrayAdapter<Tweet> adapter = new ArrayAdapter<Tweet>(activity, android.R.layout.simple_list_item_1, twits);
 			setListAdapter(adapter);
+			
+			// Dismiss the progress dialog
+            progress.dismiss();
 		}
 
 		// converts a string of JSON data into a Twitter object

@@ -1,0 +1,50 @@
+package com.phoenixpark.app;
+
+import android.app.Activity;
+import android.graphics.Typeface;
+import android.os.Bundle;
+import android.widget.EditText;
+import android.widget.TextView;
+
+public class SubmitEvent extends Activity
+{
+	private String url = "http://parkdomain.comoj.com/android_get_event_item.php";
+	private TextView enterTitle, enterDesc, enterDate, enterLocation, enter_Category, enterContact_link;
+	private EditText editTitle, editDesc, editDate, editLocation, editCategory, editContact_Link;
+	
+	// JSON Node names
+	private static final String TAG_TABLE_NAME = "user_events";
+    private static final String TAG_TITLE = "title";
+	private static final String TAG_DESC = "description";
+	private static final String TAG_DATE = "date";
+	private static final String TAG_LOCATION = "location";
+	private static final String TAG_CATEGORY = "category";
+	private static final String TAG_LINK_CONTACT = "link_contact";
+	
+    @Override
+    public void onCreate(Bundle savedInstanceState) 
+    {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.submit_event_layout);
+        
+        //set up a custom font for textviews to use
+        //REFERENCE: This font was downloaded from http://www.fontspace.com/category/android
+        Typeface font = Typeface.createFromAsset(getAssets(), "Days.otf");  
+        
+        // textviews
+        enterTitle = (TextView)findViewById(R.id.enter_title);
+        enterDesc = (TextView)findViewById(R.id.enter_desc);
+        enterDate = (TextView)findViewById(R.id.enter_date);
+        enterLocation = (TextView)findViewById(R.id.enter_location);
+        enter_Category = (TextView)findViewById(R.id.enter_category);
+        enterContact_link = (TextView)findViewById(R.id.enter_contactlink);
+        
+        //edittexts
+        editTitle = (EditText)findViewById(R.id.title_enter);
+        editDesc = (EditText)findViewById(R.id.desc_enter);
+        editDate = (EditText)findViewById(R.id.date_enter);
+        editLocation = (EditText)findViewById(R.id.location_enter);
+        editCategory = (EditText)findViewById(R.id.category_enter);
+        editContact_Link = (EditText)findViewById(R.id.contactlink_enter);
+    }
+}

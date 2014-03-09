@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout 
+   	    xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:orientation="vertical"
+	    android:scrollbars = "vertical"
+	    android:focusable="true"
+	    android:focusableInTouchMode="true" >
+	
+	    <!-- Enter title for event -->
+	    <TextView
+        android:id="@+id/enter_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:nextFocusUp="@id/enter_country" 
+        android:nextFocusLeft="@id/enter_country"
+        android:text="@string/enter_title"
+        android:textSize="22sp" />
+	    
+	    <EditText
+	        android:id="@+id/title_enter"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:inputType="textCapSentences" 
+	        android:imeOptions="actionDone"/>
+	
+	    <!-- Enter description of event -->
+	    <TextView
+        android:id="@+id/enter_desc"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/enter_description"
+        android:textSize="22sp" />
+	    
+	    <EditText
+	        android:id="@+id/desc_enter"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:inputType="textCapSentences" 
+	        android:imeOptions="actionDone"/>
+	
+	    <!-- Enter date of event -->
+	    <TextView
+        android:id="@+id/enter_date"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/enter_date"
+        android:textSize="22sp" />
+	    
+	    <EditText
+	        android:id="@+id/date_enter"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:inputType="textCapSentences" 
+	        android:imeOptions="actionDone"/>
+	    
+	    <!-- Enter location of event -->
+	    <TextView
+        android:id="@+id/enter_location"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/enter_location"
+        android:textSize="22sp" />
+	    
+	    <EditText
+	        android:id="@+id/location_enter"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:inputType="textCapSentences" 
+	        android:imeOptions="actionDone"/>
+	    
+	    <!-- Enter link/contact -->
+	    <TextView
+        android:id="@+id/enter_contactlink"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/enter_link_contact"
+        android:textSize="22sp" />
+	
+	    <EditText
+	        android:id="@+id/contactlink_enter"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:inputType="textCapSentences" 
+	        android:imeOptions="actionDone"/>
+	    
+</LinearLayout>

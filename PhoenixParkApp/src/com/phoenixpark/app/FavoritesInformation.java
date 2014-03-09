@@ -35,13 +35,13 @@ public class FavoritesInformation extends Activity
 		
 		//open database to read and begin selecting its information
 		db = new LocalDbManager(this);
-		db.openToRead();
+		db.openFavsToRead();
 		
 		//get information from the local database for the item
-		title = db.getItemTitle(id);
-		desc = db.getItemDesc(id);
+		title = db.getFavTitle(id);
+		desc = db.getFavDesc(id);
 		//location = db.getItemLocation(id);
-		link = db.getItemLink(id);
+		link = db.getFavLink(id);
 		
 		//set the text of each TextView to the information in the database
 		the_title.setText(title);

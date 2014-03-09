@@ -2,33 +2,37 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="263" key="DIALOG_WIDTH"/>
-		<item value="155" key="DIALOG_Y_ORIGIN"/>
+		<item value="137" key="DIALOG_Y_ORIGIN"/>
+		<item value="826" key="DIALOG_X_ORIGIN"/>
 		<item value="399" key="DIALOG_HEIGHT"/>
-		<item value="12" key="DIALOG_X_ORIGIN"/>
 		<item value="1|Lucida Grande|11.0|0|COCOA|1|LucidaGrande" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="true" key="wrap"/>
-		<item value="false" key="isRegEx"/>
 		<item value="false" key="casesensitive"/>
+		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="tweet" key="selection"/>
+		<item value="null" key="selection"/>
 		<list key="findhistory">
-			<item value="tweet"/>
-			<item value="layo"/>
-			<item value="layoi"/>
-			<item value="adap"/>
-			<item value="share"/>
-			<item value="view"/>
-			<item value="list_item"/>
-			<item value="menu"/>
+			<item value="null"/>
+			<item value="params"/>
+			<item value="KEY_LOC_EVENT_LOCATION"/>
+			<item value="KEY_LOC_EVENT_DATE"/>
+			<item value="KEY_LOC_EVENT_DESCRIPTION"/>
+			<item value="KEY_LOC_EVENT_TITLE"/>
+			<item value="DATABASE_TABLE"/>
+			<item value="KEY_EVENT_LINK"/>
 		</list>
 		<list key="replacehistory">
-			<item value="dp"/>
-			<item value="TAG_ID"/>
-			<item value="url_all_events"/>
-			<item value="eventsList"/>
+			<item value="KEY_LOC_LOCATION"/>
+			<item value="KEY_LOC_DATE"/>
+			<item value="KEY_LOC_DESCRIPTION"/>
+			<item value="KEY_LOC_TITLE"/>
+			<item value="FAV_DATABASE_TABLE"/>
+			<item value="KEY_FAV_EVENT_LINK"/>
+			<item value="KEY_FAV_EVENT_LOCATION"/>
+			<item value="KEY_FAV_EVENT_DATE"/>
 		</list>
 	</section>
 </section>

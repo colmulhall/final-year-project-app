@@ -22,7 +22,8 @@ public class MenuItems extends BaseAdapter
             R.drawable.news_icon,
             R.drawable.static_info,
             R.drawable.twitter_logo,
-            R.drawable.map_icon
+            R.drawable.map_icon,
+            R.drawable.visitor_centre_item
     };
  
     // Constructor

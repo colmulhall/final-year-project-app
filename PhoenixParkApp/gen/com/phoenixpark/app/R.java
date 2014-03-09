@@ -241,10 +241,20 @@ containing a value of this type.
         public static final int zoo_item=0x7f020029;
     }
     public static final class id {
-        public static final int delete_fav=0x7f060021;
+        public static final int category_enter=0x7f060028;
+        public static final int contactlink_enter=0x7f06002a;
+        public static final int date_enter=0x7f060024;
+        public static final int delete_fav=0x7f06002e;
+        public static final int desc_enter=0x7f060022;
+        public static final int enter_category=0x7f060027;
+        public static final int enter_contactlink=0x7f060029;
+        public static final int enter_date=0x7f060023;
+        public static final int enter_desc=0x7f060021;
+        public static final int enter_location=0x7f060025;
+        public static final int enter_title=0x7f06001f;
         public static final int event_description=0x7f060008;
         public static final int event_title=0x7f060006;
-        public static final int fav_action=0x7f060022;
+        public static final int fav_action=0x7f06002f;
         public static final int grid_view=0x7f06001a;
         public static final int hybrid=0x7f060004;
         public static final int im1=0x7f06000c;
@@ -255,8 +265,9 @@ containing a value of this type.
         public static final int image_list=0x7f060015;
         public static final int item_description=0x7f06000a;
         public static final int item_title=0x7f060009;
-        public static final int link_page=0x7f060020;
+        public static final int link_page=0x7f06002d;
         public static final int list=0x7f06000b;
+        public static final int location_enter=0x7f060026;
         public static final int map=0x7f060005;
         public static final int news_description=0x7f06001c;
         public static final int news_title=0x7f06001b;
@@ -269,13 +280,15 @@ containing a value of this type.
         public static final int pt3=0x7f060011;
         public static final int satellite=0x7f060002;
         public static final int section_label=0x7f060013;
-        public static final int share=0x7f06001f;
+        public static final int share=0x7f06002c;
+        public static final int submit_button=0x7f06002b;
         public static final int terrain=0x7f060003;
         public static final int the_date=0x7f060019;
         public static final int the_id=0x7f060017;
         public static final int the_location=0x7f060018;
         public static final int the_title=0x7f060016;
         public static final int thumbnail=0x7f060014;
+        public static final int title_enter=0x7f060020;
     }
     public static final class integer {
         public static final int google_play_services_version=0x7f080000;
@@ -294,6 +307,8 @@ containing a value of this type.
         public static final int newslist_layout=0x7f03000a;
         public static final int row=0x7f03000b;
         public static final int static_info_main_layout=0x7f03000c;
+        public static final int submit_event_layout=0x7f03000d;
+        public static final int usersubmittedlist_layout=0x7f03000e;
     }
     public static final class menu {
         public static final int favorites_information_menu=0x7f0b0000;
@@ -305,11 +320,11 @@ containing a value of this type.
         public static final int app_name=0x7f07001a;
         /**  Static information for Áras an Uachtaráin 
          */
-        public static final int aras_an_uachtarain_desc_p1=0x7f070022;
-        public static final int aras_an_uachtarain_desc_p2=0x7f070023;
-        public static final int aras_an_uachtarain_desc_p3=0x7f070024;
-        public static final int aras_an_uachtarain_desc_p4=0x7f070025;
-        public static final int aras_an_uachtaran=0x7f070021;
+        public static final int aras_an_uachtarain_desc_p1=0x7f070028;
+        public static final int aras_an_uachtarain_desc_p2=0x7f070029;
+        public static final int aras_an_uachtarain_desc_p3=0x7f07002a;
+        public static final int aras_an_uachtarain_desc_p4=0x7f07002b;
+        public static final int aras_an_uachtaran=0x7f070027;
         /**   Title for notification shown when GooglePlayServices needs to be
         enabled for a application to work. [CHAR LIMIT=70] 
          */
@@ -405,11 +420,17 @@ containing a value of this type.
          */
         public static final int common_signin_button_text_long=0x7f070013;
         public static final int content_desc=0x7f07001c;
+        public static final int enter_category=0x7f070025;
+        public static final int enter_date=0x7f070023;
+        public static final int enter_description=0x7f070022;
+        public static final int enter_link_contact=0x7f070026;
+        public static final int enter_location=0x7f070024;
+        public static final int enter_title=0x7f070021;
         public static final int fav_delete=0x7f070020;
         public static final int favs=0x7f07001e;
         /**  Static information for The Papal Cross 
          */
-        public static final int papal_cross_desc=0x7f070026;
+        public static final int papal_cross_desc=0x7f07002c;
         public static final int share=0x7f07001d;
         public static final int web=0x7f07001f;
     }
