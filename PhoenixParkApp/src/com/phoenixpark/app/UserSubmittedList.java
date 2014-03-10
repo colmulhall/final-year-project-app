@@ -11,12 +11,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -95,11 +98,9 @@ public class UserSubmittedList extends ListActivity
  
             // Making a request to url and getting response
             String jsonStr = sh.makeServiceCall(url, HandleConnections.GET);
- 
-            Log.d("Response: ", "> " + jsonStr);
- 
-            if (jsonStr != null) 
-            {
+
+            if (jsonStr != null)
+            {      		
                 try {
                     JSONObject jsonObj = new JSONObject(jsonStr);
                      
@@ -154,11 +155,38 @@ public class UserSubmittedList extends ListActivity
         }
     }
     
+  //action bar
+    @SuppressLint("NewApi")
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) 
+	{
+    	// Inflate menu resource file.  
+        getMenuInflater().inflate(R.menu.usersubmittedlist_menu, menu);
+
+        return true;
+	}
+    
+    //action bar listener
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) 
+    {
+    	int id = item.getItemId();
+    	
+    	if(id == R.id.submit_event)
+    	{
+    		// Starting single contact activity
+            Intent in = new Intent(getApplicationContext(), SubmitEvent.class);
+            startActivity(in);
+            overridePendingTransition(R.anim.slidedown_in, R.anim.slidedown_out);  
+    	}
+        return true;
+    }
+    
     //back button pressed by user
     @Override
     public void onBackPressed() 
     {
         finish();//go back to the previous Activity
-        overridePendingTransition(R.anim.slide_in_right_to_left, R.anim.slide_out_right_to_left);   
+        overridePendingTransition(R.anim.slide_in_left_to_right, R.anim.slide_out_left_to_right);   
     }
 }

@@ -8,6 +8,7 @@
     <string name="favs">Favorites</string>
     <string name="web">Open in browser</string>
     <string name="fav_delete">Delete</string>
+    <string name="add_event">+</string>
     <string name="enter_title">Event Title:</string>
     <string name="enter_description">Event Description:</string>
     <string name="enter_date">Event Date:</string>

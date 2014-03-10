@@ -1,6 +1,0 @@
-package com.phoenixpark.app;
-
-public class SubmitEvent 
-{
-	
-}

@@ -10,13 +10,14 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SubmitEvent extends Activity
 {
@@ -109,6 +110,17 @@ public class SubmitEvent extends Activity
 	    	progress.dismiss();
 	        // process the result
 	        super.onPostExecute(result);
+	        finish(); 
+
+	        Toast.makeText(getApplicationContext(), "Event submitted", Toast.LENGTH_SHORT).show();
 	    }
+    }
+    
+    // back button pressed by user
+    @Override
+    public void onBackPressed() 
+    {
+        finish();//go back to the previous Activity
+        overridePendingTransition(R.anim.slideup_in, R.anim.slideup_out);   
     }
 }

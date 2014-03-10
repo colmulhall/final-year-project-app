@@ -212,7 +212,7 @@ public class EventInformation extends Activity
 
 			    db.insertFav(title, desc, "24-12-23", "Farmleigh", the_link);
 				    
-				Toast.makeText(getApplicationContext(), "Added to favorites", Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), "Added to favorites", Toast.LENGTH_SHORT).show();
 			} 
 			catch (JSONException e) {
 				e.printStackTrace();

@@ -78,6 +78,14 @@ public class FavoritesList extends Activity implements AdapterView.OnItemClickLi
     	startActivity(i);
 	}
     
+    // back button pressed by user
+    @Override
+    public void onBackPressed() 
+    {
+        finish();//go back to the previous Activity
+        overridePendingTransition(R.anim.slideup_in, R.anim.slideup_out);   
+    }
+    
     @Override
 	protected void onResume()
 	{
