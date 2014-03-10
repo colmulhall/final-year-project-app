@@ -13,6 +13,7 @@ import java.util.List;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
@@ -39,13 +40,20 @@ public class DirectionsTo extends FragmentActivity implements LocationListener
     protected LocationManager locationManager;
     protected LocationListener locationListener;
     protected String latitude,longitude;
+    private Intent intent;
     private String url;
+    private LocalDbManager db;
+    public String the_location;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.directionsto_layout);
+        
+        //Open locations database to write
+	    db = new LocalDbManager(this);
+	    db.openLocsToRead();
  
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
@@ -67,6 +75,18 @@ public class DirectionsTo extends FragmentActivity implements LocationListener
         // Getting Current Location
         location = locationManager.getLastKnownLocation(provider);
         
+        //get location of this event/news item
+        //get ID from the last activity
+		intent = getIntent();
+        the_location = intent.getExtras().getString("loc");
+        
+        //get lat/long from local database
+        String lt = db.getLocLatitude(the_location);
+        String lg = db.getLocLongitude(the_location);
+        
+        //parse these from string to double so they can be plotted on a map
+        double lat = Double.parseDouble(lt);
+        double lng = Double.parseDouble(lg);
         
         if(map != null)
         {
@@ -74,7 +94,7 @@ public class DirectionsTo extends FragmentActivity implements LocationListener
             map.setMyLocationEnabled(true);
             
             LatLng origin = new LatLng(location.getLatitude(), location.getLongitude());
-        	LatLng dest = new LatLng(53.349052, -6.303136);
+        	LatLng dest = new LatLng(lat, lng);
 
             // Getting URL to the Google Directions API
             String url = getDirectionsUrl(origin, dest);
@@ -263,8 +283,8 @@ public class DirectionsTo extends FragmentActivity implements LocationListener
 
 		LatLng latLng = new LatLng(lat, lng);
 		
-		//DownloadTask downloadTask = new DownloadTask();
-        //downloadTask.execute(url);
+		DownloadTask downloadTask = new DownloadTask();
+        downloadTask.execute(url);
 
 		// Showing the current location in Google Map
 	    //map.moveCamera(CameraUpdateFactory.newLatLng(latLng));

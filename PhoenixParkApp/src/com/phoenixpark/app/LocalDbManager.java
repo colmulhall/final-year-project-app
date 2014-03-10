@@ -377,21 +377,19 @@ public class LocalDbManager
 		return cursor.getString(0);
 	 }
 		
-	public String getLocLatitiude(int num)
+	public String getLocLatitude(String location)
 	{
-		Cursor cursor = db.query(LOC_DATABASE_TABLE, new String[] {"latitude"}, 
-				"_id like " + num, null, null, null, null);
-			
-		cursor.moveToFirst();
-		return cursor.getString(0);
+		Cursor c = db.rawQuery("SELECT latitude FROM " +LOC_DATABASE_TABLE+ " where title="+"'"+location+"'" , null);
+
+		c.moveToFirst();
+		return c.getString(0);
 	 }
 		
-	public String getLocLongitude(int num)
+	public String getLocLongitude(String location)
 	{
-		Cursor cursor = db.query(LOC_DATABASE_TABLE, new String[] {"longitude"}, 
-				"_id like " + num, null, null, null, null);
-			
-		cursor.moveToFirst();
-		return cursor.getString(0);
+		Cursor c = db.rawQuery("SELECT longitude FROM " +LOC_DATABASE_TABLE+ " where title="+"'"+location+"'" , null);
+
+		c.moveToFirst();
+		return c.getString(0);
 	 }
 }

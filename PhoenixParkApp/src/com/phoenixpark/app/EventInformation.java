@@ -41,6 +41,9 @@ public class EventInformation extends Activity
 	 private LocalDbManager db;
 	 private ShareActionProvider myShareActionProvider;
 	 
+	 // Tag to send location to maps
+	 private static final String TAG_LOC = "loc";
+	 
 	 // JSON Node names
 	 private static final String TAG_EVENTS = "event_list";
 	 private static final String TAG_TITLE = "title";
@@ -226,6 +229,7 @@ public class EventInformation extends Activity
     	else if(id == R.id.map_directions)
     	{
     		Intent in = new Intent(getApplicationContext(), DirectionsTo.class);
+    		in.putExtra(TAG_LOC, the_location);
             startActivity(in);
 	    	overridePendingTransition(R.anim.slidedown_in, R.anim.slidedown_out);
     	}

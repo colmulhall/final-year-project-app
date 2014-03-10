@@ -90,13 +90,11 @@ public class EventList extends ListActivity
         @Override
         protected Void doInBackground(Void... arg0) 
         {
-            // Creating service handler class instance
+            // Creating connection handler class instance
             HandleConnections sh = new HandleConnections();
  
             // Making a request to url and getting response
             String jsonStr = sh.makeServiceCall(url, HandleConnections.GET);
- 
-            Log.d("Response: ", "> " + jsonStr);
  
             if (jsonStr != null) 
             {
