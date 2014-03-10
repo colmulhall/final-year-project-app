@@ -273,6 +273,7 @@ containing a value of this type.
         public static final int list=0x7f06000b;
         public static final int location_enter=0x7f060026;
         public static final int map=0x7f060005;
+        public static final int map_directions=0x7f060030;
         public static final int news_description=0x7f06001c;
         public static final int news_title=0x7f06001b;
         public static final int none=0x7f060000;
@@ -286,7 +287,7 @@ containing a value of this type.
         public static final int section_label=0x7f060013;
         public static final int share=0x7f06002c;
         public static final int submit_button=0x7f06002b;
-        public static final int submit_event=0x7f060030;
+        public static final int submit_event=0x7f060031;
         public static final int terrain=0x7f060003;
         public static final int the_date=0x7f060019;
         public static final int the_id=0x7f060017;
@@ -299,7 +300,7 @@ containing a value of this type.
         public static final int google_play_services_version=0x7f080000;
     }
     public static final class layout {
-        public static final int activity_main=0x7f030000;
+        public static final int directionsto_layout=0x7f030000;
         public static final int eventinformation_layout=0x7f030001;
         public static final int eventlist_layout=0x7f030002;
         public static final int favorites_information_layout=0x7f030003;
@@ -323,15 +324,15 @@ containing a value of this type.
     }
     public static final class string {
         public static final int action_settings=0x7f07001b;
-        public static final int add_event=0x7f070021;
+        public static final int add_event=0x7f070022;
         public static final int app_name=0x7f07001a;
         /**  Static information for Áras an Uachtaráin 
          */
-        public static final int aras_an_uachtarain_desc_p1=0x7f070029;
-        public static final int aras_an_uachtarain_desc_p2=0x7f07002a;
-        public static final int aras_an_uachtarain_desc_p3=0x7f07002b;
-        public static final int aras_an_uachtarain_desc_p4=0x7f07002c;
-        public static final int aras_an_uachtaran=0x7f070028;
+        public static final int aras_an_uachtarain_desc_p1=0x7f07002a;
+        public static final int aras_an_uachtarain_desc_p2=0x7f07002b;
+        public static final int aras_an_uachtarain_desc_p3=0x7f07002c;
+        public static final int aras_an_uachtarain_desc_p4=0x7f07002d;
+        public static final int aras_an_uachtaran=0x7f070029;
         /**   Title for notification shown when GooglePlayServices needs to be
         enabled for a application to work. [CHAR LIMIT=70] 
          */
@@ -427,17 +428,18 @@ containing a value of this type.
          */
         public static final int common_signin_button_text_long=0x7f070013;
         public static final int content_desc=0x7f07001c;
-        public static final int enter_category=0x7f070026;
-        public static final int enter_date=0x7f070024;
-        public static final int enter_description=0x7f070023;
-        public static final int enter_link_contact=0x7f070027;
-        public static final int enter_location=0x7f070025;
-        public static final int enter_title=0x7f070022;
-        public static final int fav_delete=0x7f070020;
+        public static final int direct_to=0x7f070020;
+        public static final int enter_category=0x7f070027;
+        public static final int enter_date=0x7f070025;
+        public static final int enter_description=0x7f070024;
+        public static final int enter_link_contact=0x7f070028;
+        public static final int enter_location=0x7f070026;
+        public static final int enter_title=0x7f070023;
+        public static final int fav_delete=0x7f070021;
         public static final int favs=0x7f07001e;
         /**  Static information for The Papal Cross 
          */
-        public static final int papal_cross_desc=0x7f07002d;
+        public static final int papal_cross_desc=0x7f07002e;
         public static final int share=0x7f07001d;
         public static final int web=0x7f07001f;
     }

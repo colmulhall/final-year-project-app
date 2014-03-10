@@ -220,9 +220,16 @@ public class EventInformation extends Activity
     	}
     	else if(id == R.id.link_page)
     	{
-	    	  Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(the_link));
-	    	  startActivity(browserIntent);
+    		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(the_link));
+	    	startActivity(browserIntent);
     	}
+    	else if(id == R.id.map_directions)
+    	{
+    		Intent in = new Intent(getApplicationContext(), DirectionsTo.class);
+            startActivity(in);
+	    	overridePendingTransition(R.anim.slidedown_in, R.anim.slidedown_out);
+    	}
+    		
         return true;
     }
     

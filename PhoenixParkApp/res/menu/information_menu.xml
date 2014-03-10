@@ -19,4 +19,9 @@
         android:title="@string/web"
         android:showAsAction="never"/>
     
+    <item
+        android:id="@+id/map_directions"
+        android:title="@string/direct_to"
+        android:showAsAction="never"/>
+    
 </menu>

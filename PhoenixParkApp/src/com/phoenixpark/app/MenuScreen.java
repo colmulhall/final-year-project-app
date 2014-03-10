@@ -3,7 +3,9 @@ package com.phoenixpark.app;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +15,8 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class MenuScreen extends Activity
 {
+	private LocalDbManager db;
+	
 	@Override
     public void onCreate(Bundle savedInstanceState) 
 	{
@@ -20,6 +24,22 @@ public class MenuScreen extends Activity
         setContentView(R.layout.menuscreen_layout);
         
         GridView gridView = (GridView) findViewById(R.id.grid_view);
+        
+        //only run this code when the app is first installed. 
+        SharedPreferences wmbPreference = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean isFirstRun = wmbPreference.getBoolean("FIRSTRUN", true);
+        if (isFirstRun)
+        {
+            // insert locations into the local database
+        	db = new LocalDbManager(this);
+            db.openLocsToWrite();
+            db.insertLocations();
+            
+            // change the flag to false now that the app has been run more than once (no more inserts to location db)
+            SharedPreferences.Editor editor = wmbPreference.edit();
+            editor.putBoolean("FIRSTRUN", false);
+            editor.commit();
+        }
         
         gridView.setAdapter(new MenuItems(this));
         
@@ -60,7 +80,7 @@ public class MenuScreen extends Activity
             	 // Map selected
             	else if(position == 4)
             	{
-	                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+	                Intent i = new Intent(getApplicationContext(), DirectionsTo.class);
 	                startActivity(i);
 	                overridePendingTransition(R.anim.slide_in_left_to_right, R.anim.slide_out_left_to_right);  //sliding animation
             	}
