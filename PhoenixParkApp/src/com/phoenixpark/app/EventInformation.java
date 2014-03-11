@@ -29,7 +29,6 @@ import android.widget.ShareActionProvider;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 public class EventInformation extends Activity
 {
 	 private String url = "http://parkdomain.comoj.com/android_get_event_item.php";
@@ -41,8 +40,9 @@ public class EventInformation extends Activity
 	 private LocalDbManager db;
 	 private ShareActionProvider myShareActionProvider;
 	 
-	 // Tag to send location to maps
+	 // Tag to send location to maps and/or feedback actiivties
 	 private static final String TAG_LOC = "loc";
+	 private static final String TAG_ID = "id";
 	 
 	 // JSON Node names
 	 private static final String TAG_EVENTS = "event_list";
@@ -75,7 +75,6 @@ public class EventInformation extends Activity
 		 //get ID from the last activity
 		 intent = getIntent();
 		 the_id = intent.getExtras().getString("id");
-		 Log.i("ID:", the_id);
 		 
 		 //Open favorites database to write
 	     db = new LocalDbManager(this);
@@ -162,6 +161,10 @@ public class EventInformation extends Activity
         	//set image to wherever location the event is taking place	
         	if(the_location.equals("Farmleigh"))
         		image.setImageResource(R.drawable.farmleigh_house_item);
+        	else if(the_location.equals("Phoenix Park"))
+        		image.setImageResource(R.drawable.phoenixpark_item);
+        	else if(the_location.equals("Visitor Centre"))
+        		image.setImageResource(R.drawable.visitor_centre_item);
         	else
         		image.setImageResource(R.drawable.zoo_item);
             
@@ -230,6 +233,13 @@ public class EventInformation extends Activity
     	{
     		Intent in = new Intent(getApplicationContext(), DirectionsTo.class);
     		in.putExtra(TAG_LOC, the_location);
+            startActivity(in);
+	    	overridePendingTransition(R.anim.slidedown_in, R.anim.slidedown_out);
+    	}
+    	else if(id == R.id.event_feedback)
+    	{
+    		Intent in = new Intent(getApplicationContext(), EventFeedback.class);
+    		in.putExtra(TAG_ID, the_id);
             startActivity(in);
 	    	overridePendingTransition(R.anim.slidedown_in, R.anim.slidedown_out);
     	}

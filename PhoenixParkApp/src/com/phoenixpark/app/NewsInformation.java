@@ -166,7 +166,7 @@ public class NewsInformation extends Activity
         	else if(the_location.equals("Visitor Centre"))
         		image.setImageResource(R.drawable.visitor_centre_item);
         	else
-        		image.setImageResource(R.drawable.events_icon);
+        		image.setImageResource(R.drawable.sportsgrounds_item);
             
             super.onPostExecute(result);
             

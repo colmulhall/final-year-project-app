@@ -28,6 +28,7 @@ import android.view.Menu;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -37,6 +38,8 @@ public class DirectionsTo extends FragmentActivity implements LocationListener
     GoogleMap map;
     ArrayList<LatLng> markerPoints;
     Location location; // location
+    LatLng currentLocation;
+    Location loc;
     protected LocationManager locationManager;
     protected LocationListener locationListener;
     protected String latitude,longitude;
@@ -75,8 +78,15 @@ public class DirectionsTo extends FragmentActivity implements LocationListener
         // Getting Current Location
         location = locationManager.getLastKnownLocation(provider);
         
+        double current_lat = location.getLatitude();
+		double current_lng = location.getLongitude();
+		currentLocation = new LatLng(current_lat, current_lng);
+		
+		// Zoom into the current location in Google Map
+	    map.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
+	    map.animateCamera(CameraUpdateFactory.zoomTo(15));
+        
         //get location of this event/news item
-        //get ID from the last activity
 		intent = getIntent();
         the_location = intent.getExtras().getString("loc");
         
@@ -95,6 +105,11 @@ public class DirectionsTo extends FragmentActivity implements LocationListener
             
             LatLng origin = new LatLng(location.getLatitude(), location.getLongitude());
         	LatLng dest = new LatLng(lat, lng);
+        	
+        	//add marker to the destination
+        	MarkerOptions marker = new MarkerOptions().position(new LatLng(lat, lng)).title(the_location);
+        	marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+        	map.addMarker(marker);
 
             // Getting URL to the Google Directions API
             String url = getDirectionsUrl(origin, dest);
@@ -236,7 +251,8 @@ public class DirectionsTo extends FragmentActivity implements LocationListener
             PolylineOptions lineOptions = null;
  
             // Traversing through all the routes
-            for(int i=0;i<result.size();i++){
+            for(int i=0;i<result.size();i++)
+            {
                 points = new ArrayList<LatLng>();
                 lineOptions = new PolylineOptions();
  
@@ -257,8 +273,8 @@ public class DirectionsTo extends FragmentActivity implements LocationListener
  
                 // Adding all the points in the route to LineOptions
                 lineOptions.addAll(points);
-                lineOptions.width(2);
-                lineOptions.color(Color.RED);
+                lineOptions.width(5);
+                lineOptions.color(Color.CYAN);
             }
  
             // Drawing polyline in the Google Map for the i-th route
@@ -281,13 +297,13 @@ public class DirectionsTo extends FragmentActivity implements LocationListener
 		double lat = location.getLatitude();
 		double lng = location.getLongitude();
 
-		LatLng latLng = new LatLng(lat, lng);
+		LatLng currentLocation = new LatLng(lat, lng);
 		
 		DownloadTask downloadTask = new DownloadTask();
         downloadTask.execute(url);
 
 		// Showing the current location in Google Map
-	    //map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+	    //map.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
 
 	    // Zoom in the Google Map
 	    //map.animateCamera(CameraUpdateFactory.zoomTo(15));
@@ -310,4 +326,12 @@ public class DirectionsTo extends FragmentActivity implements LocationListener
 	{
 		// TODO Auto-generated method stub	
 	}
+	
+	// back button pressed by user
+    @Override
+    public void onBackPressed() 
+    {
+        finish();//go back to the previous Activity
+        overridePendingTransition(R.anim.slideup_in, R.anim.slideup_out);   
+    }
 }

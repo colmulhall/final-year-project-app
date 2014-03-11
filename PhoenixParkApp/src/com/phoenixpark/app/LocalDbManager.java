@@ -275,7 +275,7 @@ public class LocalDbManager
 		String row9 = "INSERT INTO " + LOC_DATABASE_TABLE + " ("
 	              + KEY_LOC_ID + ", " + KEY_LOC_TITLE + ", "
 	              + KEY_LOC_DESCRIPTION + ", " + KEY_LOC_LATITUDE + ", "
-	              + KEY_LOC_LONGITUDE + ") Values ('9','Ashtown Castle Visitors Centre', '-', '53.366055', '-6.331740');";
+	              + KEY_LOC_LONGITUDE + ") Values ('9','Visitor Centre', '-', '53.366055', '-6.331740');";
 		String row10 = "INSERT INTO " + LOC_DATABASE_TABLE + " ("
 	              + KEY_LOC_ID + ", " + KEY_LOC_TITLE + ", "
 	              + KEY_LOC_DESCRIPTION + ", " + KEY_LOC_LATITUDE + ", "

@@ -55,9 +55,9 @@
 <fullyQualifiedTypeName name="com.google.android.gms.maps.MapFragment"/>
 <fullyQualifiedTypeName name="org.apache.http.params.HttpConnectionParams"/>
 <fullyQualifiedTypeName name="org.apache.http.conn.params.ConnManagerParams"/>
-<fullyQualifiedTypeName name="com.phoenixpark.app.R.drawable"/>
 <fullyQualifiedTypeName name="android.widget.Button"/>
-<fullyQualifiedTypeName name="com.phoenixpark.app.R.id"/>
 <fullyQualifiedTypeName name="android.view.View"/>
 <fullyQualifiedTypeName name="android.util.Log"/>
+<fullyQualifiedTypeName name="com.phoenixpark.app.R.id"/>
+<fullyQualifiedTypeName name="com.phoenixpark.app.R.drawable"/>
 </qualifiedTypeNameHistroy>

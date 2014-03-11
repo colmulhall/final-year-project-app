@@ -7,16 +7,40 @@
     <string name="share">Share</string>
     <string name="favs">Favorites</string>
     <string name="web">Open in browser</string>
+    <string name="ev_feedback">Event feedback</string>
     <string name="direct_to">Directions</string>
     <string name="fav_delete">Delete</string>
     <string name="add_event">+</string>
+    <string name="submit">Submit</string>
     <string name="enter_title">Event Title:</string>
     <string name="enter_description">Event Description:</string>
     <string name="enter_date">Event Date:</string>
     <string name="enter_location">Event Location:</string>
     <string name="enter_category">Event Category:</string>
     <string name="enter_link_contact">Event link/contact:</string>
+    <string name="enter_comment">Event Comment:</string>
+    <string name="enter_rating">Event Rating:</string>
+    <string name="enter_category_opinion">What category does this event fall under?:</string>
     <string name="aras_an_uachtaran">Áras an Uachtaráin</string>
+    
+    <string-array name="ratings">
+        <item>5 Stars</item>
+        <item>4 Stars</item>
+        <item>3 Stars</item>
+        <item>2 Stars</item>
+        <item>1 Star</item>
+    </string-array>
+    
+    <string-array name="categories">
+        <item>Sport</item>
+        <item>Family Fun</item>
+        <item>Charity</item>
+        <item>Arts</item>
+        <item>Music</item>
+        <item>Talk/Workshop</item>
+        <item>Food and Drink</item>
+        <item>Music</item>
+    </string-array>
     
     <!-- Static information for Áras an Uachtaráin -->
     <string name="aras_an_uachtarain_desc_p1">Áras an Uachtaráin had a colourful history before becoming 
