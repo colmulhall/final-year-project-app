@@ -22,9 +22,18 @@
 	    <EditText
 	        android:id="@+id/comment_enter"
 	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:inputType="textCapSentences" 
-	        android:imeOptions="actionDone"/>
+	        android:layout_height="wrap_content" 
+	        android:layout_marginLeft="10dp"
+	        android:layout_marginRight="10dp"
+	        android:layout_marginBottom="5dp"
+	        android:imeOptions="actionDone"
+	        android:gravity="top|left"
+			android:singleLine="false"
+			android:lines="5"
+		    android:inputType="textCapSentences|textMultiLine" 
+		    android:scrollbarStyle="insideInset"
+		    android:scrollbars="vertical" 
+		    android:overScrollMode="always"/>
 	    
 	    <!-- Enter what user rates the event -->
 	    <TextView
@@ -37,8 +46,10 @@
 	
 	    <Spinner
 	        android:id="@+id/rating_spin"
-	        android:layout_width="fill_parent"
-	        android:layout_height="35dp" />
+	        android:layout_width="110dp"
+	        android:layout_height="35dp" 
+	        android:layout_gravity="center"
+	        android:layout_marginBottom="5dp" />
 	    
 	    <!-- Enter what category the event falls under -->
 	    <TextView
@@ -51,8 +62,9 @@
 	
 	    <Spinner
 	        android:id="@+id/category_spin"
-	        android:layout_width="fill_parent"
-	        android:layout_height="35dp" />
+	        android:layout_width="150dp"
+	        android:layout_height="35dp" 
+	        android:layout_gravity="center" />
 	    
 	    <Button
 			android:id="@+id/submit_button"

@@ -4,26 +4,35 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.ShareActionProvider;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -35,11 +44,11 @@ import com.google.android.gms.maps.model.PolylineOptions;
 
 public class DirectionsTo extends FragmentActivity implements LocationListener 
 { 
-    GoogleMap map;
-    ArrayList<LatLng> markerPoints;
-    Location location; // location
-    LatLng currentLocation;
-    Location loc;
+    private GoogleMap map;
+    private ArrayList<LatLng> markerPoints;
+    private Location location; // location
+    private LatLng currentLocation;
+    private Location loc, loc2;
     protected LocationManager locationManager;
     protected LocationListener locationListener;
     protected String latitude,longitude;
@@ -47,6 +56,10 @@ public class DirectionsTo extends FragmentActivity implements LocationListener
     private String url;
     private LocalDbManager db;
     public String the_location;
+    double current_lat, current_lng;
+    private Float meters_between;
+
+    private String mode;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) 
@@ -77,9 +90,8 @@ public class DirectionsTo extends FragmentActivity implements LocationListener
 
         // Getting Current Location
         location = locationManager.getLastKnownLocation(provider);
-        
-        double current_lat = location.getLatitude();
-		double current_lng = location.getLongitude();
+        current_lat = location.getLatitude();
+		current_lng = location.getLongitude();
 		currentLocation = new LatLng(current_lat, current_lng);
 		
 		// Zoom into the current location in Google Map
@@ -106,18 +118,65 @@ public class DirectionsTo extends FragmentActivity implements LocationListener
             LatLng origin = new LatLng(location.getLatitude(), location.getLongitude());
         	LatLng dest = new LatLng(lat, lng);
         	
+        	//get current location coordinates
+        	Location loc = new Location("Current");
+        	loc.setLatitude(current_lat);
+    		loc.setLongitude(current_lng);
+        	
+    		//get location of the event
+    		Location loc2 = new Location("Destination");
+        	loc2.setLatitude(lat);
+        	loc2.setLongitude(lng);
+        	
+        	//calculate the distance between the two
+        	meters_between = loc.distanceTo(loc2);
+        	
         	//add marker to the destination
         	MarkerOptions marker = new MarkerOptions().position(new LatLng(lat, lng)).title(the_location);
         	marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
         	map.addMarker(marker);
 
-            // Getting URL to the Google Directions API
-            String url = getDirectionsUrl(origin, dest);
+        	//check if the person is located near the park.
+        	if(meters_between < 10000)
+        	{
+        		mode = "mode=walking";    //close enough to walk
+        		
+	            // Getting URL to the Google Directions API
+	            String url = getDirectionsUrl(origin, dest);
+	
+	            DownloadTask downloadTask = new DownloadTask();
+	
+	            // Start downloading json data from Google Directions API
+	            downloadTask.execute(url);
+        	}
+        	else if(meters_between >= 10000 && meters_between <= 100000)
+        	{
+        		mode = "mode=driving";   //too far to walk
+        		
+	            // Getting URL to the Google Directions API
+	            String url = getDirectionsUrl(origin, dest);
+	
+	            DownloadTask downloadTask = new DownloadTask();
+	
+	            // Start downloading json data from Google Directions API
+	            downloadTask.execute(url);
+        	}
+        	else
+        	{
+        		//tell user they are too far from the park to calculate directions
+        		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("You are located too far from the park for directions.");
+                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() 
+                {
+                    public void onClick(DialogInterface dialog, int id) 
+                    {
+                        dialog.cancel();
+                    }
+                });
 
-            DownloadTask downloadTask = new DownloadTask();
-
-            // Start downloading json data from Google Directions API
-            downloadTask.execute(url);
+                AlertDialog alert11 = builder.create();
+                alert11.show();
+        	}
         }
     }
     
@@ -131,9 +190,6 @@ public class DirectionsTo extends FragmentActivity implements LocationListener
  
         // Sensor enabled
         String sensor = "sensor=false";
-        
-        //Set directions to walking
-        String mode = "mode=walking";
  
         // Building the parameters to the web service
         String parameters = str_origin+"&"+str_dest+"&"+sensor+"&"+mode;
@@ -281,14 +337,6 @@ public class DirectionsTo extends FragmentActivity implements LocationListener
             map.addPolyline(lineOptions);
         }
     }
- 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) 
-    {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.mainscreen_menu, menu);
-        return true;
-    }
 
     // unimplemented methods
 	@Override
@@ -299,8 +347,8 @@ public class DirectionsTo extends FragmentActivity implements LocationListener
 
 		LatLng currentLocation = new LatLng(lat, lng);
 		
-		DownloadTask downloadTask = new DownloadTask();
-        downloadTask.execute(url);
+		//DownloadTask downloadTask = new DownloadTask();
+        //downloadTask.execute(url);
 
 		// Showing the current location in Google Map
 	    //map.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
@@ -327,6 +375,49 @@ public class DirectionsTo extends FragmentActivity implements LocationListener
 		// TODO Auto-generated method stub	
 	}
 	
+	//**************************************************
+	//action bar
+    @SuppressLint("NewApi")
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) 
+	{
+    	// Inflate menu resource file.  
+        getMenuInflater().inflate(R.menu.directions_to_menu, menu); 
+        return true;
+	}
+    
+    //action bar listener
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) 
+    {
+    	int id = item.getItemId();
+    	
+    	if(id == R.id.travel_action)
+    	{
+    		//convert from meters to kilometers and round to 2 decimal places
+    		Double calculate_km = meters_between * 0.001;
+    		float km_between = (float) calculate_km.floatValue();
+    		BigDecimal bd = new BigDecimal(Float.toString(km_between));
+            bd = bd.setScale(2, BigDecimal.ROUND_HALF_UP);
+    
+    		// Give the user travel information
+    		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    		builder.setTitle("Travel Information");
+            builder.setMessage("You are " + bd + " km from " + the_location);
+            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() 
+            {
+                public void onClick(DialogInterface dialog, int id) 
+                {
+                    dialog.cancel();
+                }
+            });
+
+            AlertDialog alert11 = builder.create();
+            alert11.show();
+    	}
+        return true;
+    }
+    
 	// back button pressed by user
     @Override
     public void onBackPressed() 

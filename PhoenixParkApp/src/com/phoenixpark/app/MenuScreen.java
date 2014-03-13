@@ -73,14 +73,14 @@ public class MenuScreen extends Activity
             	// Twitter feed selected
             	else if(position == 3)
             	{
-	                Intent i = new Intent(getApplicationContext(), TwitterFeed.class);
+	                Intent i = new Intent(getApplicationContext(), Wunderground.class);
 	                startActivity(i);
 	                overridePendingTransition(R.anim.slide_in_right_to_left, R.anim.slide_out_right_to_left);  //sliding animation
             	}
             	 // Map selected
             	else if(position == 4)
             	{
-	                Intent i = new Intent(getApplicationContext(), DirectionsTo.class);
+	                Intent i = new Intent(getApplicationContext(), MapPark.class);
 	                startActivity(i);
 	                overridePendingTransition(R.anim.slide_in_left_to_right, R.anim.slide_out_left_to_right);  //sliding animation
             	}

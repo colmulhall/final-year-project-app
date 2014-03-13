@@ -181,7 +181,7 @@ public class NewsInformation extends Activity
 	public boolean onCreateOptionsMenu(Menu menu) 
 	{
     	// Inflate menu resource file.  
-        getMenuInflater().inflate(R.menu.information_menu, menu);  
+        getMenuInflater().inflate(R.menu.newsinformation_menu, menu);  
         
         //Getting the actionprovider associated with the menu item whose id is share
         myShareActionProvider = (ShareActionProvider) menu.findItem(R.id.share).getActionProvider();

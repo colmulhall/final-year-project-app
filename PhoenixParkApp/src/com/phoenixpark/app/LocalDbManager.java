@@ -381,15 +381,23 @@ public class LocalDbManager
 	{
 		Cursor c = db.rawQuery("SELECT latitude FROM " +LOC_DATABASE_TABLE+ " where title="+"'"+location+"'" , null);
 
-		c.moveToFirst();
-		return c.getString(0);
+		String ret = null;
+		if(c != null && c.moveToNext()) 
+		{
+	        ret = c.getString(0);     
+	    }
+		return ret;
 	 }
 		
 	public String getLocLongitude(String location)
 	{
 		Cursor c = db.rawQuery("SELECT longitude FROM " +LOC_DATABASE_TABLE+ " where title="+"'"+location+"'" , null);
 
-		c.moveToFirst();
-		return c.getString(0);
+		String ret = null;
+		if(c != null && c.moveToNext()) 
+		{
+	        ret = c.getString(0);     
+	    }
+		return ret;
 	 }
 }

@@ -13,16 +13,16 @@
 		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="null" key="selection"/>
+		<item value="Resp" key="selection"/>
 		<list key="findhistory">
-			<item value="null"/>
-			<item value="params"/>
-			<item value="KEY_LOC_EVENT_LOCATION"/>
-			<item value="KEY_LOC_EVENT_DATE"/>
-			<item value="KEY_LOC_EVENT_DESCRIPTION"/>
-			<item value="KEY_LOC_EVENT_TITLE"/>
-			<item value="DATABASE_TABLE"/>
-			<item value="KEY_EVENT_LINK"/>
+			<item value="resp"/>
+			<item value="url"/>
+			<item value="eventList"/>
+			<item value="loc"/>
+			<item value="loc "/>
+			<item value="item"/>
+			<item value="datepick"/>
+			<item value="marker"/>
 		</list>
 		<list key="replacehistory">
 			<item value="KEY_LOC_LOCATION"/>

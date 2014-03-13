@@ -109,8 +109,8 @@ public class EventList extends ListActivity
                     {
                         JSONObject c = events.getJSONObject(i);
                          
-                        String the_title = c.getString(TAG_TITLE);
                         String the_id = c.getString(TAG_ID);
+                        String the_title = c.getString(TAG_TITLE);
                         String the_date = c.getString(TAG_DATE);
                         String the_location = c.getString(TAG_LOCATION);
  

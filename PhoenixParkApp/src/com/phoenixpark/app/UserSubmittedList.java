@@ -64,19 +64,20 @@ public class UserSubmittedList extends ListActivity
             {
                 // get id from selected ListItem
                 String ev_id = ((TextView) view.findViewById(R.id.the_id)).getText().toString();
- 
-                // Starting single contact activity
-                Intent in = new Intent(getApplicationContext(), EventInformation.class);
+                Log.i("ID", ev_id);
+                
+                // View a user submitted event
+                Intent in = new Intent(getApplicationContext(), UserSubmittedInformation.class);
                 in.putExtra(TAG_ID, ev_id);
                 startActivity(in);
-                overridePendingTransition(R.anim.slide_in_left_to_right, R.anim.slide_out_left_to_right);
+                overridePendingTransition(R.anim.slide_in_right_to_left, R.anim.slide_out_right_to_left);
             }
         });
  
         // Calling async task to get json
         new GetEvents().execute();
     }
- 
+    
     //Async task class to get json by making HTTP call
     private class GetEvents extends AsyncTask<Void, Void, Void> 
     {
@@ -112,8 +113,8 @@ public class UserSubmittedList extends ListActivity
                     {
                         JSONObject c = user_events.getJSONObject(i);
                          
-                        String the_title = c.getString(TAG_TITLE);
                         String the_id = c.getString(TAG_ID);
+                        String the_title = c.getString(TAG_TITLE);
                         String the_date = c.getString(TAG_DATE);
                         String the_location = c.getString(TAG_LOCATION);
  
@@ -138,7 +139,7 @@ public class UserSubmittedList extends ListActivity
  
             return null;
         }
- 
+        
         @Override
         protected void onPostExecute(Void result) 
         {
@@ -148,7 +149,7 @@ public class UserSubmittedList extends ListActivity
             progress.dismiss();
 
             ListAdapter adapter = new SimpleAdapter( UserSubmittedList.this, eventList,
-                    R.layout.list_item, new String[] { TAG_TITLE, TAG_ID, TAG_LOCATION, TAG_DATE}, 
+                    R.layout.submitted_events_list_item, new String[] { TAG_TITLE, TAG_ID, TAG_LOCATION, TAG_DATE}, 
                     new int[] {R.id.the_title, R.id.the_id, R.id.the_location, R.id.the_date});
  
             setListAdapter(adapter);

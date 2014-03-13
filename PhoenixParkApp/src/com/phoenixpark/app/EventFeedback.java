@@ -17,7 +17,9 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -68,6 +70,24 @@ public class EventFeedback extends Activity
         
         // edittext
         editComment = (EditText)findViewById(R.id.comment_enter);
+        editComment.setOnTouchListener(new OnTouchListener() 
+        {
+            public boolean onTouch(View view, MotionEvent event) 
+            {
+                // TODO Auto-generated method stub
+                if (view.getId() == R.id.enter_comment) 
+                {
+                    view.getParent().requestDisallowInterceptTouchEvent(true);
+                    switch (event.getAction()&MotionEvent.ACTION_MASK)
+                    {
+	                    case MotionEvent.ACTION_UP:
+	                        view.getParent().requestDisallowInterceptTouchEvent(false);
+	                        break;
+                    }
+                }
+                return false;
+            }
+        });
         
         // spinners
         ratings = (Spinner)findViewById(R.id.rating_spin);

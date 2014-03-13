@@ -252,16 +252,15 @@ containing a value of this type.
         public static final int zoo_item=0x7f02002b;
     }
     public static final class id {
-        public static final int category_enter=0x7f06002e;
         public static final int category_spin=0x7f06000b;
         public static final int comment_enter=0x7f060007;
-        public static final int contactlink_enter=0x7f060030;
-        public static final int date_enter=0x7f06002b;
-        public static final int delete_fav=0x7f060033;
+        public static final int contactlink_enter=0x7f06002f;
+        public static final int datepicker=0x7f06002b;
+        public static final int delete_fav=0x7f060037;
         public static final int desc_enter=0x7f060029;
         public static final int enter_category=0x7f06000a;
         public static final int enter_comment=0x7f060006;
-        public static final int enter_contactlink=0x7f06002f;
+        public static final int enter_contactlink=0x7f06002e;
         public static final int enter_date=0x7f06002a;
         public static final int enter_desc=0x7f060028;
         public static final int enter_location=0x7f06002c;
@@ -270,7 +269,7 @@ containing a value of this type.
         public static final int event_description=0x7f06000f;
         public static final int event_feedback=0x7f060035;
         public static final int event_title=0x7f06000d;
-        public static final int fav_action=0x7f060034;
+        public static final int fav_action=0x7f060032;
         public static final int grid_view=0x7f060021;
         public static final int hybrid=0x7f060004;
         public static final int im1=0x7f060013;
@@ -281,7 +280,7 @@ containing a value of this type.
         public static final int image_list=0x7f06001c;
         public static final int item_description=0x7f060011;
         public static final int item_title=0x7f060010;
-        public static final int link_page=0x7f060032;
+        public static final int link_page=0x7f060034;
         public static final int list=0x7f060012;
         public static final int location_enter=0x7f06002d;
         public static final int map=0x7f060005;
@@ -298,9 +297,9 @@ containing a value of this type.
         public static final int rating_spin=0x7f060009;
         public static final int satellite=0x7f060002;
         public static final int section_label=0x7f06001a;
-        public static final int share=0x7f060031;
+        public static final int share=0x7f060033;
         public static final int submit_button=0x7f06000c;
-        public static final int submit_event=0x7f060037;
+        public static final int submit_event=0x7f060038;
         public static final int terrain=0x7f060003;
         public static final int the_date=0x7f060020;
         public static final int the_id=0x7f06001e;
@@ -308,6 +307,8 @@ containing a value of this type.
         public static final int the_title=0x7f06001d;
         public static final int thumbnail=0x7f06001b;
         public static final int title_enter=0x7f060027;
+        public static final int travel_action=0x7f060031;
+        public static final int weather_title=0x7f060030;
     }
     public static final class integer {
         public static final int google_play_services_version=0x7f080000;
@@ -322,19 +323,25 @@ containing a value of this type.
         public static final int fragment_layout=0x7f030006;
         public static final int fragment_main_dummy=0x7f030007;
         public static final int list_item=0x7f030008;
-        public static final int menuscreen_layout=0x7f030009;
-        public static final int newsinformation_layout=0x7f03000a;
-        public static final int newslist_layout=0x7f03000b;
-        public static final int row=0x7f03000c;
-        public static final int static_info_main_layout=0x7f03000d;
-        public static final int submit_event_layout=0x7f03000e;
-        public static final int usersubmittedlist_layout=0x7f03000f;
+        public static final int mappark_layout=0x7f030009;
+        public static final int menuscreen_layout=0x7f03000a;
+        public static final int newsinformation_layout=0x7f03000b;
+        public static final int newslist_layout=0x7f03000c;
+        public static final int row=0x7f03000d;
+        public static final int static_info_main_layout=0x7f03000e;
+        public static final int submit_event_layout=0x7f03000f;
+        public static final int submitted_event_item=0x7f030010;
+        public static final int submitted_events_list_item=0x7f030011;
+        public static final int usersubmittedlist_layout=0x7f030012;
+        public static final int wunderground_layout=0x7f030013;
     }
     public static final class menu {
-        public static final int favorites_information_menu=0x7f0c0000;
-        public static final int information_menu=0x7f0c0001;
-        public static final int mainscreen_menu=0x7f0c0002;
-        public static final int usersubmittedlist_menu=0x7f0c0003;
+        public static final int directions_to_menu=0x7f0c0000;
+        public static final int eventinformation_menu=0x7f0c0001;
+        public static final int favorites_information_menu=0x7f0c0002;
+        public static final int mainscreen_menu=0x7f0c0003;
+        public static final int newsinformation_menu=0x7f0c0004;
+        public static final int usersubmittedlist_menu=0x7f0c0005;
     }
     public static final class string {
         public static final int action_settings=0x7f07001b;

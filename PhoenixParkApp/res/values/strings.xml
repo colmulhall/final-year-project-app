@@ -20,7 +20,7 @@
     <string name="enter_link_contact">Event link/contact:</string>
     <string name="enter_comment">Event Comment:</string>
     <string name="enter_rating">Event Rating:</string>
-    <string name="enter_category_opinion">What category does this event fall under?:</string>
+    <string name="enter_category_opinion">What is the category of this event?:</string>
     <string name="aras_an_uachtaran">Áras an Uachtaráin</string>
     
     <string-array name="ratings">

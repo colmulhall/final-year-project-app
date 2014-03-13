@@ -1,0 +1,87 @@
+package com.phoenixpark.app;
+
+import android.content.Context;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.widget.Toast;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.SupportMapFragment;
+
+public class MapPark extends FragmentActivity implements LocationListener 
+{
+    private GoogleMap googleMap;
+    protected LocationManager locationManager;
+ 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) 
+    {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.mappark_layout);
+        
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+
+        
+ 
+        try {
+            // Loading map
+            initilizeMap();
+ 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+ 
+    /**
+     * function to load map. If map is not created it will create it for you
+     * */
+    private void initilizeMap() 
+    {
+    	if (googleMap == null) 
+    	{
+            googleMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+            
+            // Zoom into the current location in Google Map
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
+            googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+ 
+            // check if map is created successfully or not
+            if (googleMap == null) 
+            {
+                Toast.makeText(getApplicationContext(),
+                        "Sorry! unable to create maps", Toast.LENGTH_SHORT)
+                        .show();
+            }
+        }
+    }
+ 
+	@Override
+	public void onLocationChanged(Location arg0) 
+	{
+		// TODO Auto-generated method stub	
+	}
+
+	@Override
+	public void onProviderDisabled(String provider) 
+	{
+		// TODO Auto-generated method stub	
+	}
+
+	@Override
+	public void onProviderEnabled(String provider) 
+	{
+		// TODO Auto-generated method stub	
+	}
+
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras) 
+	{
+		// TODO Auto-generated method stub	
+	}
+}
