@@ -147,7 +147,7 @@ public class EventList extends ListActivity
             ListAdapter adapter = new SimpleAdapter( EventList.this, eventList,
                     R.layout.list_item, new String[] { TAG_TITLE, TAG_ID, TAG_LOCATION, TAG_DATE}, 
                     new int[] {R.id.the_title, R.id.the_id, R.id.the_location, R.id.the_date});
- 
+
             setListAdapter(adapter);
         }
     }

@@ -13,16 +13,16 @@
 		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="Resp" key="selection"/>
+		<item value="OnCli" key="selection"/>
 		<list key="findhistory">
-			<item value="resp"/>
+			<item value="oncli"/>
+			<item value="list"/>
+			<item value="lst"/>
+			<item value="downloadUrl"/>
 			<item value="url"/>
-			<item value="eventList"/>
-			<item value="loc"/>
-			<item value="loc "/>
 			<item value="item"/>
-			<item value="datepick"/>
-			<item value="marker"/>
+			<item value="ev_id"/>
+			<item value="eventList"/>
 		</list>
 		<list key="replacehistory">
 			<item value="KEY_LOC_LOCATION"/>

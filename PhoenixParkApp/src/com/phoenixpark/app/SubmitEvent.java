@@ -10,12 +10,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -23,7 +20,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Scroller;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -72,7 +68,6 @@ public class SubmitEvent extends Activity
         {
             public boolean onTouch(View view, MotionEvent event) 
             {
-                // TODO Auto-generated method stub
                 if (view.getId() == R.id.desc_enter) 
                 {
                     view.getParent().requestDisallowInterceptTouchEvent(true);
@@ -157,7 +152,7 @@ public class SubmitEvent extends Activity
 			nameValuePairs.add(new BasicNameValuePair("category", category));
 			nameValuePairs.add(new BasicNameValuePair("contact_link", contact_link));
 			
-			//check if data has been entered
+			/*//check if data has been entered
 			if(title.equals(""))
 			{
 				DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() 
@@ -184,7 +179,7 @@ public class SubmitEvent extends Activity
 		        builder.setMessage("Please fill in all fields")
 		        .setPositiveButton("Yes", dialogClickListener)
 		        .show();
-			}
+			}*/
 			jsonStr = sh.makeServiceCall(url, HandleConnections.POST, nameValuePairs);
 			return jsonStr;
 	    }

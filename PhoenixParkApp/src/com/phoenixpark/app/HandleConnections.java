@@ -44,7 +44,7 @@ public class HandleConnections
             HttpResponse httpResponse = null;
              
             // Checking http request method type
-            if(method == POST) 
+            if(method == POST)
             {
                 HttpPost httpPost = new HttpPost(url);
                 // adding post params
@@ -83,7 +83,7 @@ public class HandleConnections
         {
             e.printStackTrace();
         }
-         
+        
         return response;
     }
 }

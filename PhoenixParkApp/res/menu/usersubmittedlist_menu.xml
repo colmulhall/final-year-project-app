@@ -5,6 +5,7 @@
         android:id="@+id/submit_event"
         android:orderInCategory="100"
         android:showAsAction="ifRoom"
+        android:icon="@drawable/add_new_event"
         android:title="@string/add_event" />
     
 </menu>
