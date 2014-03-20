@@ -27,7 +27,7 @@ import android.widget.TextView;
 
 public class EventList extends ListActivity 
 {
-	// URL to get contacts JSON
+	// URL to get events JSON
     private static String url = "http://parkdomain.comoj.com/android_get_event_titles.php";
  
     // JSON Node names

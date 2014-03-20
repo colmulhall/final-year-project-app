@@ -59,7 +59,7 @@ public class DirectionsTo extends FragmentActivity implements LocationListener
     double current_lat, current_lng;
     private Float meters_between;
 
-    private String mode;
+    private String mode, recommended_mode;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) 
@@ -140,6 +140,7 @@ public class DirectionsTo extends FragmentActivity implements LocationListener
         	if(meters_between < 10000)
         	{
         		mode = "mode=walking";    //close enough to walk
+        		recommended_mode = "Walking";
         		
 	            // Getting URL to the Google Directions API
 	            String url = getDirectionsUrl(origin, dest);
@@ -152,6 +153,7 @@ public class DirectionsTo extends FragmentActivity implements LocationListener
         	else if(meters_between >= 10000 && meters_between <= 100000)
         	{
         		mode = "mode=driving";   //too far to walk
+        		recommended_mode = "Driving";
         		
 	            // Getting URL to the Google Directions API
 	            String url = getDirectionsUrl(origin, dest);
@@ -403,7 +405,8 @@ public class DirectionsTo extends FragmentActivity implements LocationListener
     		// Give the user travel information
     		AlertDialog.Builder builder = new AlertDialog.Builder(this);
     		builder.setTitle("Travel Information");
-            builder.setMessage("You are " + bd + " km from " + the_location);
+            builder.setMessage("You are " + bd + " km from " + the_location + "\n" + 
+            					"Recommended mode: " + recommended_mode);
             builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() 
             {
                 public void onClick(DialogInterface dialog, int id) 

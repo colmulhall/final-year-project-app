@@ -2,8 +2,8 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="263" key="DIALOG_WIDTH"/>
-		<item value="137" key="DIALOG_Y_ORIGIN"/>
-		<item value="826" key="DIALOG_X_ORIGIN"/>
+		<item value="83" key="DIALOG_Y_ORIGIN"/>
+		<item value="975" key="DIALOG_X_ORIGIN"/>
 		<item value="399" key="DIALOG_HEIGHT"/>
 		<item value="1|Lucida Grande|11.0|0|COCOA|1|LucidaGrande" key="DIALOG_FONT_NAME"/>
 	</section>
@@ -13,18 +13,19 @@
 		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="OnCli" key="selection"/>
+		<item value="submit" key="selection"/>
 		<list key="findhistory">
-			<item value="oncli"/>
-			<item value="list"/>
-			<item value="lst"/>
-			<item value="downloadUrl"/>
+			<item value="submit"/>
+			<item value="alert"/>
+			<item value="jObject"/>
+			<item value="events"/>
 			<item value="url"/>
-			<item value="item"/>
-			<item value="ev_id"/>
-			<item value="eventList"/>
+			<item value="link"/>
+			<item value="toast"/>
+			<item value="context"/>
 		</list>
 		<list key="replacehistory">
+			<item value="submit_url"/>
 			<item value="KEY_LOC_LOCATION"/>
 			<item value="KEY_LOC_DATE"/>
 			<item value="KEY_LOC_DESCRIPTION"/>
@@ -32,7 +33,6 @@
 			<item value="FAV_DATABASE_TABLE"/>
 			<item value="KEY_FAV_EVENT_LINK"/>
 			<item value="KEY_FAV_EVENT_LOCATION"/>
-			<item value="KEY_FAV_EVENT_DATE"/>
 		</list>
 	</section>
 </section>

@@ -73,7 +73,7 @@ public class MenuScreen extends Activity
             	// Twitter feed selected
             	else if(position == 3)
             	{
-	                Intent i = new Intent(getApplicationContext(), Wunderground.class);
+	                Intent i = new Intent(getApplicationContext(), TwitterFeed.class);
 	                startActivity(i);
 	                overridePendingTransition(R.anim.slide_in_right_to_left, R.anim.slide_out_right_to_left);  //sliding animation
             	}

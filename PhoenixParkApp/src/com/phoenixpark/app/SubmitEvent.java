@@ -2,17 +2,22 @@ package com.phoenixpark.app;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -20,13 +25,17 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class SubmitEvent extends Activity
 {
-	private String url = "http://parkdomain.comoj.com/android_get_users_submission.php";
+	private String duplicates_url = "http://parkdomain.comoj.com/check_user_submitted_duplicates.php";
+	private String submit_url = "http://parkdomain.comoj.com/android_get_users_submission.php";
+	
 	private TextView enterTitle, enterDesc, enterDate, enterLocation, enterCategory, enterContact_link;
 	private EditText editTitle, editDesc, editLocation, editContact_Link;
 	private DatePicker editDate;
@@ -37,14 +46,26 @@ public class SubmitEvent extends Activity
 	private int year;
 	private int month;
 	private int day;
-
+	
+	// JSON Node names
+    private static final String TAG_EVENTS = "user_events";
+    private static final String TAG_ID = "id";
+    private static final String TAG_TITLE = "title";
+    private static final String TAG_LOCATION = "location";
+    private static final String TAG_DATE = "date";
 	
 	// Creating connection handler class instance
 	public HandleConnections sh = new HandleConnections();
 	public String jsonStr;
+	public String the_title, the_date = null;
+	//public String[] dups = new String[5];
+	public List<String> dups = new ArrayList<String>();
 	
 	JSONArray events;
 	JSONObject jObject;
+	
+	//flag for possible duplicates
+	int possible_duplicates = 0;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) 
@@ -104,7 +125,7 @@ public class SubmitEvent extends Activity
         addListenerOnButtons();
     }
     
-    // display current date
+    // display current date in the datepicker
  	public void setCurrentDateOnView() 
  	{
  		editDate = (DatePicker) findViewById(R.id.datepicker);
@@ -118,7 +139,125 @@ public class SubmitEvent extends Activity
  		editDate.init(year, month, day, null);
  	}
  	
- 	// upload user event to database
+ 	//___________________________________________________________________________________
+ 	// Check for duplicates
+    private class CheckDuplicates extends AsyncTask<String, Integer, String> 
+    {
+    	String jsonStr;
+    	private ProgressDialog progress;  //progress dialog when loading events
+    	
+        @Override
+        protected void onPreExecute() 
+        {
+            super.onPreExecute();
+            progress = ProgressDialog.show(SubmitEvent.this, "Checking a few things", "Please Wait...");
+        }
+ 
+        @Override
+        protected String doInBackground(String... params)
+        {
+            // Creating connection handler class instance
+            //HandleConnections sh = new HandleConnections();
+            
+            //get data from the text boxes
+	    	String date = editDate.getYear()+"-"+editDate.getMonth()+"-"+editDate.getDayOfMonth();
+	    	String location = editLocation.getText().toString();
+	    	
+	        // Send the users entered parameters to the PHP script through POST
+			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+			nameValuePairs.add(new BasicNameValuePair("date", date));
+			nameValuePairs.add(new BasicNameValuePair("location", location));
+			
+			//send inputted data to the the PHP script
+			jsonStr = sh.makeServiceCall(duplicates_url, HandleConnections.POST, nameValuePairs);
+			
+			if(jsonStr != null) 
+            {
+            	Log.i("JSONSTR", jsonStr);
+                try {
+                    JSONObject jsonObj = new JSONObject(jsonStr);
+                    
+                    if(jsonStr != "No likely duplicates.")
+                    {
+                    	possible_duplicates = 1;  //change flag to true
+                    	
+	                    // Getting JSON Array node
+	                    events = jsonObj.getJSONArray(TAG_EVENTS);
+	                    
+	                    // looping through all events
+	                    for (int i = 0; i < events.length(); i++) 
+		                {
+	                    	JSONObject c = events.getJSONObject(i);
+		                         
+		                    the_title = c.getString(TAG_TITLE);
+		                    the_date = c.getString(TAG_DATE);
+		                    
+		                    Log.i("TITLE?", the_title);
+		                        
+		                    //add each title to this array of duplicates
+		                    dups.add(the_title);
+		                 }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Log.e("ServiceHandler", "Couldn't get any data from the url");
+            }
+			return jsonStr;
+        }
+ 
+        @Override
+        protected void onPostExecute(String result) 
+        {
+            super.onPostExecute(result);
+            progress.dismiss();
+            
+            // Check if there are any duplicates. If there is, warn the user
+            if(possible_duplicates == 1)
+            {
+	            AlertDialog.Builder builder = new AlertDialog.Builder(SubmitEvent.this);
+	    		builder.setTitle("Possible Duplicate Events:");
+	    		
+	    		String dup_evs = "";
+	    		for(int i=0; i<dups.size(); i++)
+	    		{
+	    			dup_evs += "-" + dups.get(i) + "\n";
+	    		}
+	    		Log.i("DOOOOP", dups.get(0));
+	    		
+	            builder.setMessage(dup_evs);
+	            builder.setPositiveButton("I've checked", new DialogInterface.OnClickListener() 
+	            {
+	                public void onClick(DialogInterface dialog, int id) 
+	                {
+	                    dialog.cancel();
+	                    new UploadTask().execute();
+	                }
+	            });
+	            builder.setNegativeButton("Check", new DialogInterface.OnClickListener() 
+	            {
+	                public void onClick(DialogInterface dialog, int id) 
+	                {
+	                    dialog.cancel();
+	                    possible_duplicates = 0;  //reset the flag
+	                }
+	            });
+            
+	            AlertDialog alert11 = builder.create();
+	            alert11.show();
+	            dups.clear(); //clear the array list for the next time the duplicate method is called
+            }
+            else
+            {
+            	// insert the event
+            	new UploadTask().execute();
+            }
+        }
+    }
+ 	
+    //____________________________________________________________________________________________________
+ 	// upload user event to the database
  	class UploadTask extends AsyncTask<String, Integer, String>
     {
     	private ProgressDialog progress; 
@@ -152,35 +291,8 @@ public class SubmitEvent extends Activity
 			nameValuePairs.add(new BasicNameValuePair("category", category));
 			nameValuePairs.add(new BasicNameValuePair("contact_link", contact_link));
 			
-			/*//check if data has been entered
-			if(title.equals(""))
-			{
-				DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() 
-		        {
-					//"Are you sure?" dialog options
-		            @Override
-		            public void onClick(DialogInterface dialog, int which) 
-		            {
-		                switch (which)
-		                {
-			                case DialogInterface.BUTTON_POSITIVE:
-			                    //Yes button clicked
-			    				finish();
-			                    break;
-			
-			                default:
-			                	break;
-		                }
-		            }
-		        };
-
-		        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
-		        builder.setTitle("Missing attributes");
-		        builder.setMessage("Please fill in all fields")
-		        .setPositiveButton("Yes", dialogClickListener)
-		        .show();
-			}*/
-			jsonStr = sh.makeServiceCall(url, HandleConnections.POST, nameValuePairs);
+			//send inputted data to the the PHP script
+			jsonStr = sh.makeServiceCall(submit_url, HandleConnections.POST, nameValuePairs);
 			return jsonStr;
 	    }
 	    
@@ -205,7 +317,7 @@ public class SubmitEvent extends Activity
         {
 			public void onClick(View v) 
 			{
-				new UploadTask().execute();
+				new CheckDuplicates().execute();
 			}
         });
 	}
