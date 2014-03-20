@@ -7,6 +7,7 @@ int anim slidedown_out 0x7f040005
 int anim slideup_in 0x7f040006
 int anim slideup_out 0x7f040007
 int array categories 0x7f0a0001
+int array locations 0x7f0a0002
 int array ratings 0x7f0a0000
 int attr adSize 0x7f010000
 int attr adSizes 0x7f010001
@@ -119,7 +120,7 @@ int id item_description 0x7f060011
 int id item_title 0x7f060010
 int id link_page 0x7f060034
 int id list 0x7f060012
-int id location_enter 0x7f06002d
+int id location_spin 0x7f06002d
 int id map 0x7f060005
 int id map_directions 0x7f060036
 int id news_description 0x7f060023
@@ -170,9 +171,10 @@ int layout wunderground_layout 0x7f030013
 int menu directions_to_menu 0x7f0c0000
 int menu eventinformation_menu 0x7f0c0001
 int menu favorites_information_menu 0x7f0c0002
-int menu mainscreen_menu 0x7f0c0003
-int menu newsinformation_menu 0x7f0c0004
-int menu usersubmittedlist_menu 0x7f0c0005
+int menu favoriteslist_menu 0x7f0c0003
+int menu mainscreen_menu 0x7f0c0004
+int menu newsinformation_menu 0x7f0c0005
+int menu usersubmittedlist_menu 0x7f0c0006
 int string action_settings 0x7f07001b
 int string add_event 0x7f070023
 int string app_name 0x7f07001a

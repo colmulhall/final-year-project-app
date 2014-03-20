@@ -1,11 +1,15 @@
 package com.phoenixpark.app;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -65,9 +69,48 @@ public class FavoritesList extends Activity implements AdapterView.OnItemClickLi
 	{
 		//Inflate the menu. This adds items to the action bar if it is present.
     	MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.mainscreen_menu, menu);
+        inflater.inflate(R.menu.favoriteslist_menu, menu);
         return true;
 	}
+    
+    //action bar listener
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) 
+    {
+    	int menu_item_id = item.getItemId();
+
+    	if(menu_item_id == R.id.delete_fav)
+    	{
+    		DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() 
+	        {
+				//"Are you sure?" dialog options
+	            @Override
+	            public void onClick(DialogInterface dialog, int which) 
+	            {
+	                switch (which)
+	                {
+		                case DialogInterface.BUTTON_POSITIVE:
+		                    //Yes button clicked
+		                	Toast.makeText(getApplicationContext(), "Deleted all favorites", Toast.LENGTH_LONG).show();
+		        			db.deleteAllFav();
+		        			finish();
+		                    break;
+		
+		                case DialogInterface.BUTTON_NEGATIVE:
+		                    //No button clicked
+		                    break;
+	                }
+	            }
+	        };
+	        AlertDialog.Builder builder = new AlertDialog.Builder(FavoritesList.this);
+	        builder.setTitle("Delete all favorites");
+	        builder.setMessage("Are you sure?")
+	        .setPositiveButton("Yes", dialogClickListener)
+	        .setNegativeButton("No", dialogClickListener)
+	        .show();
+    	}
+        return true;
+    }
     
     //handle click on a list item
     @Override

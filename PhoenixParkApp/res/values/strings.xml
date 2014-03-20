@@ -42,6 +42,22 @@
         <item>Music</item>
     </string-array>
     
+    <string-array name="locations">
+        <item>Áras an Uachtaráin</item>
+        <item>Dublin Zoo</item>
+        <item>Magazine Fort</item>
+        <item>Wellington Monument</item>
+        <item>Sports Grounds</item>
+        <item>American Ambassadors Residence</item>
+        <item>The Phoenix Monument</item>
+        <item>Papal Cross</item>
+        <item>Visitor Centre</item>
+        <item>St Marys Hospital</item>
+        <item>Farmleigh</item>
+        <item>St Marys Hospital</item>
+        <item>Fifteen Acres</item>
+    </string-array>
+    
     <!-- Static information for Áras an Uachtaráin -->
     <string name="aras_an_uachtarain_desc_p1">Áras an Uachtaráin had a colourful history before becoming 
         the Official Residence of the President of Ireland. Built in 1751 Situated in the 1,752 acres of 

@@ -20,6 +20,7 @@ public final class R {
     }
     public static final class array {
         public static final int categories=0x7f0a0001;
+        public static final int locations=0x7f0a0002;
         public static final int ratings=0x7f0a0000;
     }
     public static final class attr {
@@ -286,7 +287,7 @@ containing a value of this type.
         public static final int item_title=0x7f060010;
         public static final int link_page=0x7f060034;
         public static final int list=0x7f060012;
-        public static final int location_enter=0x7f06002d;
+        public static final int location_spin=0x7f06002d;
         public static final int map=0x7f060005;
         public static final int map_directions=0x7f060036;
         public static final int news_description=0x7f060023;
@@ -343,9 +344,10 @@ containing a value of this type.
         public static final int directions_to_menu=0x7f0c0000;
         public static final int eventinformation_menu=0x7f0c0001;
         public static final int favorites_information_menu=0x7f0c0002;
-        public static final int mainscreen_menu=0x7f0c0003;
-        public static final int newsinformation_menu=0x7f0c0004;
-        public static final int usersubmittedlist_menu=0x7f0c0005;
+        public static final int favoriteslist_menu=0x7f0c0003;
+        public static final int mainscreen_menu=0x7f0c0004;
+        public static final int newsinformation_menu=0x7f0c0005;
+        public static final int usersubmittedlist_menu=0x7f0c0006;
     }
     public static final class string {
         public static final int action_settings=0x7f07001b;

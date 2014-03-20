@@ -86,15 +86,11 @@
 	        android:text="@string/enter_location"
 	        android:textSize="22sp" />
 		    
-		    <EditText
-		        android:id="@+id/location_enter"
+		    <Spinner
+		        android:id="@+id/location_spin"
 		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"
-		        android:layout_marginBottom="5dp"
-		        android:layout_marginLeft="10dp"
-		        android:layout_marginRight="10dp"
-		        android:imeOptions="actionDone"
-		        android:inputType="textCapSentences" />
+		        android:layout_height="35dp" 
+		        android:textAlignment="center"/>
 		    
 		    <!-- Enter category of event -->
 		    <TextView

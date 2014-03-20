@@ -37,9 +37,9 @@ public class SubmitEvent extends Activity
 	private String submit_url = "http://parkdomain.comoj.com/android_get_users_submission.php";
 	
 	private TextView enterTitle, enterDesc, enterDate, enterLocation, enterCategory, enterContact_link;
-	private EditText editTitle, editDesc, editLocation, editContact_Link;
+	private EditText editTitle, editDesc, editContact_Link;
 	private DatePicker editDate;
-	private Spinner categories;
+	private Spinner categories, locations;
 	private Button submit;
 	
 	//dates for date picker
@@ -104,7 +104,6 @@ public class SubmitEvent extends Activity
         });
         
         editDate = (DatePicker)findViewById(R.id.datepicker);
-        editLocation = (EditText)findViewById(R.id.location_enter);
         editContact_Link = (EditText)findViewById(R.id.contactlink_enter);
         
         //set current date by default by the button
@@ -120,6 +119,16 @@ public class SubmitEvent extends Activity
 		         new ArrayAdapter<String>
         			(this,android.R.layout.simple_dropdown_item_1line, categories_array);
         categories.setAdapter(category_adapter);
+        
+        // locations spinner
+        locations = (Spinner)findViewById(R.id.location_spin);
+        
+        //populate the categories spinner with items in the string array from strings.xml
+        String[] locations_array = getResources().getStringArray(R.array.locations);
+        ArrayAdapter<String> location_adapter = 
+		         new ArrayAdapter<String>
+        			(this,android.R.layout.simple_dropdown_item_1line, locations_array);
+        locations.setAdapter(location_adapter);
         
         //set listeners for buttons
         addListenerOnButtons();
@@ -156,12 +165,9 @@ public class SubmitEvent extends Activity
         @Override
         protected String doInBackground(String... params)
         {
-            // Creating connection handler class instance
-            //HandleConnections sh = new HandleConnections();
-            
             //get data from the text boxes
 	    	String date = editDate.getYear()+"-"+editDate.getMonth()+"-"+editDate.getDayOfMonth();
-	    	String location = editLocation.getText().toString();
+	    	String location = String.valueOf(locations.getSelectedItem());
 	    	
 	        // Send the users entered parameters to the PHP script through POST
 			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
@@ -219,14 +225,15 @@ public class SubmitEvent extends Activity
 	            AlertDialog.Builder builder = new AlertDialog.Builder(SubmitEvent.this);
 	    		builder.setTitle("Possible Duplicate Events:");
 	    		
+	    		// get the names of the events that are possible duplicates
 	    		String dup_evs = "";
 	    		for(int i=0; i<dups.size(); i++)
 	    		{
 	    			dup_evs += "-" + dups.get(i) + "\n";
 	    		}
-	    		Log.i("DOOOOP", dups.get(0));
 	    		
 	            builder.setMessage(dup_evs);
+	            // go ahead and insert, confident its not a duplicate
 	            builder.setPositiveButton("I've checked", new DialogInterface.OnClickListener() 
 	            {
 	                public void onClick(DialogInterface dialog, int id) 
@@ -235,6 +242,7 @@ public class SubmitEvent extends Activity
 	                    new UploadTask().execute();
 	                }
 	            });
+	            //possible duplicate, check to be sure
 	            builder.setNegativeButton("Check", new DialogInterface.OnClickListener() 
 	            {
 	                public void onClick(DialogInterface dialog, int id) 
@@ -278,7 +286,7 @@ public class SubmitEvent extends Activity
 	    	String title = editTitle.getText().toString();
 	    	String desc = editDesc.getText().toString();
 	    	String date = editDate.getYear()+"-"+editDate.getMonth()+"-"+editDate.getDayOfMonth();
-	    	String location = editLocation.getText().toString();
+	    	String location = String.valueOf(locations.getSelectedItem());
 	    	String category = String.valueOf(categories.getSelectedItem());
 	    	String contact_link = editContact_Link.getText().toString();
 	    	
