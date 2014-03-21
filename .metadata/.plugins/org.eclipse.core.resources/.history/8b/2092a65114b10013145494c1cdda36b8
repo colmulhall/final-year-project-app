@@ -1,0 +1,167 @@
+/* This is where the events are retrieved from the database and 
+ * put into a list for the user to view.
+ */
+
+package com.phoenixpark.app;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.annotation.SuppressLint;
+import android.app.ListActivity;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.ShareActionProvider;
+import android.widget.SimpleAdapter;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class EventList extends ListActivity 
+{
+	// URL to get events JSON
+    private static String url = "http://parkdomain.comoj.com/android_get_event_titles.php";
+ 
+    // JSON Node names
+    private static final String TAG_EVENTS = "event_list";
+    private static final String TAG_ID = "id";
+    private static final String TAG_TITLE = "title";
+    private static final String TAG_LOCATION = "location";
+    private static final String TAG_DATE = "date";
+    
+    // Creating connection handler class instance
+ 	public HandleConnections sh = new HandleConnections();
+ 
+    // events JSONArray
+    JSONArray events = null;
+ 
+    // Hashmap for ListView
+    ArrayList<HashMap<String, String>> eventList;
+ 
+    @Override
+    public void onCreate(Bundle savedInstanceState) 
+    {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.eventlist_layout);
+ 
+        eventList = new ArrayList<HashMap<String, String>>();
+ 
+        ListView lv = getListView();
+        
+        // Listview on item click listener
+        lv.setOnItemClickListener(new OnItemClickListener() 
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
+            {
+                // get id from selected ListItem
+                String ev_id = ((TextView) view.findViewById(R.id.the_id)).getText().toString();
+ 
+                // Starting single contact activity
+                Intent in = new Intent(getApplicationContext(), EventInformation.class);
+                in.putExtra(TAG_ID, ev_id);
+                startActivity(in);
+                overridePendingTransition(R.anim.slide_in_left_to_right, R.anim.slide_out_left_to_right);
+            }
+        });
+ 
+        // Calling async task to get json
+        new GetEvents().execute();
+    }
+ 
+    //Async task class to get json by making HTTP call
+    private class GetEvents extends AsyncTask<String, Integer, String> 
+    {
+    	private ProgressDialog progress;  //progress dialog when loading events
+    	
+        @Override
+        protected void onPreExecute() 
+        {
+            super.onPreExecute();
+            // Showing progress dialog
+            progress = ProgressDialog.show(EventList.this, "Getting events", "Please Wait...");
+        }
+ 
+        @Override
+        protected String doInBackground(String... params)
+        {
+        	//get data from the text boxes
+	    	String filter;
+	    	
+	        // Send the users entered parameters to the PHP script through POST
+			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+			nameValuePairs.add(new BasicNameValuePair("location", location));
+			
+			//send inputted data to the the PHP script
+			jsonStr = sh.makeServiceCall(duplicates_url, HandleConnections.POST, nameValuePairs);
+ 
+            
+ 
+            return null;
+        }
+        
+        @Override
+        protected void onPostExecute(Void result) 
+        {
+            super.onPostExecute(result);
+            
+            // Dismiss the progress dialog
+            progress.dismiss();
+
+            ListAdapter adapter = new SimpleAdapter( EventList.this, eventList,
+                    R.layout.list_item, new String[] { TAG_TITLE, TAG_ID, TAG_LOCATION, TAG_DATE}, 
+                    new int[] {R.id.the_title, R.id.the_id, R.id.the_location, R.id.the_date});
+
+            setListAdapter(adapter);
+        }
+    }
+    
+    //action bar
+    @SuppressLint("NewApi")
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) 
+	{
+    	// Inflate menu resource file.  
+        getMenuInflater().inflate(R.menu.eventlist_menu, menu);  
+
+        return true;
+	}
+    
+    //action bar listener
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) 
+    {
+    	int id = item.getItemId();
+    	
+    	if(id == R.id.filter_events)
+    	{
+    		
+    	}
+        return true;
+    }
+    
+    //back button pressed by user
+    @Override
+    public void onBackPressed() 
+    {
+        finish();//go back to the previous Activity
+        overridePendingTransition(R.anim.slide_in_right_to_left, R.anim.slide_out_right_to_left);   
+    }
+}

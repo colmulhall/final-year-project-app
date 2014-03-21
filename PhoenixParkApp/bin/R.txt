@@ -94,7 +94,7 @@ int id category_spin 0x7f06000b
 int id comment_enter 0x7f060007
 int id contactlink_enter 0x7f06002f
 int id datepicker 0x7f06002b
-int id delete_fav 0x7f060037
+int id delete_fav 0x7f060038
 int id desc_enter 0x7f060029
 int id enter_category 0x7f06000a
 int id enter_comment 0x7f060006
@@ -108,6 +108,7 @@ int id event_description 0x7f06000f
 int id event_feedback 0x7f060035
 int id event_title 0x7f06000d
 int id fav_action 0x7f060032
+int id filter_events 0x7f060037
 int id grid_view 0x7f060021
 int id hybrid 0x7f060004
 int id im1 0x7f060013
@@ -137,7 +138,7 @@ int id satellite 0x7f060002
 int id section_label 0x7f06001a
 int id share 0x7f060033
 int id submit_button 0x7f06000c
-int id submit_event 0x7f060038
+int id submit_event 0x7f060039
 int id terrain 0x7f060003
 int id the_date 0x7f060020
 int id the_id 0x7f06001e
@@ -170,11 +171,12 @@ int layout usersubmittedlist_layout 0x7f030012
 int layout wunderground_layout 0x7f030013
 int menu directions_to_menu 0x7f0c0000
 int menu eventinformation_menu 0x7f0c0001
-int menu favorites_information_menu 0x7f0c0002
-int menu favoriteslist_menu 0x7f0c0003
-int menu mainscreen_menu 0x7f0c0004
-int menu newsinformation_menu 0x7f0c0005
-int menu usersubmittedlist_menu 0x7f0c0006
+int menu eventlist_menu 0x7f0c0002
+int menu favorites_information_menu 0x7f0c0003
+int menu favoriteslist_menu 0x7f0c0004
+int menu mainscreen_menu 0x7f0c0005
+int menu newsinformation_menu 0x7f0c0006
+int menu usersubmittedlist_menu 0x7f0c0007
 int string action_settings 0x7f07001b
 int string add_event 0x7f070023
 int string app_name 0x7f07001a

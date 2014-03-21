@@ -83,7 +83,7 @@ public class FavoritesList extends Activity implements AdapterView.OnItemClickLi
     	{
     		DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() 
 	        {
-				//"Are you sure?" dialog options
+				// Make sure the user is sure they want to delete all favorites
 	            @Override
 	            public void onClick(DialogInterface dialog, int which) 
 	            {

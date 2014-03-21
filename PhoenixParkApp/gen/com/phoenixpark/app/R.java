@@ -261,7 +261,7 @@ containing a value of this type.
         public static final int comment_enter=0x7f060007;
         public static final int contactlink_enter=0x7f06002f;
         public static final int datepicker=0x7f06002b;
-        public static final int delete_fav=0x7f060037;
+        public static final int delete_fav=0x7f060038;
         public static final int desc_enter=0x7f060029;
         public static final int enter_category=0x7f06000a;
         public static final int enter_comment=0x7f060006;
@@ -275,6 +275,7 @@ containing a value of this type.
         public static final int event_feedback=0x7f060035;
         public static final int event_title=0x7f06000d;
         public static final int fav_action=0x7f060032;
+        public static final int filter_events=0x7f060037;
         public static final int grid_view=0x7f060021;
         public static final int hybrid=0x7f060004;
         public static final int im1=0x7f060013;
@@ -304,7 +305,7 @@ containing a value of this type.
         public static final int section_label=0x7f06001a;
         public static final int share=0x7f060033;
         public static final int submit_button=0x7f06000c;
-        public static final int submit_event=0x7f060038;
+        public static final int submit_event=0x7f060039;
         public static final int terrain=0x7f060003;
         public static final int the_date=0x7f060020;
         public static final int the_id=0x7f06001e;
@@ -343,11 +344,12 @@ containing a value of this type.
     public static final class menu {
         public static final int directions_to_menu=0x7f0c0000;
         public static final int eventinformation_menu=0x7f0c0001;
-        public static final int favorites_information_menu=0x7f0c0002;
-        public static final int favoriteslist_menu=0x7f0c0003;
-        public static final int mainscreen_menu=0x7f0c0004;
-        public static final int newsinformation_menu=0x7f0c0005;
-        public static final int usersubmittedlist_menu=0x7f0c0006;
+        public static final int eventlist_menu=0x7f0c0002;
+        public static final int favorites_information_menu=0x7f0c0003;
+        public static final int favoriteslist_menu=0x7f0c0004;
+        public static final int mainscreen_menu=0x7f0c0005;
+        public static final int newsinformation_menu=0x7f0c0006;
+        public static final int usersubmittedlist_menu=0x7f0c0007;
     }
     public static final class string {
         public static final int action_settings=0x7f07001b;

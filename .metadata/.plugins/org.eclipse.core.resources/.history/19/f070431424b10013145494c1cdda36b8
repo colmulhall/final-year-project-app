@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout 
+   	    xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:orientation="vertical"
+	    android:scrollbars = "vertical"
+	    android:focusable="true"
+	    android:focusableInTouchMode="true" >
+	    
+	    <!-- Enter feedback comments on event -->
+	    <TextView
+        android:id="@+id/enter_comment"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/enter_comment"
+        android:textSize="22sp" />
+	    
+	    <EditText
+	        android:id="@+id/comment_enter"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content" 
+	        android:layout_marginLeft="10dp"
+	        android:layout_marginRight="10dp"
+	        android:layout_marginBottom="5dp"
+	        android:imeOptions="actionDone"
+	        android:gravity="top|left"
+			android:singleLine="false"
+			android:lines="5"
+		    android:inputType="textCapSentences|textMultiLine" 
+		    android:scrollbarStyle="insideInset"
+		    android:scrollbars="vertical" 
+		    android:overScrollMode="always"/>
+	    
+	    <!-- Enter what user rates the event -->
+	    <TextView
+        android:id="@+id/enter_rating"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/enter_rating"
+        android:textSize="22sp" />
+	
+	    <Spinner
+	        android:id="@+id/rating_spin"
+	        android:layout_width="110dp"
+	        android:layout_height="35dp" 
+	        android:layout_gravity="center"
+	        android:layout_marginBottom="5dp" />
+	    
+	    <!-- Enter what category the event falls under -->
+	    <TextView
+        android:id="@+id/enter_category"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/enter_category_opinion"
+        android:textSize="22sp" />
+	
+	    <Spinner
+	        android:id="@+id/category_spin"
+	        android:layout_width="150dp"
+	        android:layout_height="35dp" 
+	        android:layout_gravity="center" />
+	    
+	    <Button
+			android:id="@+id/submit_button"
+			android:layout_width="150dp"
+			android:layout_height="50dp"
+			android:text="@string/submit" />
+	    
+</LinearLayout>
