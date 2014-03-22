@@ -25,7 +25,8 @@
 	        android:layout_height="wrap_content" 
 	        android:layout_marginLeft="10dp"
 	        android:layout_marginRight="10dp"
-	        android:layout_marginBottom="5dp"
+	        android:layout_marginBottom="10dp"
+	        android:layout_marginTop="10dp"
 	        android:imeOptions="actionDone"
 	        android:gravity="top|left"
 			android:singleLine="false"
@@ -49,7 +50,8 @@
 	        android:layout_width="110dp"
 	        android:layout_height="35dp" 
 	        android:layout_gravity="center"
-	        android:layout_marginBottom="5dp" />
+			android:layout_marginBottom="10dp"
+	        android:layout_marginTop="10dp" />
 	    
 	    <!-- Enter what category the event falls under -->
 	    <TextView
@@ -62,14 +64,32 @@
 	
 	    <Spinner
 	        android:id="@+id/category_spin"
-	        android:layout_width="150dp"
+	        android:layout_width="170dp"
 	        android:layout_height="35dp" 
-	        android:layout_gravity="center" />
+	        android:layout_gravity="center" 
+	        android:layout_marginBottom="10dp"
+	        android:layout_marginTop="10dp" />
+	    
+	    <!-- Enter suggestion of the category the event falls under -->
+	    <EditText
+	        android:id="@+id/category_suggest"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content" 
+	        android:inputType="textCapSentences" 
+	        android:layout_marginLeft="10dp"
+	        android:layout_marginRight="10dp"
+	        android:layout_marginBottom="10dp"
+	        android:layout_marginTop="10dp"
+	        android:imeOptions="actionDone"
+	        android:visibility="invisible"
+	        android:hint="@string/suggested_category_here" />
 	    
 	    <Button
 			android:id="@+id/submit_button"
 			android:layout_width="150dp"
 			android:layout_height="50dp"
+			android:layout_marginBottom="10dp"
+	        android:layout_marginTop="10dp"
 			android:layout_gravity="center"
 			android:text="@string/submit" />
 	    

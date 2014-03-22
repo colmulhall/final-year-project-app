@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,14 +33,14 @@ public class EventFeedback extends Activity
 	private String urlUpload = "http://parkdomain.comoj.com/android_users_event_feedback.php";
 	private String urlGetInfo = "http://parkdomain.comoj.com/android_get_event_item.php";
 	private TextView enterComment, enterRating;
-	private EditText editComment;
+	private EditText editComment, category_suggest;
 	private Spinner ratings, categories;
 	private Button submit;
 	private Intent intent;
 	private String the_id;
 	
 	// Variables to hold the event information
-	String title, desc, location, date, comment, star_rating, category;
+	String title, desc, location, date, comment, star_rating, category, suggested_category;
 	
 	// Creating connection handler class instance
 	public HandleConnections sh = new HandleConnections();
@@ -50,6 +51,9 @@ public class EventFeedback extends Activity
 	private static final String TAG_TITLE = "title";
 	private static final String TAG_DESC = "description";
 	private static final String TAG_LOCATION = "location";
+	
+	// flag for spinner item
+	private boolean flag = false;
 	
 	JSONArray events;
 	JSONObject jObject;
@@ -74,7 +78,6 @@ public class EventFeedback extends Activity
         {
             public boolean onTouch(View view, MotionEvent event) 
             {
-                // TODO Auto-generated method stub
                 if (view.getId() == R.id.enter_comment) 
                 {
                     view.getParent().requestDisallowInterceptTouchEvent(true);
@@ -88,6 +91,9 @@ public class EventFeedback extends Activity
                 return false;
             }
         });
+        
+        //suggested category
+        category_suggest = (EditText)findViewById(R.id.category_suggest);
         
         // spinners
         ratings = (Spinner)findViewById(R.id.rating_spin);
@@ -106,6 +112,25 @@ public class EventFeedback extends Activity
 		         new ArrayAdapter<String>
         			(this,android.R.layout.simple_dropdown_item_1line, categories_array);
         categories.setAdapter(category_adapter);
+        
+        category_suggest.requestFocus();
+        
+        //set suggested category editable depending on users category pick
+        categories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long arg3) 
+            {
+                if(pos == 0)
+                	category_suggest.setVisibility(View.VISIBLE);
+                else
+                	category_suggest.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+            }               
+        });
         
         // button
         submit = (Button)findViewById(R.id.submit_button);
@@ -210,7 +235,6 @@ public class EventFeedback extends Activity
 	         progress = ProgressDialog.show(EventFeedback.this, "Giving feedback", "Please Wait...");
 	     }
     	
-	    @SuppressWarnings("deprecation")
 		@Override
 	    protected String doInBackground(String... params)
 	    {
@@ -241,6 +265,7 @@ public class EventFeedback extends Activity
 	    	comment = editComment.getText().toString();
 	    	star_rating = ""+user_rating;
 	    	category = String.valueOf(categories.getSelectedItem());
+	    	suggested_category = category_suggest.getText().toString();
 	    	
 	        // Send the users entered parameters to the PHP script through POST
 			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
@@ -251,6 +276,7 @@ public class EventFeedback extends Activity
 			nameValuePairs.add(new BasicNameValuePair("comment", comment));
 			nameValuePairs.add(new BasicNameValuePair("rating", star_rating));
 			nameValuePairs.add(new BasicNameValuePair("category", category));
+			nameValuePairs.add(new BasicNameValuePair("suggested_category", suggested_category));
 			
 			jsonStr = sh.makeServiceCall(urlUpload, HandleConnections.POST, nameValuePairs);
 			return jsonStr;

@@ -10,6 +10,7 @@
     <string name="ev_feedback">Event feedback</string>
     <string name="direct_to">Directions</string>
     <string name="fav_delete">Delete</string>
+    <string name="filter">Filter</string>
     <string name="add_event">+</string>
     <string name="submit">Submit</string>
     <string name="enter_title">Event Title:</string>
@@ -20,7 +21,8 @@
     <string name="enter_link_contact">Event link/contact:</string>
     <string name="enter_comment">Event Comment:</string>
     <string name="enter_rating">Event Rating:</string>
-    <string name="enter_category_opinion">What is the category of this event?:</string>
+    <string name="enter_category_opinion">Event Category?:</string>
+    <string name="suggested_category_here">Enter suggested category</string>
     <string name="aras_an_uachtaran">Áras an Uachtaráin</string>
     
     <string-array name="ratings">
@@ -32,6 +34,7 @@
     </string-array>
     
     <string-array name="categories">
+        <item>None of these</item>
         <item>Sport</item>
         <item>Family Fun</item>
         <item>Charity</item>

@@ -5,6 +5,7 @@
 package com.phoenixpark.app;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -244,8 +245,8 @@ public class EventList extends ListActivity
             // if the filter contains no events, let the user know
             if(eventList.isEmpty())
             {
-            	Log.i("EMPTY", "Nothing here to see..");
-            	
+            	Toast.makeText(getApplicationContext(),
+			    		"Their are currently no events with this selection", Toast.LENGTH_SHORT).show();
             }
             
             // Dismiss the progress dialog
@@ -278,10 +279,20 @@ public class EventList extends ListActivity
     	int id = item.getItemId();
     	
     	if(id == R.id.filter_events)
-    	{	
-    		final CharSequence[] locations_items = getResources().getStringArray(R.array.locations);
-    		locations_items[0] = "No filter";
-
+    	{
+    		List<String> list = new ArrayList<String>();
+    		String[] the_locations = getResources().getStringArray(R.array.locations);
+    		
+    		// populate the list with the string array values and add "no filter" to the top
+    		for(int i=0; i<the_locations.length; i++)
+    		{
+    			list.add(the_locations[i]);
+    		}
+    		list.add(0, "No filter");
+    		
+    		// convert the arraylist to a charsequence to populate the dialog box
+    		final CharSequence[] locations_items = list.toArray(new CharSequence[list.size()]);
+    		
     		AlertDialog.Builder builder2 = new AlertDialog.Builder(EventList.this)
     		.setTitle("Filter by")
     		.setSingleChoiceItems(locations_items, -1, new DialogInterface.OnClickListener() 
@@ -293,16 +304,14 @@ public class EventList extends ListActivity
 		    		filterby = locations_items[which].toString();
 		    		
 		    		if(filterby == locations_items[0].toString())
-		    			new GetEvents().execute();
+		    			new GetEvents().execute();   // no filter (show all events)
 		    		else
 		    		{
+		    			// apply a filter
 		    			new FilterEvents().execute();
-		    			// TODO Auto-generated method stub
-			    		Toast.makeText(getApplicationContext(),
-			    		"Their are currently no events with this selection", Toast.LENGTH_SHORT).show();
 		    		}
 		    		
-		    		//dismissing the dialog when the user makes a selection.
+		    		//dismissing the dialog when the user makes a selection
 		    		dialog.dismiss();
 	    		}
     		});
