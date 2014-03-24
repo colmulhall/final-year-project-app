@@ -5,6 +5,13 @@
         android:id="@+id/travel_action"
         android:orderInCategory="100"
         android:showAsAction="always"
-        android:title="info" />
+        android:title="@string/info" />
+    
+    <item
+        android:id="@+id/change_map_type"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:icon="@drawable/settings_cog"
+        android:title="@string/settings" />
     
 </menu>

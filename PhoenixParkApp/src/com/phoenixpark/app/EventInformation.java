@@ -165,8 +165,22 @@ public class EventInformation extends Activity
         		image.setImageResource(R.drawable.phoenixpark_item);
         	else if(the_location.equals("Visitor Centre"))
         		image.setImageResource(R.drawable.visitor_centre_item);
-        	else
+        	else if(the_location.equals("Dublin Zoo"))
         		image.setImageResource(R.drawable.zoo_item);
+        	else if(the_location.equals("Sports Grounds"))
+        		image.setImageResource(R.drawable.sportsgrounds_item);
+        	else if(the_location.equals("Magazine Fort"))
+        		image.setImageResource(R.drawable.magazine_static_1);
+        	else if(the_location.equals("Papal Cross"))
+        		image.setImageResource(R.drawable.papal_static_2);
+        	else if(the_location.equals("Wellington Monument"))
+        		image.setImageResource(R.drawable.wellington_static_1);
+        	else if(the_location.equals("Peoples Garden"))
+        		image.setImageResource(R.drawable.peoples_garden_static_1);
+        	else if(the_location.equals("Ashtown Castle"))
+        		image.setImageResource(R.drawable.ashtown_static_1);
+        	else
+        		image.setImageResource(R.drawable.deerfield_static_1);
             
             super.onPostExecute(result);
             

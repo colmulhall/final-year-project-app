@@ -80,6 +80,7 @@ public class MenuScreen extends Activity
             	 // Map selected
             	else if(position == 4)
             	{
+            		
 	                Intent i = new Intent(getApplicationContext(), MapPark.class);
 	                startActivity(i);
 	                overridePendingTransition(R.anim.slide_in_left_to_right, R.anim.slide_out_left_to_right);  //sliding animation

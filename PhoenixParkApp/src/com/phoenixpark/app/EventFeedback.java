@@ -32,15 +32,15 @@ public class EventFeedback extends Activity
 {
 	private String urlUpload = "http://parkdomain.comoj.com/android_users_event_feedback.php";
 	private String urlGetInfo = "http://parkdomain.comoj.com/android_get_event_item.php";
-	private TextView enterComment, enterRating;
+	private TextView enterComment, enterRating, enterDemographic;
 	private EditText editComment, category_suggest;
-	private Spinner ratings, categories;
+	private Spinner ratings, categories, demographics;
 	private Button submit;
 	private Intent intent;
 	private String the_id;
 	
 	// Variables to hold the event information
-	String title, desc, location, date, comment, star_rating, category, suggested_category;
+	String title, desc, location, date, comment, star_rating, category, suggested_category, suggested_demographic;
 	
 	// Creating connection handler class instance
 	public HandleConnections sh = new HandleConnections();
@@ -51,9 +51,6 @@ public class EventFeedback extends Activity
 	private static final String TAG_TITLE = "title";
 	private static final String TAG_DESC = "description";
 	private static final String TAG_LOCATION = "location";
-	
-	// flag for spinner item
-	private boolean flag = false;
 	
 	JSONArray events;
 	JSONObject jObject;
@@ -71,6 +68,7 @@ public class EventFeedback extends Activity
         // textviews
         enterComment = (TextView)findViewById(R.id.enter_comment);
         enterRating = (TextView)findViewById(R.id.enter_rating);
+        enterDemographic = (TextView)findViewById(R.id.enter_demographic);
         
         // edittext
         editComment = (EditText)findViewById(R.id.comment_enter);
@@ -98,20 +96,28 @@ public class EventFeedback extends Activity
         // spinners
         ratings = (Spinner)findViewById(R.id.rating_spin);
         categories = (Spinner)findViewById(R.id.category_spin);
+        demographics = (Spinner)findViewById(R.id.demographic_spin);
         
-        //populate the ratings spinner with items in the string array from strings.xml
+        // populate the ratings spinner with items in the string array from strings.xml
         String[] ratings_array = getResources().getStringArray(R.array.ratings);
         ArrayAdapter<String> rating_adapter = 
 		         new ArrayAdapter<String>
         			(this,android.R.layout.simple_dropdown_item_1line, ratings_array);
         ratings.setAdapter(rating_adapter);
         
-        //populate the categories spinner with items in the string array from strings.xml
+        // populate the categories spinner with items in the string array from strings.xml
         String[] categories_array = getResources().getStringArray(R.array.categories);
         ArrayAdapter<String> category_adapter = 
 		         new ArrayAdapter<String>
         			(this,android.R.layout.simple_dropdown_item_1line, categories_array);
         categories.setAdapter(category_adapter);
+        
+        // populate the demographics spinner with items in the string array from strings.xml
+        String[] demographics_array = getResources().getStringArray(R.array.demographics);
+        ArrayAdapter<String> demographics_adapter = 
+		         new ArrayAdapter<String>
+        			(this,android.R.layout.simple_dropdown_item_1line, demographics_array);
+        demographics.setAdapter(demographics_adapter);
         
         category_suggest.requestFocus();
         
@@ -143,7 +149,7 @@ public class EventFeedback extends Activity
 			}
         });
         
-     // run the get event method
+        // run the get event method
         new UploadTask().execute();
     }
     
@@ -186,7 +192,6 @@ public class EventFeedback extends Activity
         @Override
         protected Void doInBackground(Void... arg0)
         {
-        	Log.d("Response: ", "> " + jsonStr);
             if (jsonStr != null) 
             {
                 try 
@@ -266,6 +271,7 @@ public class EventFeedback extends Activity
 	    	star_rating = ""+user_rating;
 	    	category = String.valueOf(categories.getSelectedItem());
 	    	suggested_category = category_suggest.getText().toString();
+	    	suggested_demographic = String.valueOf(demographics.getSelectedItem());
 	    	
 	        // Send the users entered parameters to the PHP script through POST
 			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
@@ -277,6 +283,7 @@ public class EventFeedback extends Activity
 			nameValuePairs.add(new BasicNameValuePair("rating", star_rating));
 			nameValuePairs.add(new BasicNameValuePair("category", category));
 			nameValuePairs.add(new BasicNameValuePair("suggested_category", suggested_category));
+			nameValuePairs.add(new BasicNameValuePair("suggested_demographic", suggested_demographic));
 			
 			jsonStr = sh.makeServiceCall(urlUpload, HandleConnections.POST, nameValuePairs);
 			return jsonStr;

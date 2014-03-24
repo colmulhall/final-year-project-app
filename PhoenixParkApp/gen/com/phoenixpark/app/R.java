@@ -20,6 +20,8 @@ public final class R {
     }
     public static final class array {
         public static final int categories=0x7f0a0001;
+        public static final int demographics=0x7f0a0004;
+        public static final int gates=0x7f0a0003;
         public static final int locations=0x7f0a0002;
         public static final int ratings=0x7f0a0000;
     }
@@ -208,139 +210,168 @@ containing a value of this type.
     }
     public static final class drawable {
         public static final int add_new_event=0x7f020000;
-        public static final int aras_front=0x7f020001;
-        public static final int aras_reception_room=0x7f020002;
-        public static final int aras_yard=0x7f020003;
-        public static final int common_signin_btn_icon_dark=0x7f020004;
-        public static final int common_signin_btn_icon_disabled_dark=0x7f020005;
-        public static final int common_signin_btn_icon_disabled_focus_dark=0x7f020006;
-        public static final int common_signin_btn_icon_disabled_focus_light=0x7f020007;
-        public static final int common_signin_btn_icon_disabled_light=0x7f020008;
-        public static final int common_signin_btn_icon_focus_dark=0x7f020009;
-        public static final int common_signin_btn_icon_focus_light=0x7f02000a;
-        public static final int common_signin_btn_icon_light=0x7f02000b;
-        public static final int common_signin_btn_icon_normal_dark=0x7f02000c;
-        public static final int common_signin_btn_icon_normal_light=0x7f02000d;
-        public static final int common_signin_btn_icon_pressed_dark=0x7f02000e;
-        public static final int common_signin_btn_icon_pressed_light=0x7f02000f;
-        public static final int common_signin_btn_text_dark=0x7f020010;
-        public static final int common_signin_btn_text_disabled_dark=0x7f020011;
-        public static final int common_signin_btn_text_disabled_focus_dark=0x7f020012;
-        public static final int common_signin_btn_text_disabled_focus_light=0x7f020013;
-        public static final int common_signin_btn_text_disabled_light=0x7f020014;
-        public static final int common_signin_btn_text_focus_dark=0x7f020015;
-        public static final int common_signin_btn_text_focus_light=0x7f020016;
-        public static final int common_signin_btn_text_light=0x7f020017;
-        public static final int common_signin_btn_text_normal_dark=0x7f020018;
-        public static final int common_signin_btn_text_normal_light=0x7f020019;
-        public static final int common_signin_btn_text_pressed_dark=0x7f02001a;
-        public static final int common_signin_btn_text_pressed_light=0x7f02001b;
-        public static final int delete_icon=0x7f02001c;
-        public static final int events_icon=0x7f02001d;
-        public static final int farmleigh_house_item=0x7f02001e;
-        public static final int favorites_icon=0x7f02001f;
-        public static final int ic_launcher=0x7f020020;
-        public static final int ic_plusone_medium_off_client=0x7f020021;
-        public static final int ic_plusone_small_off_client=0x7f020022;
-        public static final int ic_plusone_standard_off_client=0x7f020023;
-        public static final int ic_plusone_tall_off_client=0x7f020024;
-        public static final int icon=0x7f020025;
-        public static final int map_icon=0x7f020026;
-        public static final int news_icon=0x7f020027;
-        public static final int phoenixpark_item=0x7f020028;
-        public static final int qwerty=0x7f020029;
-        public static final int sportsgrounds_item=0x7f02002a;
-        public static final int static_info=0x7f02002b;
-        public static final int twitter_icon=0x7f02002c;
-        public static final int user_submitted_icon=0x7f02002d;
-        public static final int visitor_centre_item=0x7f02002e;
-        public static final int zoo_item=0x7f02002f;
+        public static final int aras_static_1=0x7f020001;
+        public static final int aras_static_2=0x7f020002;
+        public static final int aras_static_3=0x7f020003;
+        public static final int ashtown_static_1=0x7f020004;
+        public static final int ashtown_static_2=0x7f020005;
+        public static final int ashtown_static_3=0x7f020006;
+        public static final int common_signin_btn_icon_dark=0x7f020007;
+        public static final int common_signin_btn_icon_disabled_dark=0x7f020008;
+        public static final int common_signin_btn_icon_disabled_focus_dark=0x7f020009;
+        public static final int common_signin_btn_icon_disabled_focus_light=0x7f02000a;
+        public static final int common_signin_btn_icon_disabled_light=0x7f02000b;
+        public static final int common_signin_btn_icon_focus_dark=0x7f02000c;
+        public static final int common_signin_btn_icon_focus_light=0x7f02000d;
+        public static final int common_signin_btn_icon_light=0x7f02000e;
+        public static final int common_signin_btn_icon_normal_dark=0x7f02000f;
+        public static final int common_signin_btn_icon_normal_light=0x7f020010;
+        public static final int common_signin_btn_icon_pressed_dark=0x7f020011;
+        public static final int common_signin_btn_icon_pressed_light=0x7f020012;
+        public static final int common_signin_btn_text_dark=0x7f020013;
+        public static final int common_signin_btn_text_disabled_dark=0x7f020014;
+        public static final int common_signin_btn_text_disabled_focus_dark=0x7f020015;
+        public static final int common_signin_btn_text_disabled_focus_light=0x7f020016;
+        public static final int common_signin_btn_text_disabled_light=0x7f020017;
+        public static final int common_signin_btn_text_focus_dark=0x7f020018;
+        public static final int common_signin_btn_text_focus_light=0x7f020019;
+        public static final int common_signin_btn_text_light=0x7f02001a;
+        public static final int common_signin_btn_text_normal_dark=0x7f02001b;
+        public static final int common_signin_btn_text_normal_light=0x7f02001c;
+        public static final int common_signin_btn_text_pressed_dark=0x7f02001d;
+        public static final int common_signin_btn_text_pressed_light=0x7f02001e;
+        public static final int deerfield_static_1=0x7f02001f;
+        public static final int deerfield_static_2=0x7f020020;
+        public static final int deerfield_static_3=0x7f020021;
+        public static final int delete_icon=0x7f020022;
+        public static final int dublin_zoo_static_1=0x7f020023;
+        public static final int dublin_zoo_static_2=0x7f020024;
+        public static final int dublin_zoo_static_3=0x7f020025;
+        public static final int events_icon=0x7f020026;
+        public static final int farmleigh_house_item=0x7f020027;
+        public static final int farmleigh_static_1=0x7f020028;
+        public static final int farmleigh_static_2=0x7f020029;
+        public static final int farmleigh_static_3=0x7f02002a;
+        public static final int favorites_icon=0x7f02002b;
+        public static final int ic_launcher=0x7f02002c;
+        public static final int ic_plusone_medium_off_client=0x7f02002d;
+        public static final int ic_plusone_small_off_client=0x7f02002e;
+        public static final int ic_plusone_standard_off_client=0x7f02002f;
+        public static final int ic_plusone_tall_off_client=0x7f020030;
+        public static final int icon=0x7f020031;
+        public static final int magazine_static_1=0x7f020032;
+        public static final int magazine_static_2=0x7f020033;
+        public static final int magazine_static_3=0x7f020034;
+        public static final int map_icon=0x7f020035;
+        public static final int markers_icon=0x7f020036;
+        public static final int news_icon=0x7f020037;
+        public static final int papal_static_1=0x7f020038;
+        public static final int papal_static_2=0x7f020039;
+        public static final int peoples_garden_static_1=0x7f02003a;
+        public static final int peoples_garden_static_2=0x7f02003b;
+        public static final int phoenixpark_item=0x7f02003c;
+        public static final int qwerty=0x7f02003d;
+        public static final int settings_cog=0x7f02003e;
+        public static final int sportsgrounds_item=0x7f02003f;
+        public static final int static_info=0x7f020040;
+        public static final int twitter_icon=0x7f020041;
+        public static final int user_submitted_icon=0x7f020042;
+        public static final int visitor_centre_item=0x7f020043;
+        public static final int wellington_static_1=0x7f020044;
+        public static final int wellington_static_2=0x7f020045;
+        public static final int zoo_item=0x7f020046;
     }
     public static final class id {
-        public static final int category_spin=0x7f06000b;
-        public static final int category_suggest=0x7f06000c;
-        public static final int comment_enter=0x7f060007;
-        public static final int contactlink_enter=0x7f060030;
-        public static final int datepicker=0x7f06002c;
-        public static final int delete_fav=0x7f060039;
-        public static final int desc_enter=0x7f06002a;
-        public static final int enter_category=0x7f06000a;
-        public static final int enter_comment=0x7f060006;
-        public static final int enter_contactlink=0x7f06002f;
-        public static final int enter_date=0x7f06002b;
-        public static final int enter_desc=0x7f060029;
-        public static final int enter_location=0x7f06002d;
-        public static final int enter_rating=0x7f060008;
-        public static final int enter_title=0x7f060027;
-        public static final int event_description=0x7f060010;
-        public static final int event_feedback=0x7f060036;
-        public static final int event_title=0x7f06000e;
-        public static final int fav_action=0x7f060033;
-        public static final int filter_events=0x7f060038;
-        public static final int grid_view=0x7f060022;
+        public static final int category_spin=0x7f06000c;
+        public static final int category_suggest=0x7f06000d;
+        public static final int change_map_type=0x7f060036;
+        public static final int comment_enter=0x7f060008;
+        public static final int contactlink_enter=0x7f060033;
+        public static final int datepicker=0x7f06002f;
+        public static final int delete_fav=0x7f06003d;
+        public static final int demographic_spin=0x7f06000f;
+        public static final int desc_enter=0x7f06002d;
+        public static final int enter_category=0x7f06000b;
+        public static final int enter_comment=0x7f060007;
+        public static final int enter_contactlink=0x7f060032;
+        public static final int enter_date=0x7f06002e;
+        public static final int enter_demographic=0x7f06000e;
+        public static final int enter_desc=0x7f06002c;
+        public static final int enter_location=0x7f060030;
+        public static final int enter_rating=0x7f060009;
+        public static final int enter_title=0x7f06002a;
+        public static final int event_description=0x7f060013;
+        public static final int event_feedback=0x7f06003a;
+        public static final int event_title=0x7f060011;
+        public static final int fav_action=0x7f060037;
+        public static final int filter_events=0x7f06003c;
+        public static final int filter_markers=0x7f06003e;
+        public static final int grid_view=0x7f060025;
         public static final int hybrid=0x7f060004;
-        public static final int im1=0x7f060014;
-        public static final int im2=0x7f060016;
-        public static final int im3=0x7f060018;
-        public static final int image=0x7f06000f;
-        public static final int imageView1=0x7f06001a;
-        public static final int image_list=0x7f06001d;
-        public static final int item_description=0x7f060012;
-        public static final int item_title=0x7f060011;
-        public static final int link_page=0x7f060035;
-        public static final int list=0x7f060013;
-        public static final int location_spin=0x7f06002e;
-        public static final int map=0x7f060005;
-        public static final int map_directions=0x7f060037;
-        public static final int news_description=0x7f060024;
-        public static final int news_title=0x7f060023;
+        public static final int im1=0x7f060017;
+        public static final int im2=0x7f060019;
+        public static final int im3=0x7f06001b;
+        public static final int image=0x7f060012;
+        public static final int imageView1=0x7f06001d;
+        public static final int image_list=0x7f060020;
+        public static final int item_description=0x7f060015;
+        public static final int item_title=0x7f060014;
+        public static final int link_page=0x7f060039;
+        public static final int list=0x7f060016;
+        public static final int location_spin=0x7f060031;
+        public static final int map=0x7f060006;
+        public static final int map_directions=0x7f06003b;
+        public static final int news_description=0x7f060027;
+        public static final int news_title=0x7f060026;
         public static final int none=0x7f060000;
         public static final int normal=0x7f060001;
-        public static final int pager=0x7f060025;
-        public static final int pager_title_strip=0x7f060026;
-        public static final int pt1=0x7f060015;
-        public static final int pt2=0x7f060017;
-        public static final int pt3=0x7f060019;
-        public static final int rating_spin=0x7f060009;
+        public static final int num_txt=0x7f060005;
+        public static final int pager=0x7f060028;
+        public static final int pager_title_strip=0x7f060029;
+        public static final int pt1=0x7f060018;
+        public static final int pt2=0x7f06001a;
+        public static final int pt3=0x7f06001c;
+        public static final int rating_spin=0x7f06000a;
         public static final int satellite=0x7f060002;
-        public static final int section_label=0x7f06001b;
-        public static final int share=0x7f060034;
-        public static final int submit_button=0x7f06000d;
-        public static final int submit_event=0x7f06003a;
+        public static final int section_label=0x7f06001e;
+        public static final int share=0x7f060038;
+        public static final int submit_button=0x7f060010;
+        public static final int submit_event=0x7f06003f;
         public static final int terrain=0x7f060003;
-        public static final int the_date=0x7f060021;
-        public static final int the_id=0x7f06001f;
-        public static final int the_location=0x7f060020;
-        public static final int the_title=0x7f06001e;
-        public static final int thumbnail=0x7f06001c;
-        public static final int title_enter=0x7f060028;
-        public static final int travel_action=0x7f060032;
-        public static final int weather_title=0x7f060031;
+        public static final int the_date=0x7f060024;
+        public static final int the_id=0x7f060022;
+        public static final int the_location=0x7f060023;
+        public static final int the_title=0x7f060021;
+        public static final int thumbnail=0x7f06001f;
+        public static final int title_enter=0x7f06002b;
+        public static final int travel_action=0x7f060035;
+        public static final int weather_title=0x7f060034;
     }
     public static final class integer {
         public static final int google_play_services_version=0x7f080000;
     }
     public static final class layout {
-        public static final int directionsto_layout=0x7f030000;
-        public static final int eventfeedback_layout=0x7f030001;
-        public static final int eventinformation_layout=0x7f030002;
-        public static final int eventlist_layout=0x7f030003;
-        public static final int favorites_information_layout=0x7f030004;
-        public static final int favorites_list_layout=0x7f030005;
-        public static final int fragment_layout=0x7f030006;
-        public static final int fragment_main_dummy=0x7f030007;
-        public static final int list_item=0x7f030008;
-        public static final int mappark_layout=0x7f030009;
-        public static final int menuscreen_layout=0x7f03000a;
-        public static final int newsinformation_layout=0x7f03000b;
-        public static final int newslist_layout=0x7f03000c;
-        public static final int row=0x7f03000d;
-        public static final int static_info_main_layout=0x7f03000e;
-        public static final int submit_event_layout=0x7f03000f;
-        public static final int submitted_event_item=0x7f030010;
-        public static final int submitted_events_list_item=0x7f030011;
-        public static final int usersubmittedlist_layout=0x7f030012;
-        public static final int wunderground_layout=0x7f030013;
+        public static final int custom_marker_layout=0x7f030000;
+        public static final int directionsto_layout=0x7f030001;
+        public static final int eventfeedback_layout=0x7f030002;
+        public static final int eventinformation_layout=0x7f030003;
+        public static final int eventlist_layout=0x7f030004;
+        public static final int favorites_information_layout=0x7f030005;
+        public static final int favorites_list_layout=0x7f030006;
+        public static final int fragment_layout=0x7f030007;
+        public static final int fragment_main_dummy=0x7f030008;
+        public static final int list_item=0x7f030009;
+        public static final int mappark_layout=0x7f03000a;
+        public static final int menuscreen_layout=0x7f03000b;
+        public static final int newsinformation_layout=0x7f03000c;
+        public static final int newslist_layout=0x7f03000d;
+        public static final int row=0x7f03000e;
+        public static final int static_info_main_layout=0x7f03000f;
+        public static final int submit_event_layout=0x7f030010;
+        public static final int submitted_event_item=0x7f030011;
+        public static final int submitted_events_list_item=0x7f030012;
+        public static final int usersubmittedlist_layout=0x7f030013;
+        public static final int wunderground_layout=0x7f030014;
     }
     public static final class menu {
         public static final int directions_to_menu=0x7f0c0000;
@@ -349,20 +380,28 @@ containing a value of this type.
         public static final int favorites_information_menu=0x7f0c0003;
         public static final int favoriteslist_menu=0x7f0c0004;
         public static final int mainscreen_menu=0x7f0c0005;
-        public static final int newsinformation_menu=0x7f0c0006;
-        public static final int usersubmittedlist_menu=0x7f0c0007;
+        public static final int map_park_menu=0x7f0c0006;
+        public static final int newsinformation_menu=0x7f0c0007;
+        public static final int usersubmittedlist_menu=0x7f0c0008;
     }
     public static final class string {
+        /**  Titles for strings 
+         */
+        public static final int DirectionsToScreen=0x7f070034;
         public static final int action_settings=0x7f07001b;
         public static final int add_event=0x7f070024;
         public static final int app_name=0x7f07001a;
         /**  Static information for Áras an Uachtaráin 
          */
-        public static final int aras_an_uachtarain_desc_p1=0x7f070031;
-        public static final int aras_an_uachtarain_desc_p2=0x7f070032;
-        public static final int aras_an_uachtarain_desc_p3=0x7f070033;
-        public static final int aras_an_uachtarain_desc_p4=0x7f070034;
-        public static final int aras_an_uachtaran=0x7f070030;
+        public static final int aras_an_uachtarain_desc_p1=0x7f070035;
+        public static final int aras_an_uachtarain_desc_p2=0x7f070036;
+        public static final int aras_an_uachtarain_desc_p3=0x7f070037;
+        public static final int aras_an_uachtaran=0x7f070033;
+        /**  Static information for Ashtown Castle & Visitor Centre 
+         */
+        public static final int ashtown_desc_p1=0x7f070045;
+        public static final int ashtown_desc_p2=0x7f070046;
+        public static final int ashtown_desc_p3=0x7f070047;
         /**   Title for notification shown when GooglePlayServices needs to be
         enabled for a application to work. [CHAR LIMIT=70] 
          */
@@ -458,27 +497,59 @@ containing a value of this type.
          */
         public static final int common_signin_button_text_long=0x7f070013;
         public static final int content_desc=0x7f07001c;
+        /**  Static information for Deerfield Residence 
+         */
+        public static final int deerfield_desc_p1=0x7f070042;
+        public static final int deerfield_desc_p2=0x7f070043;
+        public static final int deerfield_desc_p3=0x7f070044;
         public static final int direct_to=0x7f070021;
-        public static final int enter_category=0x7f07002a;
-        public static final int enter_category_opinion=0x7f07002e;
-        public static final int enter_comment=0x7f07002c;
-        public static final int enter_date=0x7f070028;
-        public static final int enter_description=0x7f070027;
-        public static final int enter_link_contact=0x7f07002b;
-        public static final int enter_location=0x7f070029;
-        public static final int enter_rating=0x7f07002d;
-        public static final int enter_title=0x7f070026;
+        /**  Static information for Dublin Zoo 
+         */
+        public static final int dublin_zoo_desc_p1=0x7f07003f;
+        public static final int dublin_zoo_desc_p2=0x7f070040;
+        public static final int dublin_zoo_desc_p3=0x7f070041;
+        public static final int enter_category=0x7f07002c;
+        public static final int enter_category_opinion=0x7f070030;
+        public static final int enter_comment=0x7f07002e;
+        public static final int enter_date=0x7f07002a;
+        public static final int enter_demographic_opinion=0x7f070031;
+        public static final int enter_description=0x7f070029;
+        public static final int enter_link_contact=0x7f07002d;
+        public static final int enter_location=0x7f07002b;
+        public static final int enter_rating=0x7f07002f;
+        public static final int enter_title=0x7f070028;
         public static final int ev_feedback=0x7f070020;
+        /**  Static information for Farmleigh 
+         */
+        public static final int farmleigh_desc_p1=0x7f07003a;
+        public static final int farmleigh_desc_p2=0x7f07003b;
+        public static final int farmleigh_desc_p3=0x7f07003c;
         public static final int fav_delete=0x7f070022;
         public static final int favs=0x7f07001e;
         public static final int filter=0x7f070023;
+        public static final int info=0x7f070025;
+        /**  Static information for Magazine Fort 
+         */
+        public static final int magazine_desc_1=0x7f07004a;
+        public static final int magazine_desc_2=0x7f07004b;
+        public static final int magazine_desc_3=0x7f07004c;
         /**  Static information for The Papal Cross 
          */
-        public static final int papal_cross_desc=0x7f070035;
+        public static final int papal_cross_desc_p1=0x7f070038;
+        public static final int papal_cross_desc_p2=0x7f070039;
+        /**  Static information for Peoples Garden 
+         */
+        public static final int peoples_garden_desc_1=0x7f070048;
+        public static final int peoples_garden_desc_2=0x7f070049;
+        public static final int settings=0x7f070026;
         public static final int share=0x7f07001d;
-        public static final int submit=0x7f070025;
-        public static final int suggested_category_here=0x7f07002f;
+        public static final int submit=0x7f070027;
+        public static final int suggested_category_here=0x7f070032;
         public static final int web=0x7f07001f;
+        /**  Static information for Wellington Monument 
+         */
+        public static final int wellington_desc_p1=0x7f07003d;
+        public static final int wellington_desc_p2=0x7f07003e;
     }
     public static final class strings {
         public static final int content_desc=0x7f0d0000;

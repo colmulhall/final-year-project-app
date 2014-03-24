@@ -43,12 +43,12 @@ public class FavoritesList extends Activity implements AdapterView.OnItemClickLi
 	        
 	        String[] from = new String[]{
 	        		LocalDbManager.KEY_FAV_EVENT_TITLE, 
+	        		LocalDbManager.KEY_FAV_EVENT_LOCATION,
 	        		LocalDbManager.KEY_FAV_ID,
 	        		LocalDbManager.KEY_FAV_EVENT_DESCRIPTION,
-	        		LocalDbManager.KEY_FAV_EVENT_LOCATION,
 	        		LocalDbManager.KEY_FAV_EVENT_DATE,
 	        		LocalDbManager.KEY_FAV_EVENT_LINK};
-	        int[] to = new int[]{R.id.the_title};
+	        int[] to = new int[]{R.id.the_title, R.id.the_location};
 	
 	        @SuppressWarnings("deprecation")
 			SimpleCursorAdapter cursorAdapter =  new SimpleCursorAdapter(this, R.layout.row, cursor, from, to);

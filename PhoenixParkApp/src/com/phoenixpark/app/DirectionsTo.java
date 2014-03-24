@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
@@ -24,14 +23,13 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.net.Uri;
+import android.location.LocationProvider;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ShareActionProvider;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -45,10 +43,8 @@ import com.google.android.gms.maps.model.PolylineOptions;
 public class DirectionsTo extends FragmentActivity implements LocationListener 
 { 
     private GoogleMap map;
-    private ArrayList<LatLng> markerPoints;
     private Location location; // location
     private LatLng currentLocation;
-    private Location loc, loc2;
     protected LocationManager locationManager;
     protected LocationListener locationListener;
     protected String latitude,longitude;
@@ -59,6 +55,7 @@ public class DirectionsTo extends FragmentActivity implements LocationListener
     double current_lat, current_lng;
     private Float meters_between;
 
+    // modes for directions
     private String mode, recommended_mode;
     
     @Override
@@ -73,9 +70,6 @@ public class DirectionsTo extends FragmentActivity implements LocationListener
  
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-        
-        // Initializing
-        markerPoints = new ArrayList<LatLng>();
  
         // Getting reference to SupportMapFragment of the activity_main
         SupportMapFragment fm = (SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.map);
@@ -98,37 +92,37 @@ public class DirectionsTo extends FragmentActivity implements LocationListener
 	    map.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
 	    map.animateCamera(CameraUpdateFactory.zoomTo(15));
         
-        //get location of this event/news item
+        // get location of this event/news item
 		intent = getIntent();
         the_location = intent.getExtras().getString("loc");
         
-        //get lat/long from local database
+        // get lat/long from local database
         String lt = db.getLocLatitude(the_location);
         String lg = db.getLocLongitude(the_location);
         
-        //parse these from string to double so they can be plotted on a map
+        // parse these from string to double so they can be plotted on a map
         double lat = Double.parseDouble(lt);
         double lng = Double.parseDouble(lg);
         
         if(map != null)
         {
-            // Enable MyLocation Button in the Map
+            // enable current location button on the map
             map.setMyLocationEnabled(true);
             
             LatLng origin = new LatLng(location.getLatitude(), location.getLongitude());
         	LatLng dest = new LatLng(lat, lng);
         	
-        	//get current location coordinates
+        	// get current location coordinates
         	Location loc = new Location("Current");
         	loc.setLatitude(current_lat);
     		loc.setLongitude(current_lng);
         	
-    		//get location of the event
+    		// get location of the event
     		Location loc2 = new Location("Destination");
         	loc2.setLatitude(lat);
         	loc2.setLongitude(lng);
         	
-        	//calculate the distance between the two
+        	// calculate the distance between the two
         	meters_between = loc.distanceTo(loc2);
         	
         	//add marker to the destination
@@ -239,6 +233,7 @@ public class DirectionsTo extends FragmentActivity implements LocationListener
  
         }catch(Exception e){
             Log.d("Exception while downloading url", e.toString());
+            throw new RuntimeException(e);
         }finally{
             iStream.close();
             urlConnection.disconnect();
@@ -261,6 +256,7 @@ public class DirectionsTo extends FragmentActivity implements LocationListener
                 data = downloadUrl(url[0]);
             }catch(Exception e){
                 Log.d("Background Task",e.toString());
+                throw new RuntimeException(e);
             }
             return data;
         }
@@ -332,7 +328,7 @@ public class DirectionsTo extends FragmentActivity implements LocationListener
                 // Adding all the points in the route to LineOptions
                 lineOptions.addAll(points);
                 lineOptions.width(5);
-                lineOptions.color(Color.CYAN);
+                lineOptions.color(Color.GREEN);
             }
  
             // Drawing polyline in the Google Map for the i-th route
@@ -340,41 +336,45 @@ public class DirectionsTo extends FragmentActivity implements LocationListener
         }
     }
 
-    // unimplemented methods
+    
 	@Override
 	public void onLocationChanged(Location location) 
 	{
-		double lat = location.getLatitude();
-		double lng = location.getLongitude();
-
-		LatLng currentLocation = new LatLng(lat, lng);
-		
-		//DownloadTask downloadTask = new DownloadTask();
-        //downloadTask.execute(url);
-
-		// Showing the current location in Google Map
-	    //map.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
-
-	    // Zoom in the Google Map
-	    //map.animateCamera(CameraUpdateFactory.zoomTo(15));
+		//refresh the current location
+		current_lat = location.getLatitude();
+		current_lng = location.getLongitude();
 	}
 
 	@Override
 	public void onProviderDisabled(String provider) 
 	{
-		// TODO Auto-generated method stub	
+		Toast.makeText(getApplicationContext(), "Provider disabled", Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
 	public void onProviderEnabled(String provider)
 	{
-		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public void onStatusChanged(String provider, int status, Bundle extras) 
 	{
-		// TODO Auto-generated method stub	
+		// inform the user of status changes
+		switch (status) 
+		{
+		    case LocationProvider.OUT_OF_SERVICE:
+		        Toast.makeText(this, "Status Changed: Out of Service",
+		                Toast.LENGTH_SHORT).show();
+		        break;
+		    case LocationProvider.TEMPORARILY_UNAVAILABLE:
+		        Toast.makeText(this, "Status Changed: Temporarily Unavailable",
+		                Toast.LENGTH_SHORT).show();
+		        break;
+		    case LocationProvider.AVAILABLE:
+		        Toast.makeText(this, "Status Changed: Available",
+		                Toast.LENGTH_SHORT).show();
+		        break;
+		}
 	}
 	
 	//**************************************************
@@ -399,18 +399,51 @@ public class DirectionsTo extends FragmentActivity implements LocationListener
     		//convert from meters to kilometers and round to 2 decimal places
     		Double calculate_km = meters_between * 0.001;
     		float km_between = (float) calculate_km.floatValue();
-    		BigDecimal bd = new BigDecimal(Float.toString(km_between));
-            bd = bd.setScale(2, BigDecimal.ROUND_HALF_UP);
+    		BigDecimal round_km = new BigDecimal(Float.toString(km_between));
+    		round_km = round_km.setScale(2, BigDecimal.ROUND_HALF_UP);
     
     		// Give the user travel information
     		AlertDialog.Builder builder = new AlertDialog.Builder(this);
     		builder.setTitle("Travel Information");
-            builder.setMessage("You are " + bd + " km from " + the_location + "\n" + 
+            builder.setMessage("You are " + round_km + " km from " + the_location + "\n" + 
             					"Recommended mode: " + recommended_mode);
             builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() 
             {
                 public void onClick(DialogInterface dialog, int id) 
                 {
+                    dialog.cancel();
+                }
+            });
+
+            AlertDialog alert11 = builder.create();
+            alert11.show();
+    	}
+    	else if(id == R.id.change_map_type)
+    	{
+    		// Allow the user to switch between map types
+    		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    		builder.setTitle("Select map type");
+            builder.setNegativeButton("Normal", new DialogInterface.OnClickListener() 
+            {
+                public void onClick(DialogInterface dialog, int id) 
+                {
+                	map.setMapType(GoogleMap.MAP_TYPE_NORMAL);  // normal map
+                    dialog.cancel();
+                }
+            });
+            builder.setNeutralButton("Satellite", new DialogInterface.OnClickListener() 
+            {
+                public void onClick(DialogInterface dialog, int id) 
+                {
+                	map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);  // satellite map
+                    dialog.cancel();
+                }
+            });
+            builder.setPositiveButton("Hybrid", new DialogInterface.OnClickListener() 
+            {
+                public void onClick(DialogInterface dialog, int id) 
+                {
+                	map.setMapType(GoogleMap.MAP_TYPE_HYBRID);  // hybrid map
                     dialog.cancel();
                 }
             });
