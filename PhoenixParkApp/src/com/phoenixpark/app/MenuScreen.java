@@ -1,11 +1,13 @@
 package com.phoenixpark.app;
 
+import java.util.ArrayList;
+
+import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,35 +15,36 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class MenuScreen extends Activity
+public class MenuScreen extends Activity 
 {
-	private LocalDbManager db;
-	
+	GridView gridView;
+	ArrayList<Item> gridArray = new ArrayList<Item>();
+	CustomGridViewAdapter customGridAdapter;
+
 	@Override
-    public void onCreate(Bundle savedInstanceState) 
+	protected void onCreate(Bundle savedInstanceState) 
 	{
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.menuscreen_layout);
-        
-        GridView gridView = (GridView) findViewById(R.id.grid_view);
-        
-        //only run this code when the app is first installed. 
-        SharedPreferences wmbPreference = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean isFirstRun = wmbPreference.getBoolean("FIRSTRUN", true);
-        if (isFirstRun)
-        {
-            // insert locations into the local database
-        	db = new LocalDbManager(this);
-            db.openLocsToWrite();
-            db.insertLocations();
-            
-            // change the flag to false now that the app has been run more than once (no more inserts to location db)
-            SharedPreferences.Editor editor = wmbPreference.edit();
-            editor.putBoolean("FIRSTRUN", false);
-            editor.commit();
-        }
-        
-        gridView.setAdapter(new MenuItems(this));
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.menuscreen_layout);
+		
+		//set grid view item
+		Bitmap eventsIcon = BitmapFactory.decodeResource(this.getResources(), R.drawable.events_icon);
+		Bitmap newsIcon = BitmapFactory.decodeResource(this.getResources(), R.drawable.news_icon);
+		Bitmap placesIcon = BitmapFactory.decodeResource(this.getResources(), R.drawable.static_info);
+		Bitmap twitterIcon = BitmapFactory.decodeResource(this.getResources(), R.drawable.twitter_icon);
+		Bitmap mapIcon = BitmapFactory.decodeResource(this.getResources(), R.drawable.map_icon);
+		Bitmap userSubmittedIcon = BitmapFactory.decodeResource(this.getResources(), R.drawable.user_submitted_icon);
+		
+		gridArray.add(new Item(eventsIcon,"Events"));
+		gridArray.add(new Item(newsIcon,"News"));
+		gridArray.add(new Item(placesIcon,"Places"));
+		gridArray.add(new Item(twitterIcon,"Tweets"));
+		gridArray.add(new Item(mapIcon,"Map"));
+		gridArray.add(new Item(userSubmittedIcon,"User Submitted"));
+		
+		gridView = (GridView) findViewById(R.id.grid_view);
+		customGridAdapter = new CustomGridViewAdapter(this, R.layout.row_grid, gridArray);
+		gridView.setAdapter(customGridAdapter);
         
         //clicking on a menu item
         gridView.setOnItemClickListener(new OnItemClickListener() 
