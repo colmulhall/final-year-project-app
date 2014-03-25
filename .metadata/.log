@@ -13995,3 +13995,33 @@ org.eclipse.core.internal.resources.ResourceException: Resource already exists o
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
 !SUBENTRY 1 org.eclipse.core.resources 4 272 2014-03-24 23:14:08.151
 !MESSAGE Resource already exists on disk: '/test/bin/classes/.gitignore'.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-03-25 01:13:54.956
+!MESSAGE Current file is not a match for the given config.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-03-25 01:13:54.993
+!MESSAGE Current file is not a match for the given config.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-03-25 01:13:54.994
+!MESSAGE Current file is not a match for the given config.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-03-25 01:13:54.994
+!MESSAGE Current file is not a match for the given config.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-03-25 01:13:54.994
+!MESSAGE Current file is not a match for the given config.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-03-25 01:13:54.994
+!MESSAGE Current file is not a match for the given config.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-03-25 01:13:54.995
+!MESSAGE Current file is not a match for the given config.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-03-25 01:13:54.995
+!MESSAGE Current file is not a match for the given config.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-03-25 01:13:54.995
+!MESSAGE Current file is not a match for the given config.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-03-25 01:13:54.995
+!MESSAGE Current file is not a match for the given config.

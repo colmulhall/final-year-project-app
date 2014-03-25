@@ -193,8 +193,9 @@ containing a value of this type.
         public static final int common_signin_btn_light_text_disabled=0x7f050006;
         public static final int common_signin_btn_light_text_focused=0x7f050007;
         public static final int common_signin_btn_light_text_pressed=0x7f050005;
-        public static final int common_signin_btn_text_dark=0x7f05000c;
-        public static final int common_signin_btn_text_light=0x7f05000d;
+        public static final int common_signin_btn_text_dark=0x7f05000d;
+        public static final int common_signin_btn_text_light=0x7f05000e;
+        public static final int dark_green=0x7f05000c;
         public static final int light_green=0x7f05000a;
         public static final int lighter_green=0x7f05000b;
     }
@@ -361,18 +362,21 @@ containing a value of this type.
         public static final int favorites_list_layout=0x7f030006;
         public static final int fragment_layout=0x7f030007;
         public static final int fragment_main_dummy=0x7f030008;
-        public static final int list_item=0x7f030009;
-        public static final int mappark_layout=0x7f03000a;
-        public static final int menuscreen_layout=0x7f03000b;
-        public static final int newsinformation_layout=0x7f03000c;
-        public static final int newslist_layout=0x7f03000d;
-        public static final int row=0x7f03000e;
-        public static final int row_grid=0x7f03000f;
-        public static final int static_info_main_layout=0x7f030010;
-        public static final int submit_event_layout=0x7f030011;
-        public static final int submitted_event_item=0x7f030012;
-        public static final int submitted_events_list_item=0x7f030013;
-        public static final int usersubmittedlist_layout=0x7f030014;
+        public static final int list_divider=0x7f030009;
+        public static final int list_item=0x7f03000a;
+        public static final int listview_background=0x7f03000b;
+        public static final int mappark_layout=0x7f03000c;
+        public static final int menuscreen_layout=0x7f03000d;
+        public static final int newsinformation_layout=0x7f03000e;
+        public static final int newslist_layout=0x7f03000f;
+        public static final int row=0x7f030010;
+        public static final int row_grid=0x7f030011;
+        public static final int selector=0x7f030012;
+        public static final int static_info_main_layout=0x7f030013;
+        public static final int submit_event_layout=0x7f030014;
+        public static final int submitted_event_item=0x7f030015;
+        public static final int submitted_events_list_item=0x7f030016;
+        public static final int usersubmittedlist_layout=0x7f030017;
     }
     public static final class menu {
         public static final int directions_to_menu=0x7f0c0000;

@@ -3,7 +3,8 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-	android:padding="10dip" >
+	android:padding="10dip" 
+	android:background="@layout/listview_background" >
  
     <!-- Image to the left side -->
     <LinearLayout android:id="@+id/thumbnail"
@@ -53,7 +54,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/the_id"
         android:gravity="right"
-        android:textColor="#10bcc9"
+        android:textColor="@color/dark_green"
         android:textSize="12sp"
         android:textStyle="bold" />
  

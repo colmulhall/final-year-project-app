@@ -2,7 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/lighter_green"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
     android:orientation="vertical">
     <!-- Main ListView 
          Always give id value as list(@android:id/list)
@@ -10,6 +13,10 @@
     <ListView
         android:id="@android:id/list"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content" 
+        android:divider="@layout/list_divider" 
+        android:listSelector="@layout/selector"
+        android:drawSelectorOnTop="false"
+        android:dividerHeight="7dp" />
  
 </LinearLayout>
