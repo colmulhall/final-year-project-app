@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -41,8 +43,31 @@ public class TwitterFeed extends ListActivity
 		super.onCreate(savedInstanceState);
 		activity = this;
 
-		downloadTweets();
+		// check connection status
+		if(isConnected())
+			downloadTweets();
+		else
+		{
+			Toast.makeText(getApplicationContext(),
+		    		"No connection", Toast.LENGTH_SHORT).show();
+			finish();
+		}
 	}
+	
+	// check connection status
+    private boolean isConnected()
+    {
+    	ConnectivityManager cm =
+    	        (ConnectivityManager)TwitterFeed.this.getSystemService(Context.CONNECTIVITY_SERVICE);
+    	 
+    	NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+    	boolean isConnected = activeNetwork != null &&
+    	                      activeNetwork.isConnectedOrConnecting();
+    	if(isConnected)
+    		return true;
+    	else
+    		return false;
+    }
 
 	// download twitter timeline after first checking to see if there is a network connection
 	public void downloadTweets() 
@@ -172,7 +197,8 @@ public class TwitterFeed extends ListActivity
 			String results = null;
 
 			// Step 1: Encode consumer key and secret
-			try {
+			try 
+			{
 				// URL encode the consumer key and secret
 				String urlApiKey = URLEncoder.encode(CONSUMER_KEY, "UTF-8");
 				String urlApiSecret = URLEncoder.encode(CONSUMER_SECRET, "UTF-8");

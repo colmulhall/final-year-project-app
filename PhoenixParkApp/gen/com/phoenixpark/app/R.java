@@ -376,7 +376,8 @@ containing a value of this type.
         public static final int submit_event_layout=0x7f030014;
         public static final int submitted_event_item=0x7f030015;
         public static final int submitted_events_list_item=0x7f030016;
-        public static final int usersubmittedlist_layout=0x7f030017;
+        public static final int tweet_list=0x7f030017;
+        public static final int usersubmittedlist_layout=0x7f030018;
     }
     public static final class menu {
         public static final int directions_to_menu=0x7f0c0000;

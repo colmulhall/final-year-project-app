@@ -14,7 +14,10 @@ import org.json.JSONObject;
 import android.annotation.SuppressLint;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,6 +30,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class UserSubmittedList extends ListActivity 
 {
@@ -74,8 +78,30 @@ public class UserSubmittedList extends ListActivity
             }
         });
  
-        // Calling async task to get json
-        new GetEvents().execute();
+        // check connection status
+        if(isConnected())
+        	new GetEvents().execute();
+        else
+        {
+        	 Toast.makeText(getApplicationContext(),
+     		  		"No connection", Toast.LENGTH_SHORT).show();
+        	 finish();
+        }
+    }
+    
+    // check connection status
+    private boolean isConnected()
+    {
+    	ConnectivityManager cm =
+    	        (ConnectivityManager)UserSubmittedList.this.getSystemService(Context.CONNECTIVITY_SERVICE);
+    	 
+    	NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+    	boolean isConnected = activeNetwork != null &&
+    	                      activeNetwork.isConnectedOrConnecting();
+    	if(isConnected)
+    		return true;
+    	else
+    		return false;
     }
     
     //Async task class to get json by making HTTP call

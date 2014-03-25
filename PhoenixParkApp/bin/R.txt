@@ -205,7 +205,8 @@ int layout static_info_main_layout 0x7f030013
 int layout submit_event_layout 0x7f030014
 int layout submitted_event_item 0x7f030015
 int layout submitted_events_list_item 0x7f030016
-int layout usersubmittedlist_layout 0x7f030017
+int layout tweet_list 0x7f030017
+int layout usersubmittedlist_layout 0x7f030018
 int menu directions_to_menu 0x7f0c0000
 int menu eventinformation_menu 0x7f0c0001
 int menu eventlist_menu 0x7f0c0002

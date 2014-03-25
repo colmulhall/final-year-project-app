@@ -19,8 +19,11 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -86,9 +89,34 @@ public class EventList extends ListActivity
                 overridePendingTransition(R.anim.slide_in_left_to_right, R.anim.slide_out_left_to_right);
             }
         });
- 
-        // Calling async task to get json
-        new GetEvents().execute();
+        
+        //check connection status before running asynctask
+        if(isConnected())
+        {
+	        // Calling async task to get json
+	        new GetEvents().execute();
+        }
+        else
+        {
+        	Toast.makeText(getApplicationContext(),
+		    		"No connection", Toast.LENGTH_SHORT).show();
+        	finish();
+        }
+    }
+    
+    //check connection status
+    private boolean isConnected()
+    {
+    	ConnectivityManager cm =
+    	        (ConnectivityManager)EventList.this.getSystemService(Context.CONNECTIVITY_SERVICE);
+    	 
+    	NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+    	boolean isConnected = activeNetwork != null &&
+    	                      activeNetwork.isConnectedOrConnecting();
+    	if(isConnected)
+    		return true;
+    	else
+    		return false;
     }
  
     //Async task class to get json by making HTTP call
