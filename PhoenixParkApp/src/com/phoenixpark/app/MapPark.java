@@ -38,7 +38,7 @@ public class MapPark extends FragmentActivity implements LocationListener, OnInf
     protected LocationManager locationManager;
     protected LocationListener locationListener;
     protected String latitude,longitude;
-    private LocalDbManager db;
+    private LocalDbManager locations_db, food_db, parking_db;
     public String the_location;
     
     // Lists and string arrays for markers
@@ -46,6 +46,8 @@ public class MapPark extends FragmentActivity implements LocationListener, OnInf
     List<Marker> gates_markers = new ArrayList<Marker>();
     String[] places = {};
     String[] gates = {};
+    String[] restaurants = {};
+    String[] carparks = {};
     String marker_title;
  
     @Override
@@ -54,13 +56,24 @@ public class MapPark extends FragmentActivity implements LocationListener, OnInf
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mappark_layout);
         
-        //Open locations database to write
-	    db = new LocalDbManager(this);
-	    db.openLocsToRead();
+        // Open locations database
+	    locations_db = new LocalDbManager(this);
+	    locations_db.openLocsToRead();
+	    
+	    // Open restaurant database
+	    food_db = new LocalDbManager(this);
+	    food_db.openFoodToRead();
+	    
+	    // Open car park database
+	    parking_db = new LocalDbManager(this);
+	    parking_db.openParkingToRead();
 	    
 	    // populate the string from the locations resource
 	    places = this.getResources().getStringArray(R.array.locations);
 	    gates = this.getResources().getStringArray(R.array.gates);
+	    restaurants = this.getResources().getStringArray(R.array.restaurants);
+	    carparks = this.getResources().getStringArray(R.array.carparks);
+	    
  
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
@@ -79,7 +92,7 @@ public class MapPark extends FragmentActivity implements LocationListener, OnInf
         // Getting the name of the best provider
         String provider = locationManager.getBestProvider(criteria, true);
 
-        // Get the parks locaiton
+        // Get the parks location
         location = locationManager.getLastKnownLocation(provider);
 		phoenixpark = new LatLng(53.356065, -6.329665);
 		
@@ -87,13 +100,12 @@ public class MapPark extends FragmentActivity implements LocationListener, OnInf
 	    map.moveCamera(CameraUpdateFactory.newLatLng(phoenixpark));
 	    map.animateCamera(CameraUpdateFactory.zoomTo(13));
 	    
-	    map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);  // open with satellite map
+	    map.setMapType(GoogleMap.MAP_TYPE_NORMAL);  // open with satellite map
 	    
 	    // add markers
 	    addAllMarkers();
 	    
 	    // set marker listener
-	    //map.setOnMarkerClickListener(this);
 	    map.setOnInfoWindowClickListener(this);
         
         if(map != null)
@@ -127,9 +139,9 @@ public class MapPark extends FragmentActivity implements LocationListener, OnInf
 	    for (int i = 0; i < places.length; i++) 
 	    {
 	    	MarkerOptions marker_name = new MarkerOptions().position(new LatLng
-            			(Double.parseDouble(db.getLocLatitude(places[i]).toString()), 
-            			 Double.parseDouble(db.getLocLongitude(places[i]).toString())));
-        	marker_name.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+            			(Double.parseDouble(locations_db.getLocLatitude(places[i]).toString()), 
+            			 Double.parseDouble(locations_db.getLocLongitude(places[i]).toString())));
+        	marker_name.icon(BitmapDescriptorFactory.fromResource(R.drawable.attraction_icon));
         	marker_name.title(places[i]);
             map.addMarker(marker_name);
 	     }
@@ -142,12 +154,42 @@ public class MapPark extends FragmentActivity implements LocationListener, OnInf
 		for (int i = 0; i < gates.length; i++) 
 		{
 			MarkerOptions marker_name2 = new MarkerOptions().position(new LatLng
-	            		(Double.parseDouble(db.getLocLatitude(gates[i]).toString()), 
-	            		Double.parseDouble(db.getLocLongitude(gates[i]).toString())));
-	        marker_name2.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+	            		(Double.parseDouble(locations_db.getLocLatitude(gates[i]).toString()), 
+	            		Double.parseDouble(locations_db.getLocLongitude(gates[i]).toString())));
+	        marker_name2.icon(BitmapDescriptorFactory.fromResource(R.drawable.gate_entrance));
 	        marker_name2.title(gates[i]);
 	        map.addMarker(marker_name2);
 		 }
+	}
+	
+	// Add restaurant locations to the map
+	private void addRestaurantMarkersToMap() 
+	{
+		map.clear();
+		for (int i = 0; i < restaurants.length; i++) 
+		{
+			MarkerOptions marker_name3 = new MarkerOptions().position(new LatLng
+		           		(Double.parseDouble(food_db.getFoodLatitude(restaurants[i]).toString()), 
+		           		Double.parseDouble(food_db.getFoodLongitude(restaurants[i]).toString())));
+		    marker_name3.icon(BitmapDescriptorFactory.fromResource(R.drawable.restaurant_icon));
+		    marker_name3.title(restaurants[i]);
+		    map.addMarker(marker_name3);
+		}
+	}
+	
+	// Add car parks locations to the map
+	private void addCarParksMarkersToMap() 
+	{
+		map.clear();
+		for (int i = 0; i < carparks.length; i++) 
+		{
+			MarkerOptions marker_name4 = new MarkerOptions().position(new LatLng
+		           		(Double.parseDouble(parking_db.getParkingLatitude(carparks[i]).toString()), 
+		           		Double.parseDouble(parking_db.getParkingLongitude(carparks[i]).toString())));
+		    marker_name4.icon(BitmapDescriptorFactory.fromResource(R.drawable.parking_icon));
+		    marker_name4.title(carparks[i]);
+		    map.addMarker(marker_name4);
+		}
 	}
 	
 	// add all markers
@@ -155,28 +197,41 @@ public class MapPark extends FragmentActivity implements LocationListener, OnInf
 	{
 		map.clear();
 		for (int i = 0; i < places.length; i++) 
+	    {
+	    	MarkerOptions marker_name = new MarkerOptions().position(new LatLng
+            			(Double.parseDouble(locations_db.getLocLatitude(places[i]).toString()), 
+            			 Double.parseDouble(locations_db.getLocLongitude(places[i]).toString())));
+        	marker_name.icon(BitmapDescriptorFactory.fromResource(R.drawable.attraction_icon));
+        	marker_name.title(places[i]);
+            map.addMarker(marker_name);
+	     }
+		for (int i = 0; i < gates.length; i++) 
 		{
-			MarkerOptions marker_name = new MarkerOptions().position(new LatLng
-	            		(Double.parseDouble(db.getLocLatitude(places[i]).toString()), 
-	            		Double.parseDouble(db.getLocLongitude(places[i]).toString())));
-	        marker_name.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-	        marker_name.title(places[i]);
-	        map.addMarker(marker_name);
-	        
-	        // once all sights markers have been added, begin adding gate markers
-	        if(i == places.length-1)
-	        {
-	        	for (int j = 0; j < gates.length; j++) 
-	    		{
-	    			MarkerOptions marker_name2 = new MarkerOptions().position(new LatLng
-	    	            		(Double.parseDouble(db.getLocLatitude(gates[j]).toString()), 
-	    	            		Double.parseDouble(db.getLocLongitude(gates[j]).toString())));
-	    	        marker_name2.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
-	    	        marker_name2.title(gates[j]);
-	    	        map.addMarker(marker_name2);
-	    		 }
-	        }
+			MarkerOptions marker_name2 = new MarkerOptions().position(new LatLng
+	            		(Double.parseDouble(locations_db.getLocLatitude(gates[i]).toString()), 
+	            		Double.parseDouble(locations_db.getLocLongitude(gates[i]).toString())));
+	        marker_name2.icon(BitmapDescriptorFactory.fromResource(R.drawable.gate_entrance));
+	        marker_name2.title(gates[i]);
+	        map.addMarker(marker_name2);
 		 }
+		for (int i = 0; i < restaurants.length; i++) 
+		{
+			MarkerOptions marker_name3 = new MarkerOptions().position(new LatLng
+		           		(Double.parseDouble(food_db.getFoodLatitude(restaurants[i]).toString()), 
+		           		Double.parseDouble(food_db.getFoodLongitude(restaurants[i]).toString())));
+		    marker_name3.icon(BitmapDescriptorFactory.fromResource(R.drawable.restaurant_icon));
+		    marker_name3.title(restaurants[i]);
+		    map.addMarker(marker_name3);
+		}
+		for (int i = 0; i < carparks.length; i++) 
+		{
+			MarkerOptions marker_name4 = new MarkerOptions().position(new LatLng
+		           		(Double.parseDouble(parking_db.getParkingLatitude(carparks[i]).toString()), 
+		           		Double.parseDouble(parking_db.getParkingLongitude(carparks[i]).toString())));
+		    marker_name4.icon(BitmapDescriptorFactory.fromResource(R.drawable.parking_icon));
+		    marker_name4.title(carparks[i]);
+		    map.addMarker(marker_name4);
+		}
 	}
 	
 	public void onInfoWindowClick(Marker marker) 
@@ -185,16 +240,9 @@ public class MapPark extends FragmentActivity implements LocationListener, OnInf
 		
 		// Ask the user if they want directions to the selected location
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("Directions");
+		builder.setTitle("marker_title");
 		builder.setMessage("Would you like directions to this location?");
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() 
-        {
-            public void onClick(DialogInterface dialog, int id) 
-            {
-                dialog.cancel();
-            }
-        });
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() 
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() 
         {
             public void onClick(DialogInterface dialog, int id) 
             {
@@ -282,37 +330,45 @@ public class MapPark extends FragmentActivity implements LocationListener, OnInf
     	else if(id == R.id.filter_markers)
     	{
     		// Allow the user to filter map markers
-    		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    		builder.setTitle("Filter markers");
-            builder.setPositiveButton("Sights", new DialogInterface.OnClickListener() 
-            {
-                public void onClick(DialogInterface dialog, int id) 
-                {
-                	addNotableMarkersToMap();
-                    dialog.cancel();
-                }
-            });
-            builder.setNeutralButton("Both", new DialogInterface.OnClickListener() 
-            {
-                public void onClick(DialogInterface dialog, int id) 
-                {
-                	addAllMarkers();
-                    dialog.cancel();
-                }
-            });
-            builder.setNegativeButton("Gates", new DialogInterface.OnClickListener() 
-            {
-                public void onClick(DialogInterface dialog, int id) 
-                {
-                	addGateMarkersToMap();
-                    dialog.cancel();
-                }
-            });
-
-            AlertDialog alert = builder.create();
-            alert.show();
+    		List<String> list = new ArrayList<String>();
+    		String[] options = {"All markers", "Attractions", "Entrance gates", "Places to eat", "Car parks"};
+    		
+    		// populate the list with the string array values
+    		for(int i=0; i<options.length; i++)
+    		{
+    			list.add(options[i]);
+    		}
+    		
+    		// convert the arraylist to a charsequence to populate the dialog box
+    		final CharSequence[] items = list.toArray(new CharSequence[list.size()]);
+    		
+    		AlertDialog.Builder builder2 = new AlertDialog.Builder(MapPark.this)
+    		.setTitle("Select markers")
+    		.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() 
+    		{
+	    		public void onClick(DialogInterface dialog, int which)
+	    		{
+		    		// Get the users selection and begin the filter task based on the selection
+		    		String s = items[which].toString();
+		    		
+		    		if(s.equals("All markers"))
+		    			addAllMarkers();
+		    		else if(s.equals("Attractions"))
+		    			addNotableMarkersToMap();
+		    		else if(s.equals("Entrance gates"))
+		    			addGateMarkersToMap();
+		    		else if(s.equals("Places to eat"))
+		    			addRestaurantMarkersToMap();
+		    		else
+		    			addCarParksMarkersToMap();
+		    		
+		    		//dismissing the dialog when the user makes a selection
+		    		dialog.dismiss();
+	    		}
+    		});
+    		builder2.show();
     	}
-        return true;
+    	return true;
     }
     
     //back button pressed by user

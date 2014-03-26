@@ -159,6 +159,7 @@ public class DirectionsTo extends FragmentActivity implements LocationListener
         	}
         	else
         	{
+        		recommended_mode = "N/A";
         		//tell user they are too far from the park to calculate directions
         		AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setMessage("You are located too far from the park for directions.");

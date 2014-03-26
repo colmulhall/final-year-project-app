@@ -45,7 +45,7 @@ public class LocalDbManager
 	public static final String LOC_DATABASE_TABLE = "locations_local";
 	public static final int LOC_DATABASE_VERSION = 1;
 	
-	//create database table for locations
+	// create database table for locations
 	private static final String CREATE_DATABASE_LOCATIONS =
 			"create table " + LOC_DATABASE_TABLE + " ("
 			+ KEY_LOC_ID + " integer primary key autoincrement, "
@@ -53,6 +53,42 @@ public class LocalDbManager
 			+ KEY_LOC_DESCRIPTION + " integer ,"
 			+ KEY_LOC_LATITUDE + " text ,"
 			+ KEY_LOC_LONGITUDE + " text);";
+	
+	// places to eat database
+	public static final String KEY_FOOD_ID = "_id";
+	public static final String KEY_FOOD_TITLE = "title";
+	public static final String KEY_FOOD_LATITUDE = "latitude";
+	public static final String KEY_FOOD_LONGITUDE = "longitude";
+		
+	public static final String FOOD_DATABASE_NAME = "Park food database";
+	public static final String FOOD_DATABASE_TABLE = "food_local";
+	public static final int FOOD_DATABASE_VERSION = 1;
+		
+	// create database table for restaurants
+	private static final String CREATE_DATABASE_FOOD =
+			"create table " + FOOD_DATABASE_TABLE + " ("
+			+ KEY_FOOD_ID + " integer primary key autoincrement, "
+			+ KEY_FOOD_TITLE + " text not null,"
+			+ KEY_FOOD_LATITUDE + " text ,"
+			+ KEY_FOOD_LONGITUDE + " text);";
+	
+	// car parks database
+	public static final String KEY_PARKING_ID = "_id";
+	public static final String KEY_PARKING_TITLE = "title";
+	public static final String KEY_PARKING_LATITUDE = "latitude";
+	public static final String KEY_PARKING_LONGITUDE = "longitude";
+			
+	public static final String PARKING_DATABASE_NAME = "Car parking database";
+	public static final String PARKING_DATABASE_TABLE = "parking_local";
+	public static final int PARKING_DATABASE_VERSION = 1;
+			
+	//create database table for car parks
+	private static final String CREATE_DATABASE_PARKING =
+			"create table " + PARKING_DATABASE_TABLE + " ("
+			+ KEY_PARKING_ID + " integer primary key autoincrement, "
+			+ KEY_PARKING_TITLE + " text not null,"
+			+ KEY_PARKING_LATITUDE + " text ,"
+			+ KEY_PARKING_LONGITUDE + " text);";
 	
 	
 	private Context context;
@@ -77,6 +113,8 @@ public class LocalDbManager
 		{
 			 db.execSQL(CREATE_DATABASE_FAVORITES);
 			 db.execSQL(CREATE_DATABASE_LOCATIONS);
+			 db.execSQL(CREATE_DATABASE_FOOD);
+			 db.execSQL(CREATE_DATABASE_PARKING);
 		}
 		
 		//this will be called if I make a change to the database and give it a new version number
@@ -400,4 +438,184 @@ public class LocalDbManager
 	    }
 		return ret;
 	 }
+	
+	//******************** FOOD DATABASE OPERATIONS *********************
+	public LocalDbManager openFoodToRead() throws SQLException 
+	{
+		DBHelper = new DBHelper(context, FOOD_DATABASE_TABLE, null, FOOD_DATABASE_VERSION);
+		db = DBHelper.getReadableDatabase();
+		return this;
+	}
+		
+	public LocalDbManager openFoodToWrite() throws SQLException 
+	{
+		DBHelper = new DBHelper(context, FOOD_DATABASE_TABLE, null, FOOD_DATABASE_VERSION);
+		db = DBHelper.getWritableDatabase();
+		return this;
+	}
+		
+	//insert all restaurants
+	public void insertFood()
+	{
+		String row1 = "INSERT INTO " + FOOD_DATABASE_TABLE + " ("
+	              + KEY_FOOD_ID + ", " + KEY_FOOD_TITLE + ", "
+	              + KEY_FOOD_LATITUDE + ", "
+	              + KEY_FOOD_LONGITUDE + ") Values ('1','The Phoenix Cafe', '53.365775', '-6.330487');";
+		String row2 = "INSERT INTO " + FOOD_DATABASE_TABLE + " ("
+	              + KEY_FOOD_ID + ", " + KEY_FOOD_TITLE + ", "
+	              + KEY_FOOD_LATITUDE + ", "
+	              + KEY_FOOD_LONGITUDE + ") Values ('2','Phoenix Park Tea Rooms', '53.352100', '-6.304636');";
+		String row3 = "INSERT INTO " + FOOD_DATABASE_TABLE + " ("
+	              + KEY_FOOD_ID + ", " + KEY_FOOD_TITLE + ", "
+	              + KEY_FOOD_LATITUDE + ", "
+	              + KEY_FOOD_LONGITUDE + ") Values ('3','The Boathouse Cafe', '53.365447', '-6.357915');";
+			
+			db.execSQL(row1);
+			db.execSQL(row2);
+			db.execSQL(row3);
+	}
+		
+	//queue the items in the database
+	public Cursor queueAllFood()
+	{
+		String[] columns = new String[] {
+				KEY_FOOD_ID, 
+				KEY_FOOD_TITLE,
+				KEY_FOOD_LATITUDE,
+				KEY_FOOD_LONGITUDE};
+		Cursor cursor = db.query(FOOD_DATABASE_TABLE, columns,
+		  null, null, null, null, null);
+	
+		return cursor;
+	}
+		
+	//getters for the database
+	public String getFoodTitle(int num)
+    {
+		Cursor cursor = db.query(FOOD_DATABASE_TABLE, new String[] {"title"}, 
+				"_id like " + num, null, null, null, null);
+			
+		cursor.moveToFirst();
+		return cursor.getString(0);
+	}
+			
+	public String getFoodLatitude(String location)
+	{
+		Cursor c = db.rawQuery("SELECT latitude FROM " +FOOD_DATABASE_TABLE+ " where title="+"'"+location+"'" , null);
+
+		String ret = null;
+		if(c != null && c.moveToNext()) 
+		{
+			ret = c.getString(0);     
+		}
+		return ret;
+	}
+			
+	public String getFoodLongitude(String location)
+	{
+		Cursor c = db.rawQuery("SELECT longitude FROM " +FOOD_DATABASE_TABLE+ " where title="+"'"+location+"'" , null);
+
+		String ret = null;
+		if(c != null && c.moveToNext()) 
+		{
+	        ret = c.getString(0);     
+	    }
+		return ret;
+     }
+	//********************************************************************************************
+	
+	
+	//******************** CAR PARK DATABASE OPERATIONS *********************
+	public LocalDbManager openParkingToRead() throws SQLException 
+	{
+		DBHelper = new DBHelper(context, PARKING_DATABASE_TABLE, null, PARKING_DATABASE_VERSION);
+		db = DBHelper.getReadableDatabase();
+		return this;
+	}
+			
+	public LocalDbManager openParkingToWrite() throws SQLException 
+	{
+		DBHelper = new DBHelper(context, PARKING_DATABASE_TABLE, null, PARKING_DATABASE_VERSION);
+		db = DBHelper.getWritableDatabase();
+		return this;
+	}
+			
+	//insert all car parks
+	public void insertPark()
+	{
+		String row1 = "INSERT INTO " + PARKING_DATABASE_TABLE + " ("
+	              + KEY_PARKING_ID + ", " + KEY_PARKING_TITLE + ", "
+	              + KEY_PARKING_LATITUDE + ", "
+	              + KEY_PARKING_LONGITUDE + ") Values ('1','Cricket Club Parking', '53.351389', '-6.307311');";
+		String row2 = "INSERT INTO " + PARKING_DATABASE_TABLE + " ("
+	              + KEY_PARKING_ID + ", " + KEY_PARKING_TITLE + ", "
+	              + KEY_PARKING_LATITUDE + ", "
+	              + KEY_PARKING_LONGITUDE + ") Values ('2','Dublin Zoo Parking', '53.354565', '-6.307697');";
+		String row3 = "INSERT INTO " + PARKING_DATABASE_TABLE + " ("
+		          + KEY_PARKING_ID + ", " + KEY_PARKING_TITLE + ", "
+	              + KEY_PARKING_LATITUDE + ", "
+                  + KEY_PARKING_LONGITUDE + ") Values ('3','Papal Cross Car Park', '53.357059', '-6.326762');";
+		String row4 = "INSERT INTO " + PARKING_DATABASE_TABLE + " ("
+		          + KEY_PARKING_ID + ", " + KEY_PARKING_TITLE + ", "
+	              + KEY_PARKING_LATITUDE + ", "
+                  + KEY_PARKING_LONGITUDE + ") Values ('4','Visitor Centre Car Park', '53.364441', '-6.331743');";
+		String row5 = "INSERT INTO " + PARKING_DATABASE_TABLE + " ("
+		          + KEY_PARKING_ID + ", " + KEY_PARKING_TITLE + ", "
+	              + KEY_PARKING_LATITUDE + ", "
+	              + KEY_PARKING_LONGITUDE + ") Values ('5','Martins Row Car Park', '53.351216', '-6.346315');";
+				
+		db.execSQL(row1);
+		db.execSQL(row2);
+		db.execSQL(row3);
+		db.execSQL(row4);
+		db.execSQL(row5);
+	}
+			
+	//queue the items in the database
+	public Cursor queueAllParking()
+	{
+		String[] columns = new String[] {
+				KEY_PARKING_ID, 
+				KEY_PARKING_TITLE,
+				KEY_PARKING_LATITUDE,
+				KEY_PARKING_LONGITUDE};
+		Cursor cursor = db.query(PARKING_DATABASE_TABLE, columns,
+		  null, null, null, null, null);
+		
+		return cursor;
+	}
+			
+	//getters for the database
+	public String getParkingTitle(int num)
+	{
+		Cursor cursor = db.query(PARKING_DATABASE_TABLE, new String[] {"title"}, 
+				"_id like " + num, null, null, null, null);
+				
+		cursor.moveToFirst();
+		return cursor.getString(0);
+	}
+				
+	public String getParkingLatitude(String location)
+	{
+		Cursor c = db.rawQuery("SELECT latitude FROM " +PARKING_DATABASE_TABLE+ " where title="+"'"+location+"'" , null);
+
+		String ret = null;
+		if(c != null && c.moveToNext()) 
+		{
+			ret = c.getString(0);     
+		}
+		return ret;
+	}
+				
+	public String getParkingLongitude(String location)
+	{
+		Cursor c = db.rawQuery("SELECT longitude FROM " +PARKING_DATABASE_TABLE+ " where title="+"'"+location+"'" , null);
+
+		String ret = null;
+		if(c != null && c.moveToNext()) 
+		{
+	        ret = c.getString(0);     
+	    }
+		return ret;
+	}
 }

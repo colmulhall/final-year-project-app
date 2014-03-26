@@ -55,6 +55,9 @@ public class EventInformation extends Activity
 	 public HandleConnections sh = new HandleConnections();
 	 public String jsonStr;
 	 
+	 // Sharing intent
+	 public Intent shareintent = new Intent(Intent.ACTION_SEND);
+	 
 	 // events JSONArray
 	 JSONArray events;
 	 
@@ -123,7 +126,6 @@ public class EventInformation extends Activity
         @Override
         protected Void doInBackground(Void... arg0)
         {
-        	Log.d("Response: ", "> " + jsonStr);
             if (jsonStr != null) 
             {
                 try 
@@ -184,12 +186,15 @@ public class EventInformation extends Activity
             
             super.onPostExecute(result);
             
+            // set the message for sharing now that the link has been retrieved from the database
+            shareintent.putExtra(Intent.EXTRA_TEXT,"Phoenix Park event: " + the_link);
+            
             // Dismiss the progress dialog
             progress.dismiss();
         }
     }
     
-    //action bar
+    // action bar
     @SuppressLint("NewApi")
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) 
@@ -206,17 +211,17 @@ public class EventInformation extends Activity
         return true;
 	}
     
-    //returns share intent
+    // returns share intent
     private Intent getDefaultShareIntent()
     {
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_SUBJECT, "SUBJECT");
-        intent.putExtra(Intent.EXTRA_TEXT,"Phoenix Park event: " + the_link);
-        return intent;
+        
+    	shareintent.setType("text/plain");
+    	shareintent.putExtra(Intent.EXTRA_SUBJECT, "Event in the Phoenix Park");
+    	
+        return shareintent;
     }
     
-    //action bar listener
+    // action bar listener
     @Override
     public boolean onOptionsItemSelected(MenuItem item) 
     {

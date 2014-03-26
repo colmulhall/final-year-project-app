@@ -40,7 +40,7 @@ public class FavoritesInformation extends Activity
 		//get information from the local database for the item
 		title = db.getFavTitle(id);
 		desc = db.getFavDesc(id);
-		//location = db.getItemLocation(id);
+		location = db.getFavLocation(id);
 		link = db.getFavLink(id);
 		
 		//set the text of each TextView to the information in the database
@@ -70,8 +70,8 @@ public class FavoritesInformation extends Activity
     {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_SUBJECT, "SUBJECT");
-        intent.putExtra(Intent.EXTRA_TEXT,"Phoenix Park event: " + link);
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Phoenix Park Dublin");
+        intent.putExtra(Intent.EXTRA_TEXT,"Check this out: " + link);
         return intent;
     }
     

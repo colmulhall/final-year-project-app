@@ -55,6 +55,9 @@ public class NewsInformation extends Activity
 	 public HandleConnections sh = new HandleConnections();
 	 public String jsonStr;
 	 
+	 // Sharing intent
+     public Intent shareintent = new Intent(Intent.ACTION_SEND);
+	 
 	 // events JSONArray
 	 JSONArray news;
 	 
@@ -186,6 +189,9 @@ public class NewsInformation extends Activity
             
             super.onPostExecute(result);
             
+            // set the message for sharing now that the link has been retrieved from the database
+            shareintent.putExtra(Intent.EXTRA_TEXT,"Phoenix Park news: " + the_link);
+            
             // Dismiss the progress dialog
             progress.dismiss();
         }
@@ -211,11 +217,9 @@ public class NewsInformation extends Activity
     //returns share intent
     private Intent getDefaultShareIntent()
     {
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_SUBJECT, "SUBJECT");
-        intent.putExtra(Intent.EXTRA_TEXT,"Phoenix Park news: " + the_link);
-        return intent;
+        shareintent.setType("text/plain");
+        shareintent.putExtra(Intent.EXTRA_SUBJECT, "News update in the Phoenix Park");
+        return shareintent;
     }
     
     //action bar listener

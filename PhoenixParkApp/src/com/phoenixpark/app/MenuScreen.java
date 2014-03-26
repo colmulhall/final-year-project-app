@@ -3,11 +3,14 @@ package com.phoenixpark.app;
 import java.util.ArrayList;
 
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +23,7 @@ public class MenuScreen extends Activity
 	GridView gridView;
 	ArrayList<Item> gridArray = new ArrayList<Item>();
 	CustomGridViewAdapter customGridAdapter;
+	private LocalDbManager db1, db2, db3;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
@@ -40,11 +44,38 @@ public class MenuScreen extends Activity
 		gridArray.add(new Item(placesIcon,"Places"));
 		gridArray.add(new Item(twitterIcon,"Tweets"));
 		gridArray.add(new Item(mapIcon,"Map"));
-		gridArray.add(new Item(userSubmittedIcon,"User Submitted"));
+		gridArray.add(new Item(userSubmittedIcon,"User Events"));
 		
 		gridView = (GridView) findViewById(R.id.grid_view);
 		customGridAdapter = new CustomGridViewAdapter(this, R.layout.row_grid, gridArray);
 		gridView.setAdapter(customGridAdapter);
+		
+		// only run this code when the app is first installed
+        SharedPreferences wmbPreference = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean isFirstRun = wmbPreference.getBoolean("FIRSTRUN", true);
+        if (isFirstRun)
+        {
+            // insert information into the local databases using different db managers
+        	db1 = new LocalDbManager(this);
+            db1.openLocsToWrite();
+            db1.insertLocations();
+            db1.close();
+            
+            db2 = new LocalDbManager(this);
+            db2.openFoodToWrite();
+            db2.insertFood();
+            db2.close();
+            
+            db3 = new LocalDbManager(this);
+            db3.openParkingToWrite();
+            db3.insertPark();
+            db3.close();
+            
+            // change the flag to false now that the app has been run more than once
+            SharedPreferences.Editor editor = wmbPreference.edit();
+            editor.putBoolean("FIRSTRUN", false);
+            editor.commit();
+        }
         
         //clicking on a menu item
         gridView.setOnItemClickListener(new OnItemClickListener() 
