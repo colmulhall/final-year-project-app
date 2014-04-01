@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Phoenix Park</string>
+    <string name="action_settings">Settings</string>
+    <string name="content_desc">Conent description</string>
+    <string name="share">Share</string>
+    <string name="favs">Favorites</string>
+    <string name="feedback">Feedback</string>
+    <string name="web">Open in browser</string>
+    <string name="ev_feedback">Event feedback</string>
+    <string name="direct_to">Directions</string>
+    <string name="events">Events</string>
+    <string name="news">News</string>
+    <string name="user_events">Promoted Events</string>
+    <string name="map">Map Events</string>
+    <string name="attractions">Attractions</string>
+    <string name="fav_delete">Delete</string>
+    <string name="filter">Filter</string>
+    <string name="add_event">+</string>
+    <string name="info">Info</string>
+    <string name="settings">Settings</string>
+    <string name="refresh">Refresh</string>
+    <string name="submit">Submit</string>
+    <string name="enter_title">Event Title:</string>
+    <string name="enter_description">Event Description:</string>
+    <string name="enter_date">Event Date:</string>
+    <string name="enter_location">Event Location:</string>
+    <string name="enter_category">Event Category:</string>
+    <string name="enter_link_contact">Event link/contact:</string>
+    <string name="enter_comment">Event Comment:</string>
+    <string name="enter_rating">Event Rating:</string>
+    <string name="enter_category_opinion">Event Category?:</string>
+    <string name="enter_demographic_opinion">Event Demographic?</string>
+    <string name="suggested_category_here">Enter suggested category</string>
+    <string name="aras_an_uachtaran">Áras an Uachtaráin</string>
+    
+    <!-- Titles for strings -->
+    <string name="DirectionsToScreen">Directions</string>
+    
+    <string-array name="ratings">
+        <item>5 Stars</item>
+        <item>4 Stars</item>
+        <item>3 Stars</item>
+        <item>2 Stars</item>
+        <item>1 Star</item>
+    </string-array>
+    
+    <string-array name="categories">
+        <item>None of these</item>
+        <item>Sport</item>
+        <item>Family Fun</item>
+        <item>Charity</item>
+        <item>Arts</item>
+        <item>Music</item>
+        <item>Talk/Workshop</item>
+        <item>Food and Drink</item>
+        <item>Music</item>
+    </string-array>
+    
+    <string-array name="locations">
+        <item>Áras an Uachtaráin</item>
+        <item>Dublin Zoo</item>
+        <item>Magazine Fort</item>
+        <item>Wellington Monument</item>
+        <item>Sports Grounds</item>
+        <item>American Ambassadors Residence</item>
+        <item>The Phoenix Monument</item>
+        <item>Papal Cross</item>
+        <item>Visitor Centre</item>
+        <item>Farmleigh</item>
+    </string-array>
+    
+    <string-array name="gates">
+        <item>Main Gate</item>
+        <item>NCR Gate</item>
+        <item>Cabra Gate</item>
+        <item>Ashtown Gate</item>
+        <item>Castleknock Gate</item>
+        <item>Whites Gate</item>
+        <item>Knockmaroon Gate</item>
+        <item>Chapelizod Gate</item>
+        <item>Islandbridge Gate</item>
+    </string-array>
+    
+    <string-array name="restaurants">
+        <item>The Phoenix Cafe</item>
+        <item>Phoenix Park Tea Rooms</item>
+        <item>The Boathouse Cafe</item>
+    </string-array>
+    
+    <string-array name="carparks">
+        <item>Cricket Club Parking</item>
+        <item>Dublin Zoo Parking</item>
+        <item>Papal Cross Car Park</item>
+        <item>Visitor Centre Car Park</item>
+        <item>Martins Row Car Park</item>
+    </string-array>
+    
+    <string-array name="demographics">
+        <item>Family with young children</item>
+        <item>Teenagers</item>
+        <item>Over 18\'s</item>
+    </string-array>
+    
+    <!-- Static information for Áras an Uachtaráin -->
+    <string name="aras_an_uachtarain_desc_p1">Áras an Uachtaráin had a colourful history before becoming 
+        the Official Residence of the President of Ireland. Built in 1751 Situated in the 1,752 acres of 
+        the Phoenix Park near Dublin, the original house was built by Park Ranger Nathaniel Clements. By 
+        1782 it had been acquired for use by the Viceroys who oversaw British rule in Ireland. Clements 
+        received £25,000 for the house.</string>
+    <string name="aras_an_uachtarain_desc_p2">The house continued as the official residence of the Viceroys 
+        until 1922. For much of the period of Home Rule that followed it was the residence of the Governors
+         General, the Crown’s representatives during the new dispensation. In 1938 it became the Official 
+         Residence of the President of Ireland and has been used for that purpose since.</string>
+    <string name="aras_an_uachtarain_desc_p3">There have been many improvements and additions to the house 
+        over the years, the most noteworthy being:
+        \n-Establishment of formal gardens by Decimus Burton in the 1840s
+		\n-Addition of the East Wing in 1849 for the state visit of Queen Victoria
+		\n-Installation of Dublin mains gas supply in 1852 and electricity in 1908
+		\n-Extension of the West Wing for the visit of George V in 1911. \n\n Aras an Uachtaráin is now the 
+		official residence of the President of Ireland. The house is open to the public each Saturday and 5,200
+		 people visit the formal rooms and view the  grounds each year. In addition to official guests at the many 
+		 state functions hosted by the President, more than 11,000 visit the house by invitation each year.</string>
+         
+	<!-- Static information for The Papal Cross -->
+    <string name="papal_cross_desc_p1">The Papal Cross was erected at the edge of Fifteen Acres for the visit 
+        of Pope John Paul II on 29 September 1979. Over one million people attended an open air mass in the 
+        park at the time. The white cross, which dominates its surroundings, is 35 metres (115 ft) high and 
+        was built with steel girders. It was installed with some difficulty: after several attempts, the cross 
+        was eventually erected just a fortnight before the Pope arrived.</string>
+    <string name="papal_cross_desc_p2">When Pope John Paul II died in Rome on the 2nd April 2005, at the age of 
+        84 years, a memorial service was held soon afterwards at this site.  On the 8th April 2005, it hosted many 
+        thousands of people who gathered in tribute, leaving flowers and other tokens of remembrance of him.</string>
+   
+	<!-- Static information for Farmleigh -->
+    <string name="farmleigh_desc_p1">Farmleigh, an estate of 78 acres situated to the north-west of Dublin\'s 
+        Phoenix Park, was purchased from the Guinness family by the Irish Government in 1999 for €29.2m. The 
+        house has been carefully refurbished by the Office of Public Works as the premier accommodation for 
+        visiting dignitaries and guests of the nation, for high level Government meetings, and for public 
+        enjoyment.</string>
+    <string name="farmleigh_desc_p2">Originally a small Georgian house built in the late 18th century, Farmleigh 
+        was purchased by Edward Cecil Guinness (1847-1927) on his marriage to his cousin, Adelaide Guinness in 
+        1873. A great-grandson of Arthur Guinness, founder of the eponymous brewery, Edward Cecil became the first 
+        Earl of Iveagh in 1919. The first major building programme was undertaken in 1881-84 to designs by Irish 
+        architect James Franklin Fuller (1832-1925), who extended the House to the west, refurbished the existing 
+        house, and added a third storey. In 1896 the Ballroom wing was added, designed by the Scottish architect 
+        William Young (1843-1900).</string>
+    <string name="farmleigh_desc_p3">With the addition of a new Conservatory adjoining the Ballroom in 1901, 
+        increased planting of broadleaves and exotics in the gardens, Farmleigh had, by the early years of 
+        the 20th century, all the requisites for gracious living and stylish entertainment. Its great charm lies 
+        in the eclecticism of its interior decoration ranging from the classical style to Jacobean, Louis XV, Louis 
+        XVI and Georgian. In 2001 the Office of Public Works began the delicate job of restoring this magnificent 
+        estate. This was carried out with great delicacy and care so as the historical ambience at Farmleigh has 
+        been preserved as it assumes its new role on behalf of the Irish State.</string>
+        
+    <!-- Static information for Wellington Monument -->
+    <string name="wellington_desc_p1">Built to commemorate the victories of the ‘Iron Duke’ Arthur Wellesley, Duke 
+        of Wellington, who was born in Dublin, the memorial in the Phoenix park is the tallest obelisk in Europe. 
+        It is 205 feet tall and was intended to be taller but for a shortage of funds. It was completed in 1861. 
+        There was also plans for a statue of Wellesley on horseback but the shortage of funds ruled that out.</string>
+    <string name="wellington_desc_p2">There are four bronze plaques cast from cannons captured at Waterloo – three of 
+        which have pictorial representations of his career while the fourth has an inscription. The plaques depict 
+        ‘Civil and Religious Liberty’ by John Hogan, ‘Waterloo’ by Thomas Farrell and the ‘Indian Wars’ by Joseph Kirk. 
+        The inscription reads:\n\n
+		Asia and Europe, saved by thee, proclaim,
+		Invincible in war thy deathless name,
+		Now round thy brow the civic oak we twine,
+		That every earthly glory may be thine.</string>
+		
+    <!-- Static information for Dublin Zoo -->
+    <string name="dublin_zoo_desc_p1">Dublin Zoo is one of the oldest zoos in the world but has gone through an 
+        impressive metamorphosis over the last decade. The most recent addition is the Kaziranga Forest Trail, a 
+        wonderful new habitat for the zoo\'s breeding herd of Asian elephants. Dublin Zoo first opened its doors on 
+        1st September 1831 and was known as the Zoological Gardens Dublin. Its then 15 acres in the Phoenix Park 
+        featured 46 mammals and 72 birds donated by London Zoo. Visitors flocked to the zoo to marvel at animals they 
+        had only read about or seen in pictures.</string>
+    <string name="dublin_zoo_desc_p2">The zoo is a significant part of Dublin\'s long and fascinating history and every 
+        effort is made to preserve its heritage. For example, the old timber-framed, thatched entrance lodge, built in 
+        1833 for just £30, is being restored to its former charming glory. Recently re-opened, Haughton House at the 
+        zoo\'s centre was built in 1898 in memory of Samuel Haughton, Royal Zoological Society of Ireland secretary, a 
+        Trinity College professor, and noted science writer; it contained 10 wild animal \'dens\', tearooms and a lecture 
+        room. The restoration brings an exciting new Learning and Discovery Centre, lecture facilities, a verandah and 
+        a balcony with views over the Kaziranga Forest Trail.Zoo milestones include an open day in 1838 - attended by 
+        20,000 people - to celebrate Queen Victoria\'s coronation. The first giraffe arrived in 1844 and the first pair 
+        of lions - Natal and Natalie - arrived in 1855, producing their first cubs two years later. Reptiles got their 
+        own house in 1876.</string>
+    <string name="dublin_zoo_desc_p3">Despite severe problems during the 1916 Easter Rising and World War II, the zoo 
+        survived and now occupies 40 hectares with around 650 animals and birds from all over the globe. Conservation,
+         study and education are its hallmark and staff work in partnership with zoos worldwide to make a significant 
+         contribution to the conservation of rare species, promoting the imprtance of animal habitat protection and 
+         playing a vital role in endangered species breeding programmes.</string>
+         
+    <!-- Static information for Deerfield Residence -->
+    <string name="deerfield_desc_p1">This beautiful home surrounded by sixty two acres of ground was completed in 1776. 
+        Built by Col. John Blaquiere, Chief Secretary of the British government and Bailiff of the Phoenix Park.The house 
+        of Col. Blaquiere, purchased by the British Government in 1782,was made the official residence of the Chief 
+        Secretary, and remained so until 1922 when Sir Homer Greenwood, the last holder left office. Among the prominent
+         Chief Secretaries who had occupied this residence were Sir Arthur Wellesley, later to become the Duke of 
+         Wellington, Sir Robert Peel, Lord Castlereagh. Lord Bryce, later British Ambassador to the United States, W.FI. 
+         Smith. When the Duke of Marlborough was appointed Viceroy in 1878, Lord Randolph Churchill joined him as 
+         private secretary.</string>
+    <string name="deerfield_desc_p2">The United States of America was one of the first countries to recognize and 
+        establish diplomatic relations with the new Irish Free State. The first Envoy Extraordinary and Minister 
+        Plenipotentiary, the Honourable Frederick A. Sterling arrived in Dublin in 1927. After taking a lease on the 
+        property from the Board of Works, (with the rent set at a penny per year), he took up residence here in the
+         Phoenix Park. It was appropriately coincidental that the United States, which declared its own Independence 
+         in 1776, should establish the President\'s representative in the residence completed in the same year. Until 
+         1949, the offices of the Legation as well as the residence of the Minister were located within the house.</string>
+    <string name="deerfield_desc_p3">Extensive renovations to the house and property were made by the U.S. Government 
+        in 1952. The property now consists of 62 acres of lawn, orchards and gardens on which are located the 
+        Ambassador\'s residence, three cottages and a gate lodge. The lower ground floor of the residence comprises a 
+        ballroom, reception and dining room, library, office, kitchens pantry, staff room and laundry. Six suites, 
+        bedroom, bathroom and dressing room, plus a sitting room are located on the upper floor. The Residence is 
+        furnished with furniture and equipment obtained in Ireland, the United States and many other countries.</string>
+        
+    <!-- Static information for Ashtown Castle & Visitor Centre -->
+    <string name="ashtown_desc_p1">Astown Castle was discovered hidden within the walls of a much more recent building 
+        that was in use until 1978. Then the more recent building was deemed structurally irreparable as a result of 
+        dry rot and was demolished. Ashtown castle was discovered while the demolition was being carried out. It was 
+        subsequently  restored and now forms part of the Phoenix Park Visitor Centre. In 1641 the castle was owned by 
+        John Connell or ‘John of Ashtown’ as he was known. The estate was then 200 acres laid down to arable and 
+        pasture land with a small area of woodland, there was also a small orchard and two thatched cottages on the 
+        estate. The castle was built to dimensions laid down by the government of the time where money was offered to 
+        those who built a castle to defend themselves. </string>
+    <string name="ashtown_desc_p2">In 1668 Marcus Trevor, Viscount Dungannon along with two keepers were the residents 
+        of Ashford. The castle had been acquired by the Lord Lieutenant of Ireland on behalf of the King to extend his 
+        deer park.Around 1774 Ashtown Lodge was incorporated into the castle and the new building was then classified 
+        as the official residence of the Under Secretary from 1782. A series of tunnels is believed to have run from 
+        the lodge to other important buildings within the park where people could travel unseen and safely.The next 
+        resident was Papal Nuncio who resided in the lodge until 1978 when he left for a new residence in Dublin.</string>
+    <string name="ashtown_desc_p3">Ajoining Ashtown Castle is the Phoenix Park Visitor Centre. A lively and entertaining 
+        exhibition on the history and the wildlife of the Phoenix Park is on display in the Visitor Centre. Here the 
+        visitor can enjoy a historical interpretation of the park from 3500 B.C. to the present day and can also view 
+        an audio-visual presentation on the Phoenix Park through the ages. </string>
+        
+    <!-- Static information for Peoples Garden -->
+    <string name="peoples_garden_desc_1">The Victorian People\'s Flower Gardens are located between the Parkgate Street 
+        entrance, and the North Circular Road Gate entrance to the Phoenix Park. They comprise of an area of 9 
+        hectares (22 acres) and were laid out and enclosed in 1864. The gardens were originally established in 1840 
+        as the Promenade Grounds. They provide an opportunity to demonstrate Victorian horticulture at its best. A 
+        large ornamental lake, children\'s playground, picnic areas and Victorian bedding schemes are just some of the 
+        attractions. </string>
+    <string name="peoples_garden_desc_2">The Walled Garden is currently being restored to its original mid Victorian 
+        layout.  The garden will inspire and educate the public on the horticultural skills involved in the design and
+         layout of a Victorian Kitchen Garden, as well as the growing of fruit, vegetables and flowers, with colourful 
+         summer displays such as Sweet Pea, Chrysanthemums, Lupins and Campanula (Bellflower) along with a wide range 
+         of fruit and vegetables. </string>
+         
+    <!-- Static information for Magazine Fort -->
+    <string name="magazine_desc_1">The Dublin magazine fort was built in 1735. The building is located in the 
+        south-eastern part of the park, close by a wooded ridge. It has a commanding view of the surrounding area. 
+        During the British occupation of the area, the Fort had been seen as a symbol of that occupation but by 1939 
+        its purpose was to house the Irish Army\'s stocks of guns and ammunition. During the Easter Rising of 1916, 
+        thirty members of the Irish Volunteers and Fianna Eireann captured the Magazine Fort. They took guns and 
+        withdrew, after setting fires to blow up the magazine\'s ordinance; but the fuses burned out before reaching 
+        the ammunition and little damage was caused.</string>
+    <string name="magazine_desc_2">The term Christmas Raid is a name used within the folklore of the Irish Republican
+         Army (IRA) to describe the theft of a huge quantity of weapons and ammunition from the Regular Irish Army\'s 
+         ammunition Magazine Fort storage depot in Dublin\'s Phoenix Park.The raid took place on 23 December 1939, 
+         and was immediately prior to the passing of the Emergency Powers Act in Ireland.A total of 1,084,000 rounds 
+         of ammunition were taken and removed in thirteen lorries with no casualties or hindrance.</string>
+    <string name="magazine_desc_3">The magazine fort has been satirically immortalised in a jingle by Jonathan Swift 
+        who wrote:\n
+		Now\'s here\'s a proof of Irish sense,\n
+		Here Irish wit is seen,\n
+		When nothing\'s left that\'s worth defence,\n
+		We build a Magazine."</string>
+    
+</resources>

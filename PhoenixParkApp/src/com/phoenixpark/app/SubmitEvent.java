@@ -42,10 +42,13 @@ public class SubmitEvent extends Activity
 	private Spinner categories, locations;
 	private Button submit;
 	
-	//dates for date picker
+	// dates for date picker
 	private int year;
 	private int month;
 	private int day;
+	
+	// string for data retrieved from user input
+	private String title, desc, date, location, category, contact_link; 
 	
 	// JSON Node names
     private static final String TAG_EVENTS = "user_events";
@@ -58,7 +61,8 @@ public class SubmitEvent extends Activity
 	public HandleConnections sh = new HandleConnections();
 	public String jsonStr;
 	public String the_title, the_date = null;
-	//public String[] dups = new String[5];
+
+	// string list for duplicate checking
 	public List<String> dups = new ArrayList<String>();
 	
 	JSONArray events;
@@ -274,6 +278,8 @@ public class SubmitEvent extends Activity
 	     protected void onPreExecute() 
 	     {
 			 super.onPreExecute();
+			 
+		    		
 	         // Showing progress dialog
 	         progress = ProgressDialog.show(SubmitEvent.this, "Uploading Event", "Please Wait...");
 	     }
@@ -283,13 +289,13 @@ public class SubmitEvent extends Activity
 	    protected String doInBackground(String... params)
 	    {
 	    	//get data from the text boxes
-	    	String title = editTitle.getText().toString();
-	    	String desc = editDesc.getText().toString();
-	    	String date = editDate.getYear()+"-"+editDate.getMonth()+"-"+editDate.getDayOfMonth();
-	    	String location = String.valueOf(locations.getSelectedItem());
-	    	String category = String.valueOf(categories.getSelectedItem());
-	    	String contact_link = editContact_Link.getText().toString();
-	    	
+		    title = editTitle.getText().toString();
+		    desc = editDesc.getText().toString();
+		    date = editDate.getYear()+"-"+editDate.getMonth()+"-"+editDate.getDayOfMonth();
+		    location = String.valueOf(locations.getSelectedItem());
+		    category = String.valueOf(categories.getSelectedItem());
+		    contact_link = editContact_Link.getText().toString();
+		    
 	        // Send the users entered parameters to the PHP script through POST
 			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 			nameValuePairs.add(new BasicNameValuePair("title", title));
@@ -337,4 +343,23 @@ public class SubmitEvent extends Activity
         finish();//go back to the previous Activity
         overridePendingTransition(R.anim.slideup_in, R.anim.slideup_out);   
     }
+    
+    //life cycles
+    @Override
+    protected void onPause()
+    {
+	    super.onPause();
+    }
+    
+    @Override
+    protected void onDestroy()
+    {
+    	super.onDestroy();
+    }
+    
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+	}
 }

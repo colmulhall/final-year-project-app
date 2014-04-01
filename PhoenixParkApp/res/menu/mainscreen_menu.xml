@@ -6,5 +6,11 @@
         android:orderInCategory="100"
         android:showAsAction="ifRoom"
         android:title="@string/favs"/>
+    
+    <item
+        android:id="@+id/about_action"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/about"/>
 
 </menu>

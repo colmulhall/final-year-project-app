@@ -266,4 +266,23 @@ public class NewsInformation extends Activity
         finish();//go back to the previous Activity
         overridePendingTransition(R.anim.slide_in_left_to_right, R.anim.slide_out_left_to_right);   
     }
+    
+    //life cycles
+    @Override
+    protected void onPause()
+    {
+	    super.onPause();
+    }
+    
+    @Override
+    protected void onDestroy()
+    {
+    	super.onDestroy();
+    }
+    
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+	}
 }

@@ -1,16 +1,20 @@
 package com.phoenixpark.app;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -27,6 +31,8 @@ import org.apache.http.params.BasicHttpParams;
 
 import java.io.*;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Demonstrates how to use a twitter application keys to access a user's timeline
@@ -34,18 +40,25 @@ import java.net.URLEncoder;
 public class TwitterFeed extends ListActivity 
 {
 	private ListActivity activity;
-	final static String ScreenName = "DubCityCouncil";
+	String ScreenName = "DubCityCouncil";
 	final static String LOG_TAG = "rnc";
 
+	@SuppressLint("NewApi")
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
 		activity = this;
+		
+		// set Twitter logo on the action bar
+		getActionBar().setIcon(R.drawable.twitter_logo);
+		
+		// set initial icon
+		setTitle("Dublin City Council");
 
 		// check connection status
 		if(isConnected())
-			downloadTweets();
+			downloadTweets(ScreenName);
 		else
 		{
 			Toast.makeText(getApplicationContext(),
@@ -70,14 +83,14 @@ public class TwitterFeed extends ListActivity
     }
 
 	// download twitter timeline after first checking to see if there is a network connection
-	public void downloadTweets() 
+	public void downloadTweets(String s) 
 	{
 		ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 
 		if (networkInfo != null && networkInfo.isConnected()) 
 		{
-			new DownloadTwitterTask().execute(ScreenName);
+			new DownloadTwitterTask().execute(s);
 		} 
 		else 
 		{
@@ -239,6 +252,89 @@ public class TwitterFeed extends ListActivity
 		}
 	}
 	
+	//action bar
+    @SuppressLint("NewApi")
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) 
+	{
+    	// Inflate menu resource file.  
+        getMenuInflater().inflate(R.menu.twitterfeed_menu, menu);  
+
+        return true;
+	}
+    
+    //action bar listener
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) 
+    {
+    	int id = item.getItemId();
+    	
+    	// change twitter feed
+    	if(id == R.id.change_twitter_feed)
+    	{
+    		// Allow the user to filter map markers
+    		List<String> list = new ArrayList<String>();
+    		String[] options = {"Dublin City Council", "Dublin Zoo", "Visit Dublin", "Dublin Runners", "Phoenix Cricket Club"};
+    		
+    		// populate the list with the string array values
+    		for(int i=0; i<options.length; i++)
+    		{
+    			list.add(options[i]);
+    		}
+    		
+    		// convert the arraylist to a charsequence to populate the dialog box
+    		final CharSequence[] items = list.toArray(new CharSequence[list.size()]);
+    		
+    		AlertDialog.Builder builder2 = new AlertDialog.Builder(TwitterFeed.this)
+    		.setTitle("Select Twitter feed")
+    		.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() 
+    		{
+	    		@SuppressLint("NewApi")
+				public void onClick(DialogInterface dialog, int which)
+	    		{
+		    		// Get the users selection and begin the filter task based on the selection
+		    		String s = items[which].toString();
+		    		
+		    		if(s.equals("Dublin City Council"))
+		    		{
+		    			setTitle("Dublin City Council");
+		    			ScreenName = "DubCityCouncil";
+		    			downloadTweets(ScreenName);
+		    		}
+		    		else if(s.equals("Dublin Zoo"))
+		    		{
+		    			setTitle("Dublin Zoo");
+		    			ScreenName = "DublinZoo";
+		    			downloadTweets(ScreenName);
+		    		}
+		    		else if(s.equals("Visit Dublin"))
+		    		{
+		    			setTitle("Visit Dublin");
+		    			ScreenName = "VisitDublin";
+		    			downloadTweets(ScreenName);
+		    		}
+		    		else if(s.equals("Dublin Runners"))
+		    		{
+		    			setTitle("Dublin Runners");
+		    			ScreenName = "DublinRunners";
+		    			downloadTweets(ScreenName);
+		    		}
+		    		else
+		    		{
+		    			setTitle("Phoenix Cricket Club");
+		    			ScreenName = "phoenixcricket";
+		    			downloadTweets(ScreenName);
+		    		}
+		    		
+		    		//dismissing the dialog when the user makes a selection
+		    		dialog.dismiss();
+	    		}
+    		});
+    		builder2.show();
+    	}
+        return true;
+    }
+	
 	//back button pressed by user
     @Override
     public void onBackPressed() 
@@ -246,4 +342,25 @@ public class TwitterFeed extends ListActivity
         finish();//go back to the previous Activity
         overridePendingTransition(R.anim.slide_in_left_to_right, R.anim.slide_out_left_to_right);   
     }
+    
+    //life cycles
+    @Override
+    protected void onPause()
+    {
+	    super.onPause();
+    }
+    
+    @Override
+    protected void onDestroy()
+    {
+    	super.onDestroy();
+    }
+    
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+		// refresh feed
+		downloadTweets(ScreenName);
+	}
 }

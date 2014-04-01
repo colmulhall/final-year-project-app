@@ -129,7 +129,21 @@ public class FavoritesList extends Activity implements AdapterView.OnItemClickLi
         overridePendingTransition(R.anim.slideup_in, R.anim.slideup_out);   
     }
     
+    //life cycles
     @Override
+    protected void onPause()
+    {
+	    super.onPause();
+    }
+    
+    @Override
+    protected void onDestroy()
+    {
+    	super.onDestroy();
+    	db.close();
+    }
+    
+	@Override
 	protected void onResume()
 	{
 		super.onResume();

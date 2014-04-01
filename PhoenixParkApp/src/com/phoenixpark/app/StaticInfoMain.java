@@ -33,4 +33,23 @@ public class StaticInfoMain extends FragmentActivity
         finish();//go back to the previous Activity
         overridePendingTransition(R.anim.slide_in_right_to_left, R.anim.slide_out_right_to_left);   
     }
+    
+    //life cycles
+    @Override
+    protected void onPause()
+    {
+	    super.onPause();
+    }
+    
+    @Override
+    protected void onDestroy()
+    {
+    	super.onDestroy();
+    }
+    
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+	}
 }

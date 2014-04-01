@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.phoenixpark.app"
+    android:versionCode="2"
+    android:versionName="1.0.1" >
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="19" />
+    
+    <permission 
+        android:name="com.phoenixpark.app.permission.MAPS_RECEIVE" 
+        android:protectionLevel="signature"/>
+    
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+	<uses-permission android:name="packagename.permission.MAPS_RECEIVE"/>
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+	<uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+	
+	<uses-feature
+		android:glEsVersion="0x00020000"
+		android:required="true"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.phoenixpark.app.MenuScreen"
+            android:label="@string/app_name" 
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <activity
+            android:name="com.phoenixpark.app.EventList"
+            android:label="@string/events" 
+            android:screenOrientation="portrait" >
+        </activity>
+        
+        <activity 
+            android:name="com.phoenixpark.app.NewsList"
+            android:label="@string/news"
+            android:screenOrientation="portrait" >
+        </activity>
+        
+        <activity
+            android:name="com.phoenixpark.app.EventInformation"
+            android:label="@string/events"
+            android:screenOrientation="portrait" >
+        </activity>
+        
+        <activity
+            android:name="com.phoenixpark.app.NewsInformation"
+            android:label="@string/news"
+            android:screenOrientation="portrait" >
+        </activity>
+        
+        <activity
+            android:name="com.phoenixpark.app.TwitterFeedActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        
+        <activity
+            android:name="com.phoenixpark.app.TwitterFeed"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        
+        <activity
+            android:name="com.phoenixpark.app.FavoritesList"
+            android:label="@string/favs"
+            android:screenOrientation="portrait" >
+        </activity>
+        
+        <activity
+            android:name="com.phoenixpark.app.FavoritesInformation"
+            android:label="@string/favs"
+            android:screenOrientation="portrait" >
+        </activity>
+        
+        <activity
+            android:name="com.phoenixpark.app.StaticInfoMain"
+            android:label="@string/attractions"
+            android:screenOrientation="portrait" >
+        </activity>
+        
+        <activity
+            android:name="com.phoenixpark.app.MapPark"
+            android:label="@string/map"
+            android:screenOrientation="portrait" >
+        </activity>
+        
+        <activity
+            android:name="com.phoenixpark.app.DirectionsTo"
+            android:label="@string/DirectionsToScreen"
+            android:screenOrientation="portrait" >
+        </activity>
+        
+        <activity
+            android:name="com.phoenixpark.app.UserSubmittedList"
+            android:label="@string/user_events"
+            android:screenOrientation="portrait" >
+        </activity>
+        
+        <activity
+            android:name="com.phoenixpark.app.SubmitEvent"
+            android:label="@string/submit"
+            android:screenOrientation="portrait" >
+        </activity>
+        
+        <activity
+            android:name="com.phoenixpark.app.UserSubmittedInformation"
+            android:label="@string/user_events"
+            android:screenOrientation="portrait" >
+        </activity>
+        
+        <activity
+            android:name="com.phoenixpark.app.EventFeedback"
+            android:label="@string/feedback"
+            android:screenOrientation="portrait" >
+        </activity>
+        
+        <meta-data
+			android:name="com.google.android.maps.v2.API_KEY"
+			android:value="AIzaSyAiClkgIWHWsRmuIjnGIo3dEqrq4g2KNJc" />
+        <meta-data 
+            android:name="com.google.android.gms.version" 
+            android:value="@integer/google_play_services_version" />
+        
+    </application>
+
+</manifest>

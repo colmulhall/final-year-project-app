@@ -26,6 +26,7 @@ import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -43,7 +44,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
 public class DirectionsTo extends FragmentActivity implements LocationListener 
 { 
     private GoogleMap map;
-    private Location location; // location
+    private Location location;
     private LatLng currentLocation;
     protected LocationManager locationManager;
     protected LocationListener locationListener;
@@ -51,8 +52,8 @@ public class DirectionsTo extends FragmentActivity implements LocationListener
     private Intent intent;
     private String url;
     private LocalDbManager db;
-    public String the_location;
-    double current_lat, current_lng;
+    public String the_location, lt, lg;
+    double current_lat, current_lng, lat, lng;
     private Float meters_between;
 
     // modes for directions
@@ -67,7 +68,7 @@ public class DirectionsTo extends FragmentActivity implements LocationListener
         //Open locations database to write
 	    db = new LocalDbManager(this);
 	    db.openLocsToRead();
- 
+	        
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
  
@@ -84,9 +85,19 @@ public class DirectionsTo extends FragmentActivity implements LocationListener
 
         // Getting Current Location
         location = locationManager.getLastKnownLocation(provider);
-        current_lat = location.getLatitude();
-		current_lng = location.getLongitude();
-		currentLocation = new LatLng(current_lat, current_lng);
+        
+        // if the location is null, this means that the GPS or location services are likely turned off
+        if(location == null)
+        {
+        	// end the activity with the appropriate message
+        	finish();
+        	Toast.makeText(getApplicationContext(), "Location not available. Please check your settings", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+	        current_lat = location.getLatitude();
+			current_lng = location.getLongitude();
+			currentLocation = new LatLng(current_lat, current_lng);
 		
 		// Zoom into the current location in Google Map
 	    map.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
@@ -96,13 +107,22 @@ public class DirectionsTo extends FragmentActivity implements LocationListener
 		intent = getIntent();
         the_location = intent.getExtras().getString("loc");
         
-        // get lat/long from local database
-        String lt = db.getLocLatitude(the_location);
-        String lg = db.getLocLongitude(the_location);
+        // set the location to just the park when there is no specific location
+        if(the_location.equals("Phoenix Park"))
+        {
+        	lt = "53.356902";
+        	lg = "-6.329650";
+        }
+        else
+        {
+	        // get lat/long from local database
+	        lt = db.getLocLatitude(the_location);
+	        lg = db.getLocLongitude(the_location);
+        }
         
         // parse these from string to double so they can be plotted on a map
-        double lat = Double.parseDouble(lt);
-        double lng = Double.parseDouble(lg);
+        lat = Double.parseDouble(lt);
+        lng = Double.parseDouble(lg);
         
         if(map != null)
         {
@@ -125,55 +145,56 @@ public class DirectionsTo extends FragmentActivity implements LocationListener
         	// calculate the distance between the two
         	meters_between = loc.distanceTo(loc2);
         	
-        	//add marker to the destination
+        	// add marker to the destination
         	MarkerOptions marker = new MarkerOptions().position(new LatLng(lat, lng)).title(the_location);
         	marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
         	map.addMarker(marker);
 
-        	//check if the person is located near the park.
-        	if(meters_between < 10000)
-        	{
-        		mode = "mode=walking";    //close enough to walk
-        		recommended_mode = "Walking";
-        		
-	            // Getting URL to the Google Directions API
-	            String url = getDirectionsUrl(origin, dest);
+        	// check if the person is located near the park.
+	        if(meters_between < 10000)
+	        {
+	        	mode = "walking";    //close enough to walk
+	        	recommended_mode = "Walking";
+	        		
+		        // Getting URL to the Google Directions API
+		        String url = getDirectionsUrl(origin, dest);
+		
+		        DownloadTask downloadTask = new DownloadTask();
+		
+		        // Start downloading json data from Google Directions API
+		        downloadTask.execute(url);
+	        }
+	        else if(meters_between >= 10000 && meters_between <= 100000)
+	        {
+	        	mode = "driving";   //too far to walk
+	        	recommended_mode = "Driving";
+	        		
+		        // Getting URL to the Google Directions API
+		        String url = getDirectionsUrl(origin, dest);
+		
+		        DownloadTask downloadTask = new DownloadTask();
+		
+		        // Start downloading json data from Google Directions API
+		        downloadTask.execute(url);
+	        }
+	        else
+	        {
+	        	recommended_mode = "N/A";
+	        	//tell user they are too far from the park to calculate directions
+	        	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+	            builder.setMessage("You are located too far from the park for directions.");
+	            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() 
+	            {
+	            	public void onClick(DialogInterface dialog, int id) 
+	                {
+	            		dialog.cancel();
+	                }
+	            });
 	
-	            DownloadTask downloadTask = new DownloadTask();
-	
-	            // Start downloading json data from Google Directions API
-	            downloadTask.execute(url);
-        	}
-        	else if(meters_between >= 10000 && meters_between <= 100000)
-        	{
-        		mode = "mode=driving";   //too far to walk
-        		recommended_mode = "Driving";
-        		
-	            // Getting URL to the Google Directions API
-	            String url = getDirectionsUrl(origin, dest);
-	
-	            DownloadTask downloadTask = new DownloadTask();
-	
-	            // Start downloading json data from Google Directions API
-	            downloadTask.execute(url);
-        	}
-        	else
-        	{
-        		recommended_mode = "N/A";
-        		//tell user they are too far from the park to calculate directions
-        		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage("You are located too far from the park for directions.");
-                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() 
-                {
-                    public void onClick(DialogInterface dialog, int id) 
-                    {
-                        dialog.cancel();
-                    }
-                });
-
-                AlertDialog alert11 = builder.create();
-                alert11.show();
-        	}
+	            AlertDialog alert = builder.create();
+	            alert.show();
+	         }
+        }
         }
     }
     
@@ -189,7 +210,7 @@ public class DirectionsTo extends FragmentActivity implements LocationListener
         String sensor = "sensor=false";
  
         // Building the parameters to the web service
-        String parameters = str_origin+"&"+str_dest+"&"+sensor+"&"+mode;
+        String parameters = str_origin+"&"+str_dest+"&"+sensor+"&"+"mode="+mode;
  
         // Output format
         String output = "json";
@@ -329,7 +350,7 @@ public class DirectionsTo extends FragmentActivity implements LocationListener
                 // Adding all the points in the route to LineOptions
                 lineOptions.addAll(points);
                 lineOptions.width(5);
-                lineOptions.color(Color.GREEN);
+                lineOptions.color(Color.BLUE);
             }
  
             // Drawing polyline in the Google Map for the i-th route
@@ -406,8 +427,9 @@ public class DirectionsTo extends FragmentActivity implements LocationListener
     		// Give the user travel information
     		AlertDialog.Builder builder = new AlertDialog.Builder(this);
     		builder.setTitle("Travel Information");
-            builder.setMessage("You are " + round_km + " km from " + the_location + "\n" + 
-            					"Recommended mode: " + recommended_mode);
+            builder.setMessage("You are " + round_km + " km from " + the_location + "\n\n" + 
+            					"Recommended mode: " + recommended_mode + "\n\n" + 
+            					"Current mode: " + mode);
             builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() 
             {
                 public void onClick(DialogInterface dialog, int id) 
@@ -449,8 +471,49 @@ public class DirectionsTo extends FragmentActivity implements LocationListener
                 }
             });
 
-            AlertDialog alert11 = builder.create();
-            alert11.show();
+            AlertDialog alert = builder.create();
+            alert.show();
+    	}
+    	else if(id == R.id.refresh_directions)
+    	{
+    		// Allow the user to refresh the map with a different method of transport
+    		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    		builder.setTitle("Select type of directions");
+            builder.setNegativeButton("Walking", new DialogInterface.OnClickListener() 
+            {
+                public void onClick(DialogInterface dialog, int id) 
+                {
+                	map.clear();
+                	mode = "walking";
+                	DownloadTask downloadTask = new DownloadTask();
+        	        downloadTask.execute(url);
+                    dialog.cancel();
+                }
+            });
+            builder.setNeutralButton("Cycling", new DialogInterface.OnClickListener() 
+            {
+                public void onClick(DialogInterface dialog, int id) 
+                {
+                	map.clear();
+                	mode = "bicycling";
+                	DownloadTask downloadTask = new DownloadTask();
+        	        downloadTask.execute(url);
+                    dialog.cancel();
+                }
+            });
+            builder.setPositiveButton("Driving", new DialogInterface.OnClickListener() 
+            {
+                public void onClick(DialogInterface dialog, int id) 
+                {
+                	map.clear();
+                	mode = "driving";
+                	DownloadTask downloadTask = new DownloadTask();
+        	        downloadTask.execute(url);
+                    dialog.cancel();
+                }
+            });
+            AlertDialog alert = builder.create();
+            alert.show();
     	}
         return true;
     }
@@ -462,4 +525,27 @@ public class DirectionsTo extends FragmentActivity implements LocationListener
         finish();//go back to the previous Activity
         overridePendingTransition(R.anim.slideup_in, R.anim.slideup_out);   
     }
+    
+    //life cycles
+    @Override
+    protected void onPause()
+    {
+	    super.onPause();
+	    db.close();
+    }
+    
+    @Override
+    protected void onDestroy()
+    {
+    	super.onDestroy();
+    }
+    
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+		// refresh the directions
+		DownloadTask downloadTask = new DownloadTask();
+        downloadTask.execute(url);
+	}
 }

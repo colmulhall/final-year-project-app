@@ -1,30 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    
     <string name="app_name">Phoenix Park</string>
     <string name="action_settings">Settings</string>
     <string name="content_desc">Conent description</string>
     <string name="share">Share</string>
     <string name="favs">Favorites</string>
+    <string name="feedback">Feedback</string>
     <string name="web">Open in browser</string>
+    <string name="contact_organiser">Contact organiser</string>
     <string name="ev_feedback">Event feedback</string>
     <string name="direct_to">Directions</string>
+    <string name="events">Events</string>
+    <string name="news">News</string>
+    <string name="user_events">Promoted Events</string>
+    <string name="map">Map</string>
+    <string name="attractions">Attractions</string>
     <string name="fav_delete">Delete</string>
     <string name="filter">Filter</string>
     <string name="add_event">+</string>
     <string name="info">Info</string>
     <string name="settings">Settings</string>
+    <string name="refresh">Refresh</string>
     <string name="submit">Submit</string>
+    <string name="about">About</string>
     <string name="enter_title">Event Title:</string>
     <string name="enter_description">Event Description:</string>
     <string name="enter_date">Event Date:</string>
     <string name="enter_location">Event Location:</string>
     <string name="enter_category">Event Category:</string>
-    <string name="enter_link_contact">Event link/contact:</string>
-    <string name="enter_comment">Event Comment:</string>
-    <string name="enter_rating">Event Rating:</string>
-    <string name="enter_category_opinion">Event Category?:</string>
-    <string name="enter_demographic_opinion">Event Demographic?</string>
+    <string name="enter_contact">Event email address (optional):</string>
+    <string name="enter_comment">Comment:</string>
+    <string name="enter_rating">Rating:</string>
+    <string name="enter_category_opinion">Category:</string>
+    <string name="enter_demographic_opinion">Demographic</string>
     <string name="suggested_category_here">Enter suggested category</string>
     <string name="aras_an_uachtaran">Áras an Uachtaráin</string>
     
@@ -91,8 +100,12 @@
     </string-array>
     
     <string-array name="demographics">
-        <item>Young Family</item>
-        <item></item>
+        <item>All ages</item>
+        <item>Family with young children</item>
+        <item>Teenagers</item>
+        <item>Over 18\'s</item>
+        <item>Couples</item>
+        <item>Senior Citizens</item>
     </string-array>
     
     <!-- Static information for Áras an Uachtaráin -->

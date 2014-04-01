@@ -7,7 +7,6 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -236,13 +235,13 @@ public class MapPark extends FragmentActivity implements LocationListener, OnInf
 	
 	public void onInfoWindowClick(Marker marker) 
     {
-    	marker_title = marker.getTitle();
+		/*marker_title = marker.getTitle();
 		
 		// Ask the user if they want directions to the selected location
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("marker_title");
+		builder.setTitle(marker_title);
 		builder.setMessage("Would you like directions to this location?");
-        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() 
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() 
         {
             public void onClick(DialogInterface dialog, int id) 
             {
@@ -252,9 +251,16 @@ public class MapPark extends FragmentActivity implements LocationListener, OnInf
         	    overridePendingTransition(R.anim.slidedown_in, R.anim.slidedown_out);
             }
         });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() 
+        {
+            public void onClick(DialogInterface dialog, int id) 
+            {
+            	//user selected no
+            }
+        });
 
         AlertDialog alert = builder.create();
-        alert.show();
+        alert.show();*/
     }
 
 	@Override
@@ -378,4 +384,23 @@ public class MapPark extends FragmentActivity implements LocationListener, OnInf
         finish();//go back to the previous Activity
         overridePendingTransition(R.anim.slide_in_right_to_left, R.anim.slide_out_right_to_left);   
     }
+    
+    //life cycles
+    @Override
+    protected void onPause()
+    {
+	    super.onPause();
+    }
+    
+    @Override
+    protected void onDestroy()
+    {
+    	super.onDestroy();
+    }
+    
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+	}
 }

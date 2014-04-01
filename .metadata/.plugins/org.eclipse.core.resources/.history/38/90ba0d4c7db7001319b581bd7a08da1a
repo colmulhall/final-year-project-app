@@ -1,0 +1,231 @@
+package com.phoenixpark.app;
+
+import java.util.ArrayList;
+
+import android.os.Build;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.GridView;
+import android.widget.AdapterView.OnItemClickListener;
+
+public class MenuScreen extends Activity 
+{
+	GridView gridView;
+	ArrayList<Item> gridArray = new ArrayList<Item>();
+	CustomGridViewAdapter customGridAdapter;
+	private LocalDbManager db1, db2, db3;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) 
+	{
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.menuscreen_layout);
+		
+		//set grid view item
+		Bitmap eventsIcon = BitmapFactory.decodeResource(this.getResources(), R.drawable.events_icon);
+		Bitmap newsIcon = BitmapFactory.decodeResource(this.getResources(), R.drawable.news_icon);
+		Bitmap placesIcon = BitmapFactory.decodeResource(this.getResources(), R.drawable.static_info);
+		Bitmap twitterIcon = BitmapFactory.decodeResource(this.getResources(), R.drawable.twitter_icon);
+		Bitmap mapIcon = BitmapFactory.decodeResource(this.getResources(), R.drawable.map_icon);
+		Bitmap userSubmittedIcon = BitmapFactory.decodeResource(this.getResources(), R.drawable.user_submitted_icon);
+		
+		gridArray.add(new Item(eventsIcon,"Events"));
+		gridArray.add(new Item(newsIcon,"News"));
+		gridArray.add(new Item(placesIcon,"Places"));
+		gridArray.add(new Item(twitterIcon,"Tweets"));
+		gridArray.add(new Item(mapIcon,"Map"));
+		gridArray.add(new Item(userSubmittedIcon,"User Events"));
+		
+		gridView = (GridView) findViewById(R.id.grid_view);
+		customGridAdapter = new CustomGridViewAdapter(this, R.layout.row_grid, gridArray);
+		gridView.setAdapter(customGridAdapter);
+		
+		// only run this code when the app is first installed
+        SharedPreferences wmbPreference = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean isFirstRun = wmbPreference.getBoolean("FIRSTRUN", true);
+        if (isFirstRun)
+        {
+            // insert information into the local databases using different db managers
+        	db1 = new LocalDbManager(this);
+            db1.openLocsToWrite();
+            db1.insertLocations();
+            db1.close();
+            
+            db2 = new LocalDbManager(this);
+            db2.openFoodToWrite();
+            db2.insertFood();
+            db2.close();
+            
+            db3 = new LocalDbManager(this);
+            db3.openParkingToWrite();
+            db3.insertPark();
+            db3.close();
+            
+            // change the flag to false now that the app has been run more than once
+            SharedPreferences.Editor editor = wmbPreference.edit();
+            editor.putBoolean("FIRSTRUN", false);
+            editor.commit();
+        }
+        
+        //clicking on a menu item
+        gridView.setOnItemClickListener(new OnItemClickListener() 
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) 
+            {
+            	// Events icon selected
+            	if(position == 0)
+            	{
+	                Intent i = new Intent(getApplicationContext(), EventList.class);
+	                startActivity(i);
+	                overridePendingTransition(R.anim.slide_in_left_to_right, R.anim.slide_out_left_to_right);  //sliding animation
+            	}
+            	// News icon selected
+            	else if(position == 1)
+            	{
+	                Intent i = new Intent(getApplicationContext(), NewsList.class);
+	                startActivity(i);
+	                overridePendingTransition(R.anim.slide_in_right_to_left, R.anim.slide_out_right_to_left);  //sliding animation
+            	}
+            	// Static park information selected
+            	else if(position == 2)
+            	{
+	                Intent i = new Intent(getApplicationContext(), StaticInfoMain.class);
+	                startActivity(i);
+	                overridePendingTransition(R.anim.slide_in_left_to_right, R.anim.slide_out_left_to_right);  //sliding animation
+            	}
+            	// Twitter feed selected
+            	else if(position == 3)
+            	{
+	                Intent i = new Intent(getApplicationContext(), TwitterFeed.class);
+	                startActivity(i);
+	                overridePendingTransition(R.anim.slide_in_right_to_left, R.anim.slide_out_right_to_left);  //sliding animation
+            	}
+            	 // Map selected
+            	else if(position == 4)
+            	{
+            		
+	                Intent i = new Intent(getApplicationContext(), MapPark.class);
+	                startActivity(i);
+	                overridePendingTransition(R.anim.slide_in_left_to_right, R.anim.slide_out_left_to_right);  //sliding animation
+            	}
+            	 // User events selected
+            	else if(position == 5)
+            	{
+	                Intent i = new Intent(getApplicationContext(), UserSubmittedList.class);
+	                startActivity(i);
+	                overridePendingTransition(R.anim.slide_in_right_to_left, R.anim.slide_out_right_to_left);  //sliding animation
+            	}
+            }
+        });
+	}
+	
+	//action bar
+    @SuppressLint("NewApi")
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) 
+	{
+    	// Inflate menu resource file.  
+        getMenuInflater().inflate(R.menu.mainscreen_menu, menu);  
+
+        return true;
+	}
+    
+    //action bar listener
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) 
+    {
+    	int id = item.getItemId();
+    	
+    	// show the users favorite events
+    	if(id == R.id.fav_action)
+    	{	
+    		Intent i = new Intent(getApplicationContext(), FavoritesList.class);
+            startActivity(i);
+            overridePendingTransition(R.anim.slidedown_in, R.anim.slidedown_out);  //sliding animation
+    	}
+    	if(R.id.about_action)
+    	{
+    		DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() 
+	        {
+	            @Override
+	            public void onClick(DialogInterface dialog, int which) 
+	            {
+	                switch(which)
+	                {
+		                case DialogInterface.BUTTON_POSITIVE:
+		                    //OK button clicked. exits dialog
+		                    break;
+		                    
+		                case DialogInterface.BUTTON_NEUTRAL:
+		                	//Feedback button clicked. option to send email to developer
+		                	final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+		                	emailIntent.setType("plain/text");
+		                	emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"colmmul92@yahoo.co.uk"});
+		                	emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Travel Log Feedback");
+		                	
+		                	//get information about the device in which feedback is coming from
+		                	String Device = Build.MANUFACTURER;
+		                	String Model = Build.MODEL;
+		                	String Carrier = Build.BRAND;
+		                	String Product = Build.PRODUCT;
+		                	
+		                	@SuppressWarnings("deprecation")
+							String APIlevel = android.os.Build.VERSION.SDK;
+		                	emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, 
+		                			"Device: " + Device + 
+		                			"\n" + "Model: " + Model + 
+		                			"\n" + "Carrier: " + Carrier +
+		                			"\n" + "Product: " + Product +
+		                			"\n" + "API Level: " + APIlevel + "\n\n");
+		                	startActivity(Intent.createChooser(emailIntent, "Send mail using..."));
+	                }
+	            }
+	        };
+	        
+	        AlertDialog.Builder builder = new AlertDialog.Builder(MainScreen.this);
+	        builder.setTitle("Phoenix Park");
+	        builder.setMessage("This application is under constant development. Please leave "
+	        		+ "feedback on any aspect of the application."
+	        		+ "\n\n" + "Author: Colm Mulhall" + "\n"
+	        				 +  
+	        		"Version: 1.2")
+	        .setPositiveButton("OK", dialogClickListener)
+	        .setNeutralButton("Feedback", dialogClickListener)
+	        .show();
+    	}
+        return true;
+    }
+    
+    //life cycles
+    @Override
+    protected void onPause()
+    {
+	    super.onPause();
+    }
+    
+    @Override
+    protected void onDestroy()
+    {
+    	super.onDestroy();
+    	finish();
+    }
+    
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+	}
+}

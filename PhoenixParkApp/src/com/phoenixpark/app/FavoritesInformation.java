@@ -94,4 +94,24 @@ public class FavoritesInformation extends Activity
     	}
         return true;
     }
+    
+  //life cycles
+    @Override
+    protected void onPause()
+    {
+	    super.onPause();
+    }
+    
+    @Override
+    protected void onDestroy()
+    {
+    	super.onDestroy();
+    	db.close();
+    }
+    
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+	}
 }

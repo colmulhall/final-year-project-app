@@ -2,15 +2,17 @@ package com.phoenixpark.app;
 
 import java.util.ArrayList;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -154,6 +156,79 @@ public class MenuScreen extends Activity
             startActivity(i);
             overridePendingTransition(R.anim.slidedown_in, R.anim.slidedown_out);  //sliding animation
     	}
+    	else if(id == R.id.about_action)
+    	{
+    		// Allow the user to view information about the application as well as leave feedback
+    		DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() 
+	        {
+	            @Override
+	            public void onClick(DialogInterface dialog, int which) 
+	            {
+	                switch(which)
+	                {
+		                case DialogInterface.BUTTON_POSITIVE:
+		                    //OK button clicked. exits dialog
+		                    break;
+		                    
+		                case DialogInterface.BUTTON_NEUTRAL:
+		                	//Feedback button clicked. option to send email to developer
+		                	final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+		                	emailIntent.setType("plain/text");
+		                	emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"colmmul92@yahoo.co.uk"});
+		                	emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Phoenix Park Application Feedback");
+		                	
+		                	//get information about the device in which feedback is coming from
+		                	String Device = Build.MANUFACTURER;
+		                	String Model = Build.MODEL;
+		                	String Carrier = Build.BRAND;
+		                	String Product = Build.PRODUCT;
+		                	
+		                	@SuppressWarnings("deprecation")
+							String APIlevel = android.os.Build.VERSION.SDK;
+		                	
+		                	emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, 
+		                			"Device: " + Device + 
+		                			"\n" + "Model: " + Model + 
+		                			"\n" + "Carrier: " + Carrier +
+		                			"\n" + "Product: " + Product +
+		                			"\n" + "API Level: " + APIlevel + "\n\n");
+		                	
+		                	// begin the interaction of sending an email
+		                	startActivity(Intent.createChooser(emailIntent, "Send mail using..."));
+	                }
+	            }
+	        };
+	        
+	        AlertDialog.Builder builder = new AlertDialog.Builder(MenuScreen.this);
+	        builder.setTitle("Phoenix Park");
+	        builder.setMessage("This application is still in development. Please leave "
+	        		+ "feedback about any features you would like to see, or any bugs found."
+	        		+ "\n\n" + "Author: Colm Mulhall" + "\n"
+	        				 +  
+	        		"Version: 1.0.3")
+	        .setPositiveButton("OK", dialogClickListener)
+	        .setNeutralButton("Feedback", dialogClickListener)
+	        .show();
+    	}
         return true;
     }
+    
+    //life cycles
+    @Override
+    protected void onPause()
+    {
+	    super.onPause();
+    }
+    
+    @Override
+    protected void onDestroy()
+    {
+    	super.onDestroy();
+    }
+    
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+	}
 }
