@@ -158,6 +158,11 @@ public class EventList extends ListActivity
                         String the_title = c.getString(TAG_TITLE);
                         String the_date = c.getString(TAG_DATE);
                         String the_location = c.getString(TAG_LOCATION);
+                        
+                        if(the_date.contains("00"))
+	                    {
+	                    	the_date = "Unavailable";
+	                    }
  
                         // tmp hashmap for single event
                         HashMap<String, String> event = new HashMap<String, String>();

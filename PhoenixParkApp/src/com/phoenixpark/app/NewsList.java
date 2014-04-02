@@ -147,6 +147,12 @@ public class NewsList extends ListActivity
 	                    String the_id = c.getString(TAG_ID);
 	                    String the_location = c.getString(TAG_LOCATION);
 	                    String the_date = c.getString(TAG_DATE);
+	                    
+	                    if(the_date.contains("00"))
+	                    {
+	                    	the_date = "Unavailable";
+	                    }
+	                    
 	 
 	                    // tmp hashmap for single event
 	                    HashMap<String, String> news_item = new HashMap<String, String>();
